@@ -14,7 +14,7 @@
 
     <div class="container">
         <div style="width: 400px" id="reader"></div>
-
+        <div id="qrcode-result"></div>
     </div>
 
 
@@ -30,6 +30,7 @@
         function onScanSuccess(decodedText, decodedResult) {
             // Handle on success condition with the decoded text or result.
             console.log(`Scan result: ${decodedText}`, decodedResult);
+            $('#qrcode-result').html(decodedText);
         }
 
         var html5QrcodeScanner = new Html5QrcodeScanner(
