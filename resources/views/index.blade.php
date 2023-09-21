@@ -13,10 +13,8 @@
 <body>
 
     <div class="container">
-        <div style="width: 80%">
-            <div class="text-center" id="reader"></div>
-            <div id="result"></div>
-        </div>
+        <div style="width: 400px" class="text-center" id="reader"></div>
+        <div class="row" id="result"></div>
 
     </div>
 
