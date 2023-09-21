@@ -13,7 +13,7 @@
 <body>
 
     <div class="container">
-        <div style="width: 400px" id="reader"></div>
+        <div style="width: 300px" id="reader"></div>
         <div id="qrcode-result"></div>
     </div>
 
@@ -35,7 +35,7 @@
 
         var html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", {
-                fps: 10,
+                fps: 6,
                 qrbox: 250
             });
         html5QrcodeScanner.render(onScanSuccess);
