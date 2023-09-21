@@ -12,7 +12,7 @@ class IndexController extends Controller
     }
 
     // upload image
-    public function uploa(Request $request)
+    public function upload(Request $request)
     {
         $image = $request->file('image');
         dd($request->all());
