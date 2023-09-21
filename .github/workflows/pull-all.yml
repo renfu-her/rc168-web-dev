@@ -1,0 +1,24 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: create-directory
+      uses: nekiro/ssh-job@main
+      with:
+        host: ${{ secrets.HOST }}
+        key: ${{ secrets.KEY }}
+        user: ${{ secrets.USER }}
+        command: |
+          cd /home/cloudpanel/htdocs/demo.dev-laravel.co
+          git pull
+          php8.1 /usr/local/bin/composer install
+          php8.1 artisan migrate --force
+          php8.1 artisan config:cache
+          php8.1 artisan view:cache
+          php8.1 artisan route:cache
+          php8.1 artisan config:cache
