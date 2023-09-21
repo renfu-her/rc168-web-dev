@@ -13,8 +13,13 @@
 <body>
 
     <div class="container">
-        <div style="width: 500px" id="reader"></div>
+        <div style="width: 80%">
+            <div class="text-center" id="reader"></div>
+            <div id="result"></div>
+        </div>
+
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
@@ -27,6 +32,7 @@
     <script>
         function onScanSuccess(decodedText, decodedResult) {
             // Handle on success condition with the decoded text or result.
+            $('#result').html(decodedText);
             console.log(`Scan result: ${decodedText}`, decodedResult);
         }
 
