@@ -49,6 +49,8 @@
 
                     var imageData = ctx.getImageData(0, 0, image.width, image.height);
 
+                    console.log(image.width, image.height);
+                    
                     // QR码解析
                     const code = jsQR(
                         imageData.data, // 图像数据
