@@ -13,8 +13,7 @@
 <body>
 
     <div class="container">
-        <div style="width: 350px" class="text-center" id="reader"></div>
-        <div class="row" id="result"></div>
+        <div style="width: 400px" id="reader"></div>
 
     </div>
 
@@ -30,7 +29,6 @@
     <script>
         function onScanSuccess(decodedText, decodedResult) {
             // Handle on success condition with the decoded text or result.
-            $('#result').html(decodedText);
             console.log(`Scan result: ${decodedText}`, decodedResult);
         }
 
