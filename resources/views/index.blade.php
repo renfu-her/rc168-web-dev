@@ -13,7 +13,7 @@
 <body>
 
     <div class="container">
-        <div style="width: 400px" class="text-center" id="reader"></div>
+        <div style="width: 350px" class="text-center" id="reader"></div>
         <div class="row" id="result"></div>
 
     </div>
