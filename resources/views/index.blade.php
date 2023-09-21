@@ -49,6 +49,8 @@
 
                     var imageData = ctx.getImageData(0, 0, image.width, image.height);
 
+                    $('#result').attr('width': image.width).attr('height': image.height);
+
                     console.log(imageData.data, imageData.width, imageData.height);
 
                     // QR码解析
