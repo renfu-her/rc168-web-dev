@@ -14,7 +14,8 @@
 
     <div class="container">
         <a href="/qrcode" class="btn btn-outline-primary">掃描 QRCode</a>
-        <a href="/picture" class="btn btn-outline-primary">拍照合拼</a>
+        <a href="/picture" class="btn btn-outline-primary">拍照</a>
+        <a href="/combine" class="btn btn-outline-primary">合併</a>
     </div>
 
 
