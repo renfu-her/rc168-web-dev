@@ -133,7 +133,7 @@
 
                 // 繪製兩張圖片
                 ctx.drawImage(image1, 0, 0);
-                ctx.drawImage(image2, image1.width, 0);
+                ctx.drawImage(image2, 0, 0);
             });
         }
     </script>
