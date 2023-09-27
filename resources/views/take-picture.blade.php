@@ -22,7 +22,7 @@
 
 	<!-- First, include the Webcam.js JavaScript Library -->
 	<script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/webcam.min.js') }}s"></script>
+	<script type="text/javascript" src="{{ asset('js/webcam.min.js') }}"></script>
 
 	<!-- Configure a few settings and attach camera -->
 	<script language="JavaScript">
