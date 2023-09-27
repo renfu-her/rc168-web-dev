@@ -42,8 +42,8 @@
 
         <div class="col-12">
             <form>
-                <input type="button" value="Access Camera" onClick="setup(); $(this).hide().next().show();">
-                <input type="button" value="Take Snapshot" onClick="take_snapshot()">
+                <input type="button" value="取得相機權限" onClick="setup(); $(this).hide().next().show();">
+                <input type="button" value="照相" onClick="take_snapshot()" style="display: none" id="take_picture">
             </form>
             <div id="my_camera"></div>
         </div>
@@ -84,6 +84,8 @@
         }
 
         function take_snapshot() {
+            $('#take_picture').show();
+            
             // take snapshot and get image data
             Webcam.snap(function(data_uri) {
                 // display results in page
