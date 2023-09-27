@@ -37,7 +37,7 @@
 	<!-- A button for taking snaps -->
 	<form>
 		<input type="button" value="Access Camera" onClick="setup(); $(this).hide().next().show();">
-		<input type="button" value="Take Snapshot" onClick="take_snapshot()" style="display:none">
+		<input type="button" value="Take Snapshot" onClick="take_snapshot()" >
 	</form>
 
 	<!-- Code to handle taking the snapshot and displaying it locally -->
