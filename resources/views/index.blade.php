@@ -53,6 +53,19 @@
         </div>
     </div>
 
+
+
+    <!-- First, include the Webcam.js JavaScript Library -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    </script>
+    <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/webcam.min.js') }}"></script>
+    <script src="https://unpkg.com/merge-images"></script>
+
     <!-- Configure a few settings and attach camera -->
     <script language="JavaScript">
         Webcam.set({
@@ -89,15 +102,6 @@
     </script>
 
 
-    <!-- First, include the Webcam.js JavaScript Library -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-    </script>
-    <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/webcam.min.js') }}"></script>
 
 
     <style type="text/css">
