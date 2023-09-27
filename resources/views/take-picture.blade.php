@@ -37,9 +37,8 @@
 
 <body>
 
-    <h1>Webcam 照相</h1>
-
     <div class="container">
+        <h1>Webcam 照相</h1>
 
         <div class="col-12">
             <form>
