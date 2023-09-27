@@ -12,11 +12,13 @@
 
 <body>
 
-    <div class="container gy-5">
-        <h1>取得 QRCode</h1>
-        <div style="width: 300px" id="reader"></div>
-        <div id="qrcode-result"></div>
-        <div id="show-image"></div>
+    <div class="container">
+        <div class="gy-5">
+            <h1>取得 QRCode</h1>
+            <div style="width: 300px" id="reader"></div>
+            <div id="qrcode-result"></div>
+            <div id="show-image"></div>
+        </div>
     </div>
 
     <script src="{{ asset('js/html5-qrcode.min.js') }}"></script>
@@ -39,28 +41,32 @@
     </script>
 
 
-    <div class="container gy-5">
-        <h1>Webcam 照相</h1>
+    <div class="container">
+        <div class="gy-5">
+            <h1>Webcam 照相</h1>
 
-        <div class="col-12">
-            <form>
-                <input type="button" value="取得相機權限" onClick="setup(); $(this).hide().next().show();">
-                <input type="button" value="照相" onClick="take_snapshot()" style="display: none" id="take_picture">
-            </form>
-            <div class="gap-3"></div>
-            <div id="my_camera"></div>
-        </div>
-        <div class="col-12">
-            <div id="results">照相的圖片</div>
+            <div class="col-12">
+                <form>
+                    <input type="button" value="取得相機權限" onClick="setup(); $(this).hide().next().show();">
+                    <input type="button" value="照相" onClick="take_snapshot()" style="display: none" id="take_picture">
+                </form>
+                <div class="gap-3"></div>
+                <div id="my_camera"></div>
+            </div>
+            <div class="col-12">
+                <div id="results">照相的圖片</div>
+            </div>
         </div>
     </div>
 
-    <div class="container gy-5">
-        <h1>合併圖片</h1>
-        <canvas id="canvas"></canvas>
+    <div class="container">
+        <div class="gy-5">
+            <h1>合併圖片</h1>
+            <canvas id="canvas"></canvas>
 
-        <div class="col-12">
-            <input type="button" value="合併圖片" onClick="merge()">
+            <div class="col-12">
+                <input type="button" value="合併圖片" onClick="merge()">
+            </div>
         </div>
     </div>
 
