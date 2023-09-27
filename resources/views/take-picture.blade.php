@@ -46,13 +46,14 @@
                 <input type="button" value="Access Camera" onClick="setup(); $(this).hide().next().show();">
                 <input type="button" value="Take Snapshot" onClick="take_snapshot()">
             </form>
+            <div id="my_camera"></div>
         </div>
         <div class="col-12">
             <div id="results">Your captured image will appear here...</div>
         </div>
     </div>
 
-    <div id="my_camera"></div>
+
 
     <!-- First, include the Webcam.js JavaScript Library -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
