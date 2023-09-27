@@ -44,6 +44,7 @@
                 <input type="button" value="取得相機權限" onClick="setup(); $(this).hide().next().show();">
                 <input type="button" value="照相" onClick="take_snapshot()" style="display: none" id="take_picture">
             </form>
+            <div class="gap-3"></div>
             <div id="my_camera"></div>
         </div>
         <div class="col-12">
