@@ -98,12 +98,6 @@
     </script>
     <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/webcam.min.js') }}"></script>
-    <script src="https://unpkg.com/merge-images"></script>
-
-
-    <script>
-        
-    </script>
 
 
     <style type="text/css">
