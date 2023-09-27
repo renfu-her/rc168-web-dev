@@ -57,6 +57,10 @@
     <div class="container">
         <h1>合併圖片</h1>
         <canvas id="canvas"></canvas>
+
+        <div class="col-12">
+            <input type="button" value="合併圖片" onClick="merge()">
+        </div>
     </div>
 
 
@@ -106,7 +110,8 @@
             });
         }
 
-        $(document).ready(function() {
+
+        const merge = () => {
             var image1 = $('#qrcode-data')[0]; // 獲取原生的 img 元素
             var image2 = $('#camera-data')[0]; // 獲取原生的 img 元素
 
@@ -123,7 +128,7 @@
                 ctx.drawImage(image1, 0, 0);
                 ctx.drawImage(image2, image1.width, 0);
             });
-        });
+        }
     </script>
 
 
