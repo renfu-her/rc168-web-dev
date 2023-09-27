@@ -4,7 +4,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>WebcamJS Test Page</title>
+    <title>Demo</title>
     <style type="text/css">
         body {
             font-family: Helvetica, sans-serif;
@@ -36,6 +36,31 @@
 </head>
 
 <body>
+
+    <div class="container">
+        <div style="width: 300px" id="reader"></div>
+        <div id="qrcode-result"></div>
+        <div id="show-image"></div>
+    </div>
+
+    <script src="{{ asset('js/html5-qrcode.min.js') }}"></script>
+
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            // Handle on success condition with the decoded text or result.
+            console.log(`Scan result: ${decodedText}`, decodedResult);
+            $('#qrcode-result').html(decodedText);
+            $('#show-image').html(`<img src="${decodedText}" alt="QR Code">`);
+
+        }
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", {
+                fps: 6,
+                qrbox: 250
+            });
+        html5QrcodeScanner.render(onScanSuccess);
+    </script>
 
     <div class="container">
         <h1>Webcam 照相</h1>
