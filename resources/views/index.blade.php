@@ -102,30 +102,7 @@
 
 
     <script>
-        function mergeImages() {
-            var qrcode = document.getElementById('qrcode-data');
-            var camera = document.getElementById('camera-data');
-            var options = {
-                width: 300,
-                height: 300,
-                crossOrigin: 'anonymous',
-            };
-            mergeImages([{
-                    src: qrcode.src,
-                    x: 0,
-                    y: 0
-                },
-                {
-                    src: camera.src,
-                    x: 0,
-                    y: 0
-                }
-            ], options).then(b64 => {
-                var img = document.createElement('img');
-                img.src = b64;
-                document.body.appendChild(img);
-            });
-        }
+        
     </script>
 
 
