@@ -38,6 +38,8 @@
         html5QrcodeScanner.render(onScanSuccess);
     </script>
 
+    <div class="gap-3"></div>
+
     <div class="container">
         <h1>Webcam 照相</h1>
 
@@ -53,7 +55,7 @@
             <div id="results">照相的圖片</div>
         </div>
     </div>
-
+    <div class="gap-3"></div>
     <div class="container">
         <h1>合併圖片</h1>
         <canvas id="canvas"></canvas>
