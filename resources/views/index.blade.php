@@ -13,6 +13,7 @@
 <body>
 
     <div class="container">
+        <h1>取得 QRCode</h1>
         <div style="width: 300px" id="reader"></div>
         <div id="qrcode-result"></div>
         <div id="show-image"></div>
@@ -51,6 +52,11 @@
         <div class="col-12">
             <div id="results">照相的圖片</div>
         </div>
+    </div>
+
+    <div class="container">
+        <h1>合併圖片</h1>
+        <canvas id="canvas"></canvas>
     </div>
 
 
@@ -99,6 +105,25 @@
                     '<img id="camera-data" src="' + data_uri + '"/>';
             });
         }
+
+        $(document).ready(function() {
+            var image1 = $('#qrcode-data')[0]; // 獲取原生的 img 元素
+            var image2 = $('#camera-data')[0]; // 獲取原生的 img 元素
+
+            // 確保兩張圖片都已加載
+            $.when(image1, image2).done(function() {
+                var canvas = $('#canvas')[0];
+                var ctx = canvas.getContext('2d');
+
+                // 設置 canvas 的大小
+                canvas.width = image1.width + image2.width;
+                canvas.height = Math.max(image1.height, image2.height);
+
+                // 繪製兩張圖片
+                ctx.drawImage(image1, 0, 0);
+                ctx.drawImage(image2, image1.width, 0);
+            });
+        });
     </script>
 
 
