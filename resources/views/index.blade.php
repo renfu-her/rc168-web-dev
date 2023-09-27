@@ -73,7 +73,7 @@
             image_format: 'jpeg',
             jpeg_quality: 90,
             constraints: {
-                facingMode: "user"
+                facingMode: "environment"
             }
         });
     </script>
