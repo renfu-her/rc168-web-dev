@@ -15,6 +15,7 @@
     <div class="container">
         <div style="width: 300px" id="reader"></div>
         <div id="qrcode-result"></div>
+        <div id="show-image"></div>
     </div>
 
 
@@ -27,12 +28,13 @@
 
     <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('js/html5-qrcode.min.js') }}"></script>
-    
+
     <script>
         function onScanSuccess(decodedText, decodedResult) {
             // Handle on success condition with the decoded text or result.
             console.log(`Scan result: ${decodedText}`, decodedResult);
             $('#qrcode-result').html(decodedText);
+            $('#show-image').html(`<img src="${decodedText}" alt="QR Code">`);
 
         }
 
