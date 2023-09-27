@@ -12,7 +12,7 @@
 
 <body>
 
-    <div class="container">
+    <div class="container gx-5">
         <h1>取得 QRCode</h1>
         <div style="width: 300px" id="reader"></div>
         <div id="qrcode-result"></div>
@@ -38,9 +38,8 @@
         html5QrcodeScanner.render(onScanSuccess);
     </script>
 
-    <div class="gap-3"></div>
 
-    <div class="container">
+    <div class="container gx-5">
         <h1>Webcam 照相</h1>
 
         <div class="col-12">
@@ -55,8 +54,8 @@
             <div id="results">照相的圖片</div>
         </div>
     </div>
-    <div class="gap-3"></div>
-    <div class="container">
+    
+    <div class="container gx-5">
         <h1>合併圖片</h1>
         <canvas id="canvas"></canvas>
 
