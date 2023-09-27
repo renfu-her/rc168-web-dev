@@ -53,18 +53,6 @@
         </div>
     </div>
 
-
-
-    <!-- First, include the Webcam.js JavaScript Library -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-    </script>
-    <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/webcam.min.js') }}"></script>
-
     <!-- Configure a few settings and attach camera -->
     <script language="JavaScript">
         Webcam.set({
@@ -94,13 +82,51 @@
             Webcam.snap(function(data_uri) {
                 // display results in page
                 document.getElementById('results').innerHTML =
-                    '<h2>Here is your image:</h2>' +
+                    '<h2>相片:</h2>' +
                     '<img id="camera-data" src="' + data_uri + '"/>';
             });
         }
     </script>
 
 
+    <!-- First, include the Webcam.js JavaScript Library -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    </script>
+    <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/webcam.min.js') }}"></script>
+    <script src="https://unpkg.com/merge-images"></script>
+
+
+    <script>
+        function mergeImages() {
+            var qrcode = document.getElementById('qrcode-data');
+            var camera = document.getElementById('camera-data');
+            var options = {
+                width: 300,
+                height: 300,
+                crossOrigin: 'anonymous',
+            };
+            mergeImages([{
+                    src: qrcode.src,
+                    x: 0,
+                    y: 0
+                },
+                {
+                    src: camera.src,
+                    x: 0,
+                    y: 0
+                }
+            ], options).then(b64 => {
+                var img = document.createElement('img');
+                img.src = b64;
+                document.body.appendChild(img);
+            });
+        }
+    </script>
 
 
     <style type="text/css">
