@@ -24,7 +24,6 @@
         }
 
         #results {
-            float: right;
             margin: 20px;
             padding: 20px;
             border: 1px solid;
@@ -48,7 +47,7 @@
             <div id="my_camera"></div>
         </div>
         <div class="col-12">
-            <div id="results">Your captured image will appear here...</div>
+            <div id="results">照相的圖片</div>
         </div>
     </div>
 
@@ -85,7 +84,7 @@
 
         function take_snapshot() {
             $('#take_picture').show();
-            
+
             // take snapshot and get image data
             Webcam.snap(function(data_uri) {
                 // display results in page
