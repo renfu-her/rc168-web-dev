@@ -32,11 +32,11 @@ class ImageUploadController extends Controller
         // 建立一個唯一的檔案名稱
         $filename = uniqid('image_') . '.' . $image->getClientOriginalExtension();
 
-        // 將檔案儲存到 storage/app/public/images 目錄下
-        $image->storeAs('public/upload/images', $filename);
+        // 將檔案儲存到 /public/upload/images 目錄下
+        $path = $image->storeAs('upload/images', $filename, 'public');
 
         // 取得儲存路徑
-        $imagePath = env('APP_URL') . '/images/' . $filename;
+        $imagePath = config('config.APP_URL') . '/store/upload/images/' . $filename;
 
         // 回傳成功訊息及儲存路徑
         return response()->json([
