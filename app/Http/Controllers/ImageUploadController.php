@@ -41,7 +41,6 @@ class ImageUploadController extends Controller
         // 回傳成功訊息及儲存路徑
         return response()->json([
             'status' => 'success',
-
             'path' => $imagePath,
         ], 200);;
     }
