@@ -18,7 +18,6 @@ jobs:
           git pull
           php8.1 /usr/local/bin/composer install
           php8.1 artisan migrate --force
-          php8.1 artisan config:cache
-          php8.1 artisan view:cache
-          php8.1 artisan route:cache
-          php8.1 artisan config:cache
+          php8.1 artisan v:cache
+          php8.1 artisan r:cache
+          php8.1 artisan c:cache
