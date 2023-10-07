@@ -16,7 +16,7 @@ class ImageUploadController extends Controller
         try {
             // 驗證上傳的檔案是否有效
             $this->validate($request, [
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif',
             ]);
         } catch (Validator $validator) {
             return response()->json([
