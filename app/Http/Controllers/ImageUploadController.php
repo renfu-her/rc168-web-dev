@@ -19,12 +19,10 @@ class ImageUploadController extends Controller
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
         } catch (Validator $validator) {
-            throw new HttpResponseException(
-                response()->json([
-                    'status' => 'failed',
-                    'errors' => $validator->errors(),
-                ], 422)
-            );
+            return response()->json([
+                'status' => 'failed',
+                'errors' => $validator->errors(),
+            ]);
         }
 
         // 取得上傳的檔案
