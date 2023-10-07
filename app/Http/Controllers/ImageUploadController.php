@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\ValidationException;
 
 class ImageUploadController extends Controller
 {
@@ -18,10 +19,10 @@ class ImageUploadController extends Controller
             $this->validate($request, [
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif',
             ]);
-        } catch (Validator $validator) {
+        } catch (ValidationException $e) {
             return response()->json([
                 'status' => 'failed',
-                'errors' => $validator->errors(),
+                'errors' => $e->errors(),
             ]);
         }
 

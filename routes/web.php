@@ -7,4 +7,5 @@ use App\Http\Controllers\ImageUploadController;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::post('/upload/image', [ImageUploadController::class, 'imageUpload'])->name('image.upload');
