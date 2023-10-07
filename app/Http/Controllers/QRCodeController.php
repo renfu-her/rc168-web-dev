@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class QRCodeController extends Controller
 {
-    //
+
+    public function QRCodeScanner(){
+        return view('qrcode-scanner');
+    }
 }
