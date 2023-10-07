@@ -36,7 +36,7 @@ class ImageUploadController extends Controller
         $path = $image->storeAs('upload/images', $filename, 'public');
 
         // 取得儲存路徑
-        $imagePath = config('config.APP_URL') . '/upload/images/' . $filename;
+        $imagePath = config('config.APP_URL') . '/storage/upload/images/' . $filename;
 
         // 回傳成功訊息及儲存路徑
         return response()->json([
