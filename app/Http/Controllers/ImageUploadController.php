@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ImageUploadController extends Controller
 {
@@ -11,11 +13,19 @@ class ImageUploadController extends Controller
     public function imageUpload(Request $request)
     {
 
-        dd($request);
-        // 驗證上傳的檔案是否有效
-        $this->validate($request, [
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        try {
+            // 驗證上傳的檔案是否有效
+            $this->validate($request, [
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+        } catch (Validator $validator) {
+            throw new HttpResponseException(
+                response()->json([
+                    'status' => 'failed',
+                    'errors' => $validator->errors(),
+                ], 422)
+            );
+        }
 
         // 取得上傳的檔案
         $image = $request->file('image');
@@ -32,6 +42,7 @@ class ImageUploadController extends Controller
         // 回傳成功訊息及儲存路徑
         return response()->json([
             'status' => 'success',
+
             'path' => $imagePath,
         ], 200);;
     }
