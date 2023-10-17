@@ -13,7 +13,7 @@
 <body>
 
     <div class="container">
-        <form action="https://api-dev.besttour.com.tw/api/payment/line-pay/receiver" method="post">
+        <form action="https://api-dev-besttour.test/api/payment/line-pay/receiver" method="post">
             <div class="col-12">
                 <div class="mb-3 row">
                     <label for="staticEmail" class="col-sm-2 col-form-label">orderNo</label>
