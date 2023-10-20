@@ -18,8 +18,8 @@
                 <div class="mb-3 row">
                     <label for="staticEmail" class="col-sm-2 col-form-label">orderNo</label>
                     <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" name="orderNo"
-                            value="OID-{{ date('YmdHis') }}">
+                        <input type="text" class="form-control-plaintext" name="orderNo"
+                            value="473194">
                     </div>
                 </div>
                 <div class="mb-3 row">
