@@ -15,7 +15,7 @@ class EcpayController extends Controller
             "user_id" => 123,
             "item_description" => "item description",
             "item_name" => "item name",
-            "order_no" => "OID" . date('YmdHis') . rand(1000, 9999),
+            "order_no" => "OID" . date('YmdHis'),
             "total_amount" => 100,
         ]);
 
