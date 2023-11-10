@@ -17,7 +17,7 @@
         <input type="hidden" name="TradeDesc" value="{{ $resArray['TradeDesc'] }}">
         <input type="hidden" name="ItemName" value="{{ $resArray['ItemName'] }}">
         <input type="hidden" name="ReturnURL" value="{{ $resArray['ReturnURL'] }}">
-        <input type="hidden" name="OrderresArrayURL" value="{{ $resArray['OrderresArrayURL'] }}">
+        <input type="hidden" name="OrderResultURL" value="{{ $resArray['OrderResultURL'] }}">
         <input type="hidden" name="ChoosePayment" value="{{ $resArray['ChoosePayment'] }}">
         <input type="hidden" name="EncryptType" value="{{ $resArray['EncryptType'] }}">
         <input type="hidden" name="CheckMacValue" value="{{ $resArray['CheckMacValue'] }}">
