@@ -11,7 +11,7 @@ class EcpayController extends Controller
     // index
     public function index(Request $request)
     {
-        $res = Http::post('https://api-dev.besttour.com.tw/api/payment/ecpay', [
+        $res = Http::withoutVerifying()->post('https://api-dev.besttour.com.tw/api/payment/ecpay', [
             "user_id" => 123,
             "item_description" => "item description",
             "item_name" => "item name",
@@ -19,6 +19,10 @@ class EcpayController extends Controller
             "total_amount" => 100,
         ]);
 
-        dd($res->json());
+        dd($res->toArray());
+        
+        return view('ecpay', [
+            $res->toArray(),
+        ]);
     }
 }
