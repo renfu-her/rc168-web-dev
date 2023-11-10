@@ -25,9 +25,9 @@
 
     <script>
         // You could also use JavaScript to submit the form after the page is fully loaded
-        window.addEventListener('load', function() {
-            document.getElementById('ecpay-post').submit();
-        });
+        // window.addEventListener('load', function() {
+        //     document.getElementById('ecpay-post').submit();
+        // });
     </script>
 </body>
 </html>
