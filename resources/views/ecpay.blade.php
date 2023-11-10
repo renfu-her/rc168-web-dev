@@ -8,9 +8,7 @@
 </head>
 <body>
     
-    <form action="{{ $result->EcpayURL }}" method="post" id="ecpay-post">
-        <input type="hidden" name="MerchantID" value="{{ $result->MerchantID }}">
-    </form>
+    {{ var_dump($result)  }}
 
     <script>
         // You could also use JavaScript to submit the form after the page is fully loaded
