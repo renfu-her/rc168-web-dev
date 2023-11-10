@@ -19,7 +19,7 @@ class EcpayController extends Controller
             "total_amount" => 100,
         ]);
 
-        $result = $res->toArray();
+        $result = $res->body();
 
         return view('ecpay', compact('result'));
     }
