@@ -21,8 +21,8 @@ class EcpayController extends Controller
 
         $result = $res->json();
 
-        dd($result);
+        $resArray = $result['data'];
 
-        return view('ecpay', compact('result'));
+        return view('ecpay', compact('resArray'));
     }
 }

@@ -8,13 +8,25 @@
 </head>
 <body>
     
-    {{ var_dump($result)  }}
+    <form action="{{ $resArray['EcpayURL'] }}" method="post" id="ecpay-post">
+        <input type="hidden" name="MerchantID" value="{{ $resArray['MerchantID'] }}">
+        <input type="hidden" name="MerchantTradeNo" value="{{ $resArray['MerchantTradeNo'] }}">
+        <input type="hidden" name="MerchantTradeDate" value="{{ $resArray['MerchantTradeDate'] }}">
+        <input type="hidden" name="PaymentType" value="{{ $resArray['PaymentType'] }}">
+        <input type="hidden" name="TotalAmount" value="{{ $resArray['TotalAmount'] }}">
+        <input type="hidden" name="TradeDesc" value="{{ $resArray['TradeDesc'] }}">
+        <input type="hidden" name="ItemName" value="{{ $resArray['ItemName'] }}">
+        <input type="hidden" name="ReturnURL" value="{{ $resArray['ReturnURL'] }}">
+        <input type="hidden" name="OrderresArrayURL" value="{{ $resArray['OrderresArrayURL'] }}">
+        <input type="hidden" name="ChoosePayment" value="{{ $resArray['ChoosePayment'] }}">
+        <input type="hidden" name="EncryptType" value="{{ $resArray['EncryptType'] }}">
+        <input type="hidden" name="CheckMacValue" value="{{ $resArray['CheckMacValue'] }}">
+    </form>
 
     <script>
-        // You could also use JavaScript to submit the form after the page is fully loaded
-        // window.addEventListener('load', function() {
-        //     document.getElementById('ecpay-post').submit();
-        // });
+        window.addEventListener('load', function() {
+            document.getElementById('ecpay-post').submit();
+        });
     </script>
 </body>
 </html>
