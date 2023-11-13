@@ -68,6 +68,8 @@ class CaseClientService extends Service
 
         $data = $this->request->toArray();
 
+        dd($data);
+
         if (!empty($data['userToken'])) {
 
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
