@@ -68,11 +68,12 @@ class CaseClientService extends Service
 
         $data = $this->request->toArray();
 
-        dd($data);
 
         if (!empty($data['userToken'])) {
 
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
+
+            dd($userToken);
             if (!empty($userToken)) {
                 $userClient = CaseClient::where('user_id', $userToken->user_id)->where('status', 1)->get();
                 $this->response = Service::response('00', 'success', $userClient->toArray());
