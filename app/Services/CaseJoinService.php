@@ -10,9 +10,10 @@ use Illuminate\Support\Carbon;
 use Exception;
 
 use App\Models\CaseClient;
+use App\Models\CaseJoin;
 use App\Models\UserToken;
 
-class CaseClientService extends Service
+class CaseJoinService extends Service
 {
     use RulesTrait;
 
@@ -73,8 +74,11 @@ class CaseClientService extends Service
 
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
-                $userClient = CaseClient::where('user_id', $userToken->user_id)->where('status', 1)->get();
-                
+                $userClient = CaseJoin::where('user_id', $userToken->user_id)->get();
+                foreach($userClient as $key => $value){
+                    $userClient[$key]['case_client'] = CaseClient::where('id', $value['case_client_id'])->first();
+                }
+
                 $this->response = Service::response('00', 'success', $userClient->toArray());
                 return $this;
             }
