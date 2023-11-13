@@ -84,6 +84,15 @@ class CaseClientService extends Service
         return $this;
     }
 
+    public function getAll()
+    {
+        if (!empty($this->response)) return $this;
+
+        $userClient = CaseClient::where('status', 1)->get();
+        
+        $this->response = Service::response('00', 'success', $userClient->toArray());
+        return $this;
+    }
 
     public function runValidate($method)
     {
