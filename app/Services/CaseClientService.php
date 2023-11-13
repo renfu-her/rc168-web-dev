@@ -32,15 +32,27 @@ class CaseClientService extends Service
 
         $data = $this->request->toArray();
 
-        if(!empty($data['userToken'])){
-            $userToken = UserToken::where('user_token', $data['userToken'])->first();
-            if(!empty($userToken)){
-                
-                $data['user_id'] = $userToken->user_id;
-                unset($data['userToken']);
+        if (!empty($data['userToken'])) {
 
-                $caseClient = CaseClient::create($data);
-                
+            $startDate = Carbon::parse($data['startDate'])->format('Y-m-d');
+            $endDate = Carbon::parse($data['endDate'])->format('Y-m-d');
+
+            $userToken = UserToken::where('user_token', $data['userToken'])->first();
+            if (!empty($userToken)) {
+
+                $saveData = [
+                    'user_id' => $userToken->user_id,
+                    'title' => $data['title'],
+                    'content' => $data['content'],
+                    'start_date' => $startDate,
+                    'end_date' => $endDate,
+                    'mobile' => $data['mobile'],
+                    'pay' => $data['pay'],
+                    'status' => $data['status']
+                ];
+
+                $caseClient = CaseClient::create($saveData);
+
                 $this->response = Service::response('00', 'success', $caseClient->toArray());
                 return $this;
             }
@@ -63,7 +75,7 @@ class CaseClientService extends Service
                     'endDate' => 'required|date',
                     'mobile' => 'required|string',
                     'pay' => 'required|integer',
-                    'status' => 'required|string'
+                    'status' => 'required|integer'
                 ];
                 $data = $this->request->toArray();
                 break;
