@@ -18,6 +18,16 @@ class CaseClientController extends Controller
             ->getResponse();
     }
     // // update
+
+    // view
+    public function view(Request $request)
+    {
+        return (new Service($request))
+            ->runValidate('view')
+            ->view()
+            ->getResponse();
+    }
+
     // public function update(Request $request, $id)
     // {
     //     return (new Service($request, $id))

@@ -62,6 +62,26 @@ class CaseClientService extends Service
         return $this;
     }
 
+    public function view()
+    {
+        if (!empty($this->response)) return $this;
+
+        $data = $this->request->toArray();
+
+        if (!empty($data['userToken'])) {
+
+            $userToken = UserToken::where('user_token', $data['userToken'])->first();
+            if(!empty($userToken))){
+                $userClient = CaseClient::where('user_id', $userToken->user_id)->where('status', 1)->get();
+                $this->response = Service::response('00', 'success', $userClient->toArray());
+            }
+        }
+
+        $this->response = Service::response('01', 'error');
+        return $this;
+        
+    }
+
 
     public function runValidate($method)
     {
@@ -79,15 +99,12 @@ class CaseClientService extends Service
                 ];
                 $data = $this->request->toArray();
                 break;
-                // case 'update':
-                //     $rules = [
-                //         'id' => 'required|exists:kkdays_airport_type_codes,id',
-                //         'type' => 'required|string|max:3'
-                //     ];
-                //     (!empty($this->request['description_ch'])) && $rules['description_ch'] = 'required|string';
-                //     (!empty($this->request['description_en'])) && $rules['description_en'] = 'required|string';
-                //     $data = $this->request->toArray() + ['id' => $this->dataId];
-                //     break;
+            case 'view':
+                $rules = [
+                    'userToken' => 'required|string',
+                ];
+                $data = $this->request->toArray() + ['id' => $this->dataId];
+                break;
                 // case 'destroy':
                 //     $rules = [
                 //         'id' => 'required|exists:kkdays_airport_type_codes,id',
