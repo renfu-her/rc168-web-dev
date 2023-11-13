@@ -40,8 +40,7 @@ class UserTokenService extends Service
             case 'store':
                 $rules = [
                     'user_id' => 'required|exists:users,id',
-                    'user_token' => 'required|string',
-                    'expired' => 'required|date',
+                    'user_token' => 'required|string'
                 ];
                 (!empty($this->request['description_ch'])) && $rules['description_ch'] = 'required|string';
                 (!empty($this->request['description_en'])) && $rules['description_en'] = 'required|string';
