@@ -39,7 +39,7 @@ class UserTokenService extends Service
         switch ($method) {
             case 'store':
                 $rules = [
-                    'user_id' => 'required|exists:users,id',
+                    'user_id' => 'required|integer',
                     'user_token' => 'required|string'
                 ];
                 (!empty($this->request['description_ch'])) && $rules['description_ch'] = 'required|string';
