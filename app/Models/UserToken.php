@@ -14,5 +14,8 @@ class UserToken extends Model
         'user_id',
         'user_token',
         'expires',
+        'name',
+        'student_id',
+        'bocoin'
     ];
 }

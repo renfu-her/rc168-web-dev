@@ -31,7 +31,9 @@ class UserTokenService extends Service
 
         $data = $this->request->toArray();
 
-        UserToken::where('id', $data['user_id'])->delete();
+        $userToken = UserToken::where('id', $data['user_id'])->get();
+        $userToken->delete();
+        
         UserToken::create($data);
         $this->response = Service::response('00', 'ok');
         return $this;
