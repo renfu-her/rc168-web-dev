@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\CaseJoinService as Service;
+use App\Services\Work\CaseJoinService as Service;
 
 class CaseJoinController extends Controller
 {

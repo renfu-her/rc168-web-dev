@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Work;
 
 use App\Services\Service;
 use App\Traits\RulesTrait;
@@ -74,7 +74,7 @@ class CaseClientService extends Service
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
                 $userClient = CaseClient::where('user_id', $userToken->user_id)->where('status', 1)->get();
-                
+
                 $this->response = Service::response('00', 'success', $userClient->toArray());
                 return $this;
             }
@@ -89,7 +89,7 @@ class CaseClientService extends Service
         if (!empty($this->response)) return $this;
 
         $userClient = CaseClient::where('status', 1)->get();
-        
+
         $this->response = Service::response('00', 'success', $userClient->toArray());
         return $this;
     }

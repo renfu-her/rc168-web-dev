@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Work;
 
 use App\Services\Service;
 use App\Traits\RulesTrait;
