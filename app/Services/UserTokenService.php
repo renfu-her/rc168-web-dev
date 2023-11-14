@@ -28,7 +28,11 @@ class UserTokenService extends Service
     public function store()
     {
         if (!empty($this->response)) return $this;
-        UserToken::create($this->request->toArray());
+
+        $data = $this->request->toArray();
+
+        UserToken::where('id', $data['user_id'])->delete();
+        UserToken::create($data);
         $this->response = Service::response('00', 'ok');
         return $this;
     }
@@ -40,10 +44,11 @@ class UserTokenService extends Service
             case 'store':
                 $rules = [
                     'user_id' => 'required|integer',
-                    'user_token' => 'required|string'
+                    'user_token' => 'required|string',
+                    'name' => 'required|string',
+                    'student_id' => 'required|string',
+                    'bocoin' => 'required|integer',
                 ];
-                (!empty($this->request['description_ch'])) && $rules['description_ch'] = 'required|string';
-                (!empty($this->request['description_en'])) && $rules['description_en'] = 'required|string';
                 $data = $this->request->toArray();
                 break;
                 // case 'update':
