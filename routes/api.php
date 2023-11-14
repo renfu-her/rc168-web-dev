@@ -16,8 +16,11 @@ Route::group(['prefix' => 'user'], function () {
         Route::post('/view', [CaseClientController::class, 'view'])->name('user.client.view');
         Route::get('/getAll', [CaseClientController::class, 'getAll'])->name('user.join.getAll');
     });
-    
+
     Route::get('/case-detail', [WorkController::class, 'index'])->name('user.work.index');
 
-    Route::post('/join/view', [CaseJoinController::class, 'view'])->name('user.join.view');
+    Route::group(['prefix' => 'join'], function () {
+        Route::post('/write', [CaseJoinController::class, 'store'])->name('user.join.store');
+        Route::post('/view', [CaseJoinController::class, 'view'])->name('user.join.view');
+    });
 });
