@@ -15,13 +15,5 @@ class JoinWriteController extends Controller
                 ->store()
                 ->getResponse();
     }
-    // // update
-    // public function update(Request $request, $id)
-    // {
-    //     return (new Service($request, $id))
-    //             ->runValidate('update')
-    //             ->update()
-    //             ->getResponse();
-    // }
     
 }
