@@ -43,9 +43,21 @@ class WorkService extends Service
                     ->where('status', 1)->first();
 
                 $data = [
-                    'caseClient' => $userClient->toArray(),
-                    'users' => $userToken->toArray(),
+                    'case_id' => $userClient->id,
+                    'user_id' => $userToken->user_id,
+                    'title' => $userClient->title,
+                    'content' => $userClient->content,
+                    'start_date' => $userClient->start_date,
+                    'end_date' => $userClient->end_date,
+                    'status' => $userClient->status,
+                    'created_at' => $userClient->created_at,
+                    'updated_at' => $userClient->updated_at,
+                    'name' => $userToken->name,
+                    'bocoin' => $userToken->bocoin,
+                    'student_id' => $userToken->student_id,
+                    'expires' => $userToken->expires,
                 ];
+
 
                 $this->response = Service::response('00', 'success', $data);
                 return $this;
