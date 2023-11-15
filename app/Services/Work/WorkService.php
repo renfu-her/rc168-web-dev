@@ -42,7 +42,12 @@ class WorkService extends Service
                     ->where('id', $data['itemId'])
                     ->where('status', 1)->first();
 
-                $this->response = Service::response('00', 'success', $userClient->toArray());
+                $data = [
+                    'caseClient' => $userClient->toArray(),
+                    'users' => $userToken->toArray(),
+                ];
+
+                $this->response = Service::response('00', 'success', $data);
                 return $this;
             }
         }

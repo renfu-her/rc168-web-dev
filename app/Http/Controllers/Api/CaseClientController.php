@@ -35,18 +35,4 @@ class CaseClientController extends Controller
             ->getResponse();
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     return (new Service($request, $id))
-    //             ->runValidate('update')
-    //             ->update()
-    //             ->getResponse();
-    // }
-    // // destroy
-    // public function destroy(Request $request, $id)
-    // {
-    //     return (new Service($request, $id))
-    //             ->destroy()
-    //             ->getResponse();
-    // }
 }
