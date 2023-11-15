@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\UserTokenController;
 use App\Http\Controllers\Api\CaseClientController;
 use App\Http\Controllers\Api\CaseJoinController;
 use App\Http\Controllers\Api\WorkController;
+use App\Http\Controllers\Api\JoinWriteController;
 
 Route::post('/user_token/check', [UserTokenController::class, 'store'])->name('user.token.store');
 
@@ -20,7 +21,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/case-detail', [WorkController::class, 'index'])->name('user.work.index');
 
     Route::group(['prefix' => 'join'], function () {
-        Route::post('/write', [CaseJoinController::class, 'store'])->name('user.join.store');
-        Route::post('/view', [CaseJoinController::class, 'view'])->name('user.join.view');
+        Route::post('/write', [JoinWriteController::class, 'store'])->name('user.join.store');
+        Route::post('/view', [JoinWriteController::class, 'view'])->name('user.join.view');
     });
 });
