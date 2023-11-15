@@ -12,7 +12,6 @@ class CaseJoin extends Model
     protected $table = 'case_joins';
     protected $fillable = [
         'user_id',
-        'payment',
         'user_join_id',
         'case_client_id',
         'payment',
