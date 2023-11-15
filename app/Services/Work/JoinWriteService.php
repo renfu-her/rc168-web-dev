@@ -42,7 +42,7 @@ class JoinWriteService extends Service
                     'user_id' => $userToken->user_id,
                     'user_join_id' => $data['user_join_id'],
                     'case_client_id' => $data['case_client_id'],
-                    'payment' => $data['pay'],
+                    'payment' => $data['payment'],
                     'status' => $data['status']
                 ];
 
