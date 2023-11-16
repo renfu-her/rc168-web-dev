@@ -17,7 +17,6 @@ class CaseClientController extends Controller
             ->store()
             ->getResponse();
     }
-    // // update
 
     // view
     public function view(Request $request)
@@ -31,6 +30,7 @@ class CaseClientController extends Controller
     public function getAll(Request $request)
     {
         return (new Service($request))
+            ->runValidate('getAll')
             ->getAll()
             ->getResponse();
     }

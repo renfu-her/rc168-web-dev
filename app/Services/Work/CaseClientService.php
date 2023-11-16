@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use Exception;
 
 use App\Models\CaseClient;
+use App\Models\CaseJoin;
 use App\Models\UserToken;
 
 class CaseClientService extends Service
@@ -68,7 +69,6 @@ class CaseClientService extends Service
 
         $data = $this->request->toArray();
 
-
         if (!empty($data['userToken'])) {
 
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
@@ -88,9 +88,28 @@ class CaseClientService extends Service
     {
         if (!empty($this->response)) return $this;
 
-        $userClient = CaseClient::where('status', 1)->get();
+        $data = $this->request->toArray();
 
-        $this->response = Service::response('00', 'success', $userClient->toArray());
+        $userClientArray = [];
+        $vk = 0;
+        if (!empty($data['userToken'])) {
+            $userClient = CaseClient::where('status', 1)->get();
+            $userToken = UserToken::where('user_token', $data['userToken'])->first();
+            if (!empty($userToken)) {
+                foreach($userClient as $key => $value){
+                    $userJoin = CaseJoin::where('case_id', $value->id)->where('status', 1)->first();
+                    if(!empty($userJoin)){
+                        $userClientArray[$vk] = $userJoin->toArray();
+                        $vk++;
+                    }
+                }
+            }
+
+            $this->response = Service::response('00', 'success', $userClientArray);
+        }
+        
+
+        $this->response = Service::response('01', 'error');
         return $this;
     }
 
@@ -111,6 +130,12 @@ class CaseClientService extends Service
                 $data = $this->request->toArray();
                 break;
             case 'view':
+                $rules = [
+                    'userToken' => 'required|string',
+                ];
+                $data = $this->request->toArray();
+                break;
+            case 'getAll':
                 $rules = [
                     'userToken' => 'required|string',
                 ];
