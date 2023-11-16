@@ -15,7 +15,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::group(['prefix' => 'client'], function () {
         Route::post('/write', [CaseClientController::class, 'store'])->name('user.client.store');
         Route::post('/view', [CaseClientController::class, 'view'])->name('user.client.view');
-        Route::get('/getAll', [CaseClientController::class, 'getAll'])->name('user.join.getAll');
+        Route::get('/getAll', [CaseClientController::class, 'getAll'])->name('user.client.getAll');
     });
 
     Route::get('/case-detail', [WorkController::class, 'index'])->name('user.work.index');
