@@ -90,6 +90,8 @@ class CaseClientService extends Service
 
         $data = $this->request->toArray();
 
+        dd($data);
+
         $userClientArray = [];
         $vk = 0;
         if (!empty($data['userToken'])) {
