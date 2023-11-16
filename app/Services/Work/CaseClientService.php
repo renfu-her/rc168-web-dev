@@ -90,12 +90,11 @@ class CaseClientService extends Service
 
         $data = $this->request->toArray();
 
-        dd($data);
-
         $userClientArray = [];
         $vk = 0;
         if (!empty($data['userToken'])) {
             $userClient = CaseClient::where('status', 1)->get();
+            dd($userClient);
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
                 foreach ($userClient as $key => $value) {
