@@ -94,19 +94,19 @@ class CaseClientService extends Service
         $vk = 0;
         if (!empty($data['userToken'])) {
             $userClient = CaseClient::where('status', 1)->get();
-            dd($userClient);
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
                 foreach ($userClient as $key => $value) {
                     $userJoin = CaseJoin::where('case_client_id', $value->id)->where('status', 1)->first();
                     if (empty($userJoin)) {
-                        $userClientArray[$vk] = $value->toArray();
+                        $userClientArray[$vk] = $value;
                         $vk++;
                     }
                 }
             }
 
             $this->response = Service::response('00', 'success', $userClientArray);
+            return $this;
         }
 
 
