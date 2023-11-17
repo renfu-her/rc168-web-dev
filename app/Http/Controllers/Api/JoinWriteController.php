@@ -15,5 +15,15 @@ class JoinWriteController extends Controller
                 ->store()
                 ->getResponse();
     }
+
+    // view
+    public function view(Request $request)
+    {
+        return (new Service($request))
+                ->runValidate('view')
+                ->view()
+                ->getResponse();
+    }
+
     
 }
