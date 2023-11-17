@@ -54,7 +54,7 @@ class CaseClientService extends Service
 
                 $caseClient = CaseClient::create($saveData);
 
-                $this->response = Service::response('success', 'success', $caseClient->toArray());
+                $this->response = Service::response('success', 'OK', $caseClient->toArray());
                 return $this;
             }
         }
@@ -82,7 +82,7 @@ class CaseClientService extends Service
                     }
                 }
 
-                $this->response = Service::response('success', 'success', $userClientArray);
+                $this->response = Service::response('success', 'OK', $userClientArray);
                 return $this;
             }
         }
@@ -112,7 +112,7 @@ class CaseClientService extends Service
                 }
             }
 
-            $this->response = Service::response('success', 'success', $userClientArray);
+            $this->response = Service::response('success', 'OK', $userClientArray);
             return $this;
         }
 

@@ -76,7 +76,7 @@ class JoinWriteService extends Service
                     }
                 }
 
-                $this->response = Service::response('success', 'success', $userClientArray);
+                $this->response = Service::response('success', 'OK', $userClientArray);
                 return $this;
             }
         }
@@ -104,7 +104,7 @@ class JoinWriteService extends Service
                     }
                 }
 
-                $this->response = Service::response('success', 'success', $userClientArray);
+                $this->response = Service::response('success', 'OK', $userClientArray);
                 return $this;
             }
         }

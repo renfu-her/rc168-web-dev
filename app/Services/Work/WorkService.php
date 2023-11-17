@@ -61,7 +61,7 @@ class WorkService extends Service
                 ];
 
 
-                $this->response = Service::response('success', 'success', $data);
+                $this->response = Service::response('success', 'OK', $data);
                 return $this;
             }
         }
