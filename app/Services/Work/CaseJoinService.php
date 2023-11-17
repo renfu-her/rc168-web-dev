@@ -59,7 +59,7 @@ class CaseJoinService extends Service
             }
         }
 
-        $this->response = Service::response('01', 'error');
+        $this->response = Service::response('01', 'userToken has error');
         return $this;
     }
 
@@ -75,7 +75,7 @@ class CaseJoinService extends Service
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
                 $userClient = CaseJoin::where('user_id', $userToken->user_id)->get();
-                foreach($userClient as $key => $value){
+                foreach ($userClient as $key => $value) {
                     $userClient[$key]['case_client'] = CaseClient::where('id', $value['case_client_id'])->first();
                 }
 
@@ -84,7 +84,7 @@ class CaseJoinService extends Service
             }
         }
 
-        $this->response = Service::response('01', 'error');
+        $this->response = Service::response('01', 'userToken has error');
         return $this;
     }
 

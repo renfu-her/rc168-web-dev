@@ -66,7 +66,7 @@ class WorkService extends Service
             }
         }
 
-        $this->response = Service::response('01', 'error');
+        $this->response = Service::response('01', 'userToken has error');
         return $this;
     }
 
@@ -81,9 +81,9 @@ class WorkService extends Service
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
                 $userClient = CaseClient::where('user_id', $userToken->user_id)->where('status', 1)->get();
-                foreach($userClient as $key => $value){
+                foreach ($userClient as $key => $value) {
                     $userJoin = CaseJoin::where('case_client_id', $value->id)->where('status', 1)->first();
-                    if(!empty($userJoin)){
+                    if (!empty($userJoin)) {
                         $userClientArray[$vk] = $value;
                         $vk++;
                     }
@@ -94,7 +94,7 @@ class WorkService extends Service
             }
         }
 
-        $this->response = Service::response('01', 'error');
+        $this->response = Service::response('01', 'userToken has error');
         return $this;
     }
 
