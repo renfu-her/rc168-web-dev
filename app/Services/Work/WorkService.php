@@ -70,34 +70,6 @@ class WorkService extends Service
         return $this;
     }
 
-    public function view()
-    {
-        if (!empty($this->response)) return $this;
-
-        $data = $this->request->toArray();
-        $vk = 0;
-        $userClientArray = [];
-        if (!empty($data['userToken'])) {
-            $userToken = UserToken::where('user_token', $data['userToken'])->first();
-            if (!empty($userToken)) {
-                $userClient = CaseClient::where('user_id', $userToken->user_id)->where('status', 1)->get();
-                foreach ($userClient as $key => $value) {
-                    $userJoin = CaseJoin::where('case_client_id', $value->id)->where('status', 1)->first();
-                    if (!empty($userJoin)) {
-                        $userClientArray[$vk] = $value;
-                        $vk++;
-                    }
-                }
-
-                $this->response = Service::response('success', 'success', $userClientArray);
-                return $this;
-            }
-        }
-
-        $this->response = Service::response('error', 'userToken has error');
-        return $this;
-    }
-
     public function runValidate($method)
     {
         switch ($method) {

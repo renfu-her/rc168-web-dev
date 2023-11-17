@@ -25,5 +25,13 @@ class JoinWriteController extends Controller
                 ->getResponse();
     }
 
+    // getAll
+    public function getAll(Request $request)
+    {
+        return (new Service($request))
+                ->runValidate('getAll')
+                ->getAll()
+                ->getResponse();
+    }
     
 }

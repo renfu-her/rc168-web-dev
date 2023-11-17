@@ -18,10 +18,11 @@ Route::group(['prefix' => 'user'], function () {
         Route::get('/getAll', [CaseClientController::class, 'getAll'])->name('user.client.getAll');
     });
 
-    Route::get('/case-detail', [WorkController::class, 'index'])->name('user.work.index');
-
     Route::group(['prefix' => 'join'], function () {
         Route::post('/write', [JoinWriteController::class, 'store'])->name('user.join.store');
         Route::post('/view', [JoinWriteController::class, 'view'])->name('user.join.view');
+        Route::post('/getAll', [JoinWriteController::class, 'getAll'])->name('user.join.getAll');
     });
+
+    Route::get('/case-detail', [WorkController::class, 'index'])->name('user.work.index');
 });
