@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use Exception;
 
 use App\Models\CaseClient;
+use App\Models\CaseJoin;
 use App\Models\UserToken;
 
 class WorkService extends Service
@@ -69,14 +70,47 @@ class WorkService extends Service
         return $this;
     }
 
+    public function view()
+    {
+        if (!empty($this->response)) return $this;
+
+        $data = $this->request->toArray();
+        $vk = 0;
+        $userClientArray = [];
+        if (!empty($data['userToken'])) {
+            $userToken = UserToken::where('user_token', $data['userToken'])->first();
+            if (!empty($userToken)) {
+                $userClient = CaseClient::where('user_id', $userToken->user_id)->where('status', 1)->get();
+                foreach($userClient as $key => $value){
+                    $userJoin = CaseJoin::where('case_client_id', $value->id)->where('status', 1)->first();
+                    if($userJoin){
+                        $userClientArray[$vk] = $value;
+                        $vk++;
+                    }
+                }
+
+                $this->response = Service::response('00', 'success', $userClientArray);
+                return $this;
+            }
+        }
+
+        $this->response = Service::response('01', 'error');
+        return $this;
+    }
+
     public function runValidate($method)
     {
         switch ($method) {
-
             case 'viewDetail':
                 $rules = [
                     'userToken' => 'required|string',
                     'itemId' => 'required|integer',
+                ];
+                $data = $this->request->toArray();
+                break;
+            case 'view':
+                $rules = [
+                    'userToken' => 'required|string',
                 ];
                 $data = $this->request->toArray();
                 break;
