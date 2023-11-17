@@ -54,12 +54,12 @@ class CaseClientService extends Service
 
                 $caseClient = CaseClient::create($saveData);
 
-                $this->response = Service::response('00', 'success', $caseClient->toArray());
+                $this->response = Service::response('success', 'success', $caseClient->toArray());
                 return $this;
             }
         }
 
-        $this->response = Service::response('01', 'userToken has error');
+        $this->response = Service::response('error', 'userToken has error');
         return $this;
     }
 
@@ -82,12 +82,12 @@ class CaseClientService extends Service
                     }
                 }
 
-                $this->response = Service::response('00', 'success', $userClientArray);
+                $this->response = Service::response('success', 'success', $userClientArray);
                 return $this;
             }
         }
 
-        $this->response = Service::response('01', 'userToken has error');
+        $this->response = Service::response('error', 'userToken has error');
         return $this;
     }
 
@@ -112,12 +112,12 @@ class CaseClientService extends Service
                 }
             }
 
-            $this->response = Service::response('00', 'success', $userClientArray);
+            $this->response = Service::response('success', 'success', $userClientArray);
             return $this;
         }
 
 
-        $this->response = Service::response('01', 'userToken has error');
+        $this->response = Service::response('error', 'userToken has error');
         return $this;
     }
 

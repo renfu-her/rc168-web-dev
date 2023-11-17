@@ -61,12 +61,12 @@ class WorkService extends Service
                 ];
 
 
-                $this->response = Service::response('00', 'success', $data);
+                $this->response = Service::response('success', 'success', $data);
                 return $this;
             }
         }
 
-        $this->response = Service::response('01', 'userToken has error');
+        $this->response = Service::response('error', 'userToken has error');
         return $this;
     }
 
@@ -89,12 +89,12 @@ class WorkService extends Service
                     }
                 }
 
-                $this->response = Service::response('00', 'success', $userClientArray);
+                $this->response = Service::response('success', 'success', $userClientArray);
                 return $this;
             }
         }
 
-        $this->response = Service::response('01', 'userToken has error');
+        $this->response = Service::response('error', 'userToken has error');
         return $this;
     }
 
