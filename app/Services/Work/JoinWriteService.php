@@ -72,7 +72,7 @@ class JoinWriteService extends Service
                     $userJoin = CaseJoin::where('case_client_id', $value->id)->first();
                     if (!empty($userJoin)) {
                         $userClientArray[$vk] = $value;
-                        $userClientArray[$vk]['status'] = $userJoin->status;
+                        $userClientArray[$vk]['status'] = $userJoin->status->toString();
                         $vk++;
                     }
                 }
@@ -101,7 +101,7 @@ class JoinWriteService extends Service
                     $userJoin = CaseJoin::where('case_client_id', $value->id)->where('status', 1)->first();
                     if (!empty($userJoin)) {
                         $userClientArray[$vk] = $value;
-                        $userClientArray[$vk]['status'] = $userJoin->status;
+                        $userClientArray[$vk]['status'] = $userJoin->status->toString();
                         $vk++;
                     }
                 }
