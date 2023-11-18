@@ -43,16 +43,6 @@ class WorkService extends Service
                     ->where('id', $data['itemId'])
                     ->where('status', 1)->first();
 
-                $userJoin = CaseJoin::where('case_client_id', $data['itemId'])->where('status', 1)->first();
-
-                $status = 0;
-                if(!empty($userClient)){
-                    $status = $userClient->status;
-                }
-                if(!empty($userJoin)){
-                    $status = $userJoin->status;
-                }
-
                 $data = [
                     'case_id' => $userClient->id,
                     'user_id' => $userToken->user_id,
@@ -60,7 +50,7 @@ class WorkService extends Service
                     'content' => $userClient->content,
                     'start_date' => $userClient->start_date,
                     'end_date' => $userClient->end_date,
-                    'status' => (string)$status,
+                    'status' => (string)$userClient->status,
                     'created_at' => $userClient->created_at,
                     'updated_at' => $userClient->updated_at,
                     'name' => $userToken->name,
