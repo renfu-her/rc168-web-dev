@@ -44,12 +44,8 @@ class WorkService extends Service
                     ->where('status', 1)->first();
 
                 $status = 0;
-                $userJoin = CaseJoin::where('case_client_id', $data['itemId'])->where('status', 0)->get();
-                if($userJoin->count() > 0){
-                    $status = 0;
-                }
-                $userJoin = CaseJoin::where('case_client_id', $data['itemId'])->where('status', 1)->get();
-                if($userJoin->count() > 0){
+                $userJoin = CaseJoin::where('case_client_id', $data['itemId'])->where('status', 1)->first();
+                if(!empty($userJoin)){
                     $status = 1;
                 }
 
