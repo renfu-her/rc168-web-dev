@@ -81,6 +81,11 @@ class CaseClientService extends Service
                         // $status = (string)$userJoin->status;
                         // $userClientArray[$vk]['status'] = $status;
                         $vk++;
+                    } else {
+                        $userClientArray[$vk] = $value;
+                        $status = (string)$userJoin->status;
+                        $userClientArray[$vk]['status'] = $status;
+                        $vk++;
                     }
                 }
 
