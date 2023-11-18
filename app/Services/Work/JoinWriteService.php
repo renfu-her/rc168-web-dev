@@ -72,6 +72,7 @@ class JoinWriteService extends Service
                     $userJoin = CaseJoin::where('case_client_id', $value->id)->first();
                     if (!empty($userJoin)) {
                         $userClientArray[$vk] = $value;
+                        $userClientArray[$vk]['status'] = $userJoin->status;
                         $vk++;
                     }
                 }
@@ -97,9 +98,10 @@ class JoinWriteService extends Service
             if (!empty($userToken)) {
                 $userClient = CaseClient::where('user_id', $userToken->user_id)->where('status', 1)->get();
                 foreach ($userClient as $key => $value) {
-                    $userJoin = CaseJoin::where('case_client_id', $value->id)->first();
+                    $userJoin = CaseJoin::where('case_client_id', $value->id)->where('status', 1)->first();
                     if (!empty($userJoin)) {
                         $userClientArray[$vk] = $value;
+                        $userClientArray[$vk]['status'] = $userJoin->status;
                         $vk++;
                     }
                 }
