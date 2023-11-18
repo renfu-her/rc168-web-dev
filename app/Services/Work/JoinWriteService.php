@@ -103,8 +103,8 @@ class JoinWriteService extends Service
                     $caseClient = CaseClient::where('id', $joinValue->id)->first();
                     if (!empty($caseClient)) {
                         $userClientArray[$vk] = $caseClient;
-                        $status = (string)$userJoin->status;
-                        $case_client_id = (string)$userJoin->case_client_id;
+                        $status = (string)$joinValue->status;
+                        $case_client_id = (string)$joinValue->case_client_id;
 
                         $userClientArray[$vk]['status'] = $status;
                         $userClientArray[$vk]['case_client_id'] = $case_client_id;
