@@ -107,9 +107,9 @@ class CaseClientService extends Service
             if (!empty($userToken)) {
                 foreach ($userClient as $key => $value) {
                     $userJoin = CaseJoin::where('case_client_id', $value->id)->first();
-                    if (empty($userJoin)) {
-                        $userClientArray[$vk] = $value;
+                    if (!empty($userJoin)) {
                         dd($userJoin->status);
+                        $userClientArray[$vk] = $value;
                         $status = (string)$userJoin->status;
                         $userClientArray[$vk]['status'] = $status;
                         $vk++;
