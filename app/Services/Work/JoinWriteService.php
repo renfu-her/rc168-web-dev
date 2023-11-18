@@ -145,7 +145,7 @@ class JoinWriteService extends Service
             case 'getAll':
                 $rules = [
                     'userToken' => 'required|string',
-                    'itemId' => 'required|string',
+                    'itemId' => 'required|integer',
                 ];
                 $data = $this->request->toArray();
                 break;
