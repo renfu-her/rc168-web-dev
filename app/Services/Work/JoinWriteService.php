@@ -92,6 +92,8 @@ class JoinWriteService extends Service
         if (!empty($this->response)) return $this;
 
         $data = $this->request->toArray();
+
+        dd($data);
         $vk = 0;
         $userClientArray = [];
         if (!empty($data['userToken'])) {
