@@ -60,7 +60,7 @@ class WorkService extends Service
                     'content' => $userClient->content,
                     'start_date' => $userClient->start_date,
                     'end_date' => $userClient->end_date,
-                    'status' => $status,
+                    'status' => (string)$status,
                     'created_at' => $userClient->created_at,
                     'updated_at' => $userClient->updated_at,
                     'name' => $userToken->name,
