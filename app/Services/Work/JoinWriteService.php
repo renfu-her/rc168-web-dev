@@ -93,7 +93,6 @@ class JoinWriteService extends Service
 
         $data = $this->request->toArray();
 
-        dd($data);
         $vk = 0;
         $userClientArray = [];
         if (!empty($data['userToken'])) {
@@ -145,6 +144,7 @@ class JoinWriteService extends Service
             case 'getAll':
                 $rules = [
                     'userToken' => 'required|string',
+                    'itemId' => 'required|string',
                 ];
                 $data = $this->request->toArray();
                 break;
