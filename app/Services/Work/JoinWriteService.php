@@ -108,7 +108,8 @@ class JoinWriteService extends Service
 
                         $userClientArray[$vk]['status'] = $status;
                         $userClientArray[$vk]['case_client_id'] = $case_client_id;
-                        $userClientArray[$vk]['user_join_id'] = $joinValue->user_join_id;;
+                        $userClientArray[$vk]['user_join_id'] = $joinValue->user_join_id;
+                        $userClientArray[$vk]['name'] = $caseClient->name;
                         $vk++;
                     }
                 }
