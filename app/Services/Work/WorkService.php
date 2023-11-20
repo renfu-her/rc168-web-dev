@@ -39,13 +39,12 @@ class WorkService extends Service
 
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
-                $userClient = CaseClient::where('user_id', $userToken->user_id)
-                    ->where('id', $data['itemId'])
+                $userClient = CaseClient::where('id', $data['itemId'])
                     ->where('status', 1)->first();
 
                 $status = 0;
                 $userJoin = CaseJoin::where('case_client_id', $data['itemId'])->where('status', 1)->first();
-                if(!empty($userJoin)){
+                if (!empty($userJoin)) {
                     $status = 1;
                 }
 
