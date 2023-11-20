@@ -44,7 +44,7 @@ class UserTokenService extends Service
         switch ($method) {
             case 'store':
                 $rules = [
-                    'user_id' => 'required|integer',
+                    'user_id' => 'required|string',
                     'user_token' => 'required|string',
                     'name' => 'required|string',
                     'student_id' => 'required|string',
