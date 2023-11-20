@@ -77,10 +77,10 @@ class CaseClientService extends Service
                 foreach ($userClient as $key => $value) {
                     $userJoin = CaseJoin::where('case_client_id', $value->id)->where('user_id', $userToken->user_id)->first();
                     if (empty($userJoin)) {
-                        $userClientArray[$vk] = $value;
+                        // $userClientArray[$vk] = $value;
                         // $status = (string)$userJoin->status;
                         // $userClientArray[$vk]['status'] = $status;
-                        $vk++;
+                        // $vk++;
                     } else {
                         $userClientArray[$vk] = $value;
                         $status = (string)$userJoin->status;
