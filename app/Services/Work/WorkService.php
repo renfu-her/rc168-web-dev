@@ -62,7 +62,8 @@ class WorkService extends Service
                     'bocoin' => $userToken->bocoin,
                     'student_id' => $userToken->student_id,
                     'expires' => $userToken->expires,
-                    'mobile' => $userClient->mobile
+                    'mobile' => $userClient->mobile,
+                    'pay' => $userClient->pay
                 ];
 
 
