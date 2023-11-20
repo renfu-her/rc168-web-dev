@@ -67,9 +67,9 @@ class JoinWriteService extends Service
         if (!empty($data['userToken'])) {
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
-                $userClient = CaseClient::where('user_id', $userToken->user_id)->where('status', 1)->get();
+                $userClient = CaseClient::where('status', 1)->get();
                 foreach ($userClient as $key => $value) {
-                    $userJoin = CaseJoin::where('case_client_id', $value->id)->first();
+                    $userJoin = CaseJoin::where('case_client_id', $value->id)->where('user_id', $userToken->user_id)->first();
                     if (!empty($userJoin)) {
                         $userClientArray[$vk] = $value;
                         $status = (string)$userJoin->status;
