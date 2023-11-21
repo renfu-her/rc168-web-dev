@@ -16,4 +16,12 @@ class WorkController extends Controller
             ->viewDetail()
             ->getResponse();
     }
+
+    public function doCase(Request $request)
+    {
+        return (new Service($request))
+            ->runValidate('doCase')
+            ->doCase()
+            ->getResponse();
+    }
 }
