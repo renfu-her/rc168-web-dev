@@ -76,6 +76,16 @@ class WorkService extends Service
         return $this;
     }
 
+    // join case status = 1, 2
+    public function doCase()
+    {
+        if (!empty($this->response)) return $this;
+
+        $data = $this->request->toArray();
+
+        dd($data);
+    }
+
     public function runValidate($method)
     {
         switch ($method) {
@@ -89,6 +99,14 @@ class WorkService extends Service
             case 'view':
                 $rules = [
                     'userToken' => 'required|string',
+                ];
+                $data = $this->request->toArray();
+                break;
+            case 'doCase':
+                $rules = [
+                    'userToken' => 'required|string',
+                    'itemId' => 'required|string',
+                    'status' => 'required|string',
                 ];
                 $data = $this->request->toArray();
                 break;

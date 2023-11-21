@@ -25,4 +25,5 @@ Route::group(['prefix' => 'user'], function () {
     });
 
     Route::get('/case-detail', [WorkController::class, 'index'])->name('user.work.index');
+    Route::post('/do-case/{id}', [WorkController::class, 'doCase'])->name('user.work.doCase');
 });
