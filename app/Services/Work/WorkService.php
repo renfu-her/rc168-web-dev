@@ -83,7 +83,20 @@ class WorkService extends Service
 
         $data = $this->request->toArray();
 
-        dd($data);
+        if (!empty($data['userToken'])) {
+
+            $userToken = UserToken::where('user_token', $data['userToken'])->first();
+            if (!empty($userToken)) {
+
+                CaseJoin::where('id', $data['itemId'])->update(['status' => $data['status']]);
+
+                $this->response = Service::response('success', 'OK', []);
+                return $this;
+            }
+        }
+
+        $this->response = Service::response('error', 'userToken has error');
+        return $this;
     }
 
     public function runValidate($method)
