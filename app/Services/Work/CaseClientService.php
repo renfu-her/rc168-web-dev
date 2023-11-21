@@ -104,6 +104,9 @@ class CaseClientService extends Service
         if (!empty($this->response)) return $this;
 
         $data = $this->request->toArray();
+
+        dd($data);
+
         $userClientArray = [];
         $vk = 0;
         $userClient = CaseClient::where('status', 1)->get();
