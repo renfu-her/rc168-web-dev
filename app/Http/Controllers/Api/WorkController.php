@@ -24,4 +24,14 @@ class WorkController extends Controller
             ->doCase()
             ->getResponse();
     }
+
+    public function caseToConfirm(Request $request)
+    {
+        return (new Service($request))
+            ->runValidate('caseToConfirm')
+            ->caseToConfirm()
+            ->getResponse();
+    }
+
+
 }

@@ -47,7 +47,7 @@ class WorkService extends Service
                 if (!empty($userJoin)) {
                     $status = $userJoin->status;
                 }
-                
+
 
                 $data = [
                     'case_id' => $userClient->id,
@@ -100,6 +100,52 @@ class WorkService extends Service
         return $this;
     }
 
+    public function caseToConfirm()
+    {
+        if (!empty($this->response)) return $this;
+
+        $data = $this->request->toArray();
+
+        if (!empty($data['userToken'])) {
+
+            $userToken = UserToken::where('user_token', $data['userToken'])->first();
+            if (!empty($userToken)) {
+
+                $caseJoin = CaseJoin::where('case_client_id', $data['itemId'])->where('status', '>', 0)->orderByDesc('status')->first();
+
+                if (!empty($caseJoin)) {
+
+                    $data = [
+                        'case_id' => $caseJoin->id,
+                        'user_id' => $userToken->user_id,
+                        'title' => $caseJoin->title,
+                        'content' => $caseJoin->content,
+                        'start_date' => $caseJoin->start_date,
+                        'end_date' => $caseJoin->end_date,
+                        'status' => (string)$caseJoin->status,
+                        'created_at' => $caseJoin->created_at,
+                        'updated_at' => $caseJoin->updated_at,
+                        'name' => $userToken->name,
+                        'bocoin' => $userToken->bocoin,
+                        'student_id' => $userToken->student_id,
+                        'expires' => $userToken->expires,
+                        'mobile' => $caseJoin->mobile,
+                        'pay' => $caseJoin->pay
+                    ];
+
+                    $this->response = Service::response('success', 'OK', $data);
+                    return $this;
+                }
+
+                $this->response = Service::response('success', 'OK', []);
+                return $this;
+            }
+        }
+
+        $this->response = Service::response('error', 'userToken has error');
+        return $this;
+    }
+
     public function runValidate($method)
     {
         switch ($method) {
@@ -121,6 +167,13 @@ class WorkService extends Service
                     'userToken' => 'required|string',
                     'itemId' => 'required|string',
                     'status' => 'required|string',
+                ];
+                $data = $this->request->toArray();
+                break;
+            case 'caseToConfirm':
+                $rules = [
+                    'userToken' => 'required|string',
+                    'itemId' => 'required|string',
                 ];
                 $data = $this->request->toArray();
                 break;
