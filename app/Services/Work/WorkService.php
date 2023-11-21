@@ -88,7 +88,7 @@ class WorkService extends Service
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
 
-                CaseJoin::where('id', $data['itemId'])->update(['status' => $data['status']]);
+                CaseJoin::where('case_client_id', $data['itemId'])->update(['status' => $data['status']]);
 
                 $this->response = Service::response('success', 'OK', []);
                 return $this;
