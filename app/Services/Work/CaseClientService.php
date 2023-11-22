@@ -130,7 +130,7 @@ class CaseClientService extends Service
         $data = $this->request->toArray();
 
         dd($data);
-        $caseJoin = CaseJoin::where('id', (int)$data['itemId'])
+        $caseJoin = CaseJoin::where('id', (int)$data['case_id'])
             ->update(['status' => (int)$data['status']]);
 
         $this->response = Service::response('success', 'OK', []);
@@ -170,6 +170,7 @@ class CaseClientService extends Service
                     'userToken' => 'required|string',
                     'itemId' => 'required|string',
                     'status' => 'required|string',
+                    'case_id' => 'required|string',
                 ];
                 $data = $this->request->toArray();
                 break;
