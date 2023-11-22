@@ -131,7 +131,7 @@ class CaseClientService extends Service
 
         $caseJoin = CaseJoin::where('case_client_id', (int)$data['itemId'])->update(['status' => (int)$data['status']]);
 
-        $this->response = Service::response('success', 'OK', $caseJoin);
+        $this->response = Service::response('success', 'OK', []);
         return $this;
     }
 
