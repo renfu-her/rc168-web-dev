@@ -98,24 +98,31 @@ class JoinWriteService extends Service
         if (!empty($data['userToken'])) {
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
-                $userJoin = CaseJoin::where('case_client_id', $data['itemId'])->get();
-                foreach ($userJoin as $joinKey => $joinValue) {
-                    $caseClient = CaseClient::where('id', $joinValue->case_client_id)->first();
-                    if (!empty($caseClient)) {
-                        $userClientArray[$vk] = $caseClient;
-                        $userClientArray[$vk]['id'] = (string)$caseClient->id;
-                        $status = (string)$joinValue->status;
-                        $case_client_id = (string)$joinValue->case_client_id;
 
-                        $userClientArray[$vk]['status'] = $status;
-                        $userClientArray[$vk]['case_client_id'] = $case_client_id;
-                        $userClientArray[$vk]['user_join_id'] = $joinValue->user_join_id;
-                        $userClientArray[$vk]['name'] = $userToken->name;
-                        $vk++;
+                $checkJoinCount = CaseJoin::where('case_client_id', $data['itemId'])->where('status', '>', 0)->count();
+                if ($checkJoinCount == 0) {
+                    $userJoin = CaseJoin::where('case_client_id', $data['itemId'])->get();
+                    foreach ($userJoin as $joinKey => $joinValue) {
+                        $caseClient = CaseClient::where('id', $joinValue->case_client_id)->first();
+                        if (!empty($caseClient)) {
+                            $userClientArray[$vk] = $caseClient;
+                            $userClientArray[$vk]['id'] = (string)$caseClient->id;
+                            $status = (string)$joinValue->status;
+                            $case_client_id = (string)$joinValue->case_client_id;
+
+                            $userClientArray[$vk]['status'] = $status;
+                            $userClientArray[$vk]['case_client_id'] = $case_client_id;
+                            $userClientArray[$vk]['user_join_id'] = $joinValue->user_join_id;
+                            $userClientArray[$vk]['name'] = $userToken->name;
+                            $vk++;
+                        }
                     }
+
+                    $this->response = Service::response('success', 'OK', $userClientArray);
+                    return $this;
                 }
 
-                $this->response = Service::response('success', 'OK', $userClientArray);
+                $this->response = Service::response('success', 'error_status', []);
                 return $this;
             }
         }
