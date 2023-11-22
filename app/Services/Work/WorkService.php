@@ -117,7 +117,6 @@ class WorkService extends Service
                     $joinData = CaseJoin::where('user_id', $userToken['user_id'])->where('case_client_id', $data['itemId'])->where('status', 0)->first();
                     $clientData = CaseClient::where('id', $joinData['case_client_id'])->where('status', 1)->first();
 
-                    dd($joinData, $clientData);
                     $data = [
                         'case_id' => $clientData->id,
                         'user_id' => $userToken->user_id,
