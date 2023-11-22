@@ -119,6 +119,7 @@ class WorkService extends Service
 
                     $data = [
                         'case_id' => $clientData->id,
+                        'join_id' => $joinData->id,
                         'user_id' => $userToken->user_id,
                         'title' => $clientData->title,
                         'content' => $clientData->content,
