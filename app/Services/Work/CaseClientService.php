@@ -129,11 +129,8 @@ class CaseClientService extends Service
 
         $data = $this->request->toArray();
 
-        $userToken = UserToken::where('user_token', $data['userToken'])->first();
-
-        $caseJoin = CaseJoin::where('case_client_id', (int)$data['itemId'])
-                                ->where('user_id', $userToken->user_id)
-                                ->update(['status' => (int)$data['status']]);
+        $caseJoin = CaseJoin::where('id', (int)$data['itemId'])
+            ->update(['status' => (int)$data['status']]);
 
         $this->response = Service::response('success', 'OK', []);
         return $this;
