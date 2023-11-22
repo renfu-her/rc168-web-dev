@@ -169,7 +169,6 @@ class CaseClientService extends Service
                     'itemId' => 'required|string',
                     'status' => 'required|string',
                 ];
-                $data = ['id' => $this->dataId];
                 break;
         }
 
