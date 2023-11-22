@@ -122,6 +122,19 @@ class CaseClientService extends Service
         return $this;
     }
 
+
+    public function setStatus()
+    {
+        if (!empty($this->response)) return $this;
+
+        $data = $this->request->toArray();
+
+        $caseJoin = CaseJoin::where('case_client_id', (int)$data['itemId'])->update(['status' => (int)$data['status']]);
+
+        $this->response = Service::response('success', 'OK', $caseJoin->toArray());
+        return $this;
+    }
+
     public function runValidate($method)
     {
         switch ($method) {
@@ -150,12 +163,14 @@ class CaseClientService extends Service
                 ];
                 $data = $this->request->toArray();
                 break;
-                // case 'destroy':
-                //     $rules = [
-                //         'id' => 'required|exists:kkdays_airport_type_codes,id',
-                //     ];
-                //     $data = ['id' => $this->dataId];
-                //     break;
+            case 'setStatus':
+                $rules = [
+                    'userToken' => 'required|string',
+                    'itemId' => 'required|string',
+                    'status' => 'required|string',
+                ];
+                $data = ['id' => $this->dataId];
+                break;
         }
 
         $this->response = self::validate($data, $rules, $this->changeErrorName);

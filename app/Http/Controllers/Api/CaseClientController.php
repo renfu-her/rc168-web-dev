@@ -35,4 +35,12 @@ class CaseClientController extends Controller
             ->getResponse();
     }
 
+    // set status
+    public function setStatus(Request $request)
+    {
+        return (new Service($request))
+            ->runValidate('setStatus')
+            ->setStatus()
+            ->getResponse();
+    }
 }

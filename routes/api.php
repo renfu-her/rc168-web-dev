@@ -27,4 +27,6 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/case-detail', [WorkController::class, 'index'])->name('user.work.index');
     Route::post('/do-case', [WorkController::class, 'doCase'])->name('user.work.doCase');
     Route::post('/case-to-confirm', [WorkController::class, 'caseToConfirm'])->name('user.work.caseToConfirm');
+
+    Route::post('/set-status', [CaseClientController::class, 'setStatus'])->name('user.client.setStatus');
 });
