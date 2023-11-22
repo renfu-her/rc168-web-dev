@@ -114,24 +114,25 @@ class WorkService extends Service
                 $caseJoin = CaseJoin::where('case_client_id', $data['itemId'])->where('status', '>', 0)->orderByDesc('status')->first();
                 if (empty($caseJoin)) {
 
-                    $joinData = CaseClient::where('user_id', $userToken['user_id'])->where('status', 0)->first();
+                    $joinData = CaseJoin::where('user_id', $userToken['user_id'])->where('status', 0)->first();
+                    $clientData = CaseClient::where('id', $joinData['user_client_id'])->where('status', 1)->first();
 
                     $data = [
-                        'case_id' => $joinData->id,
+                        'case_id' => $clientData->id,
                         'user_id' => $userToken->user_id,
-                        'title' => $joinData->title,
-                        'content' => $joinData->content,
-                        'start_date' => $joinData->start_date,
-                        'end_date' => $joinData->end_date,
+                        'title' => $clientData->title,
+                        'content' => $clientData->content,
+                        'start_date' => $clientData->start_date,
+                        'end_date' => $clientData->end_date,
                         'status' => (string)$joinData->status,
-                        'created_at' => $joinData->created_at,
-                        'updated_at' => $joinData->updated_at,
+                        'created_at' => $clientData->created_at,
+                        'updated_at' => $clientData->updated_at,
                         'name' => $userToken->name,
                         'bocoin' => $userToken->bocoin,
                         'student_id' => $userToken->student_id,
                         'expires' => $userToken->expires,
-                        'mobile' => $joinData->mobile,
-                        'pay' => $joinData->pay
+                        'mobile' => $clientData->mobile,
+                        'pay' => $clientData->pay
                     ];
 
                     $this->response = Service::response('success', 'OK', $data);
