@@ -112,32 +112,33 @@ class WorkService extends Service
             if (!empty($userToken)) {
 
                 $caseJoin = CaseJoin::where('case_client_id', $data['itemId'])->where('status', '>', 0)->orderByDesc('status')->first();
+                if (empty($caseJoin)) {
 
-                if (!empty($caseJoin)) {
+                    $joinData = CaseClient::where('user_id', $userToken['user_id'])->where('status', 0)->first();
 
                     $data = [
-                        'case_id' => $caseJoin->id,
+                        'case_id' => $joinData->id,
                         'user_id' => $userToken->user_id,
-                        'title' => $caseJoin->title,
-                        'content' => $caseJoin->content,
-                        'start_date' => $caseJoin->start_date,
-                        'end_date' => $caseJoin->end_date,
-                        'status' => (string)$caseJoin->status,
-                        'created_at' => $caseJoin->created_at,
-                        'updated_at' => $caseJoin->updated_at,
+                        'title' => $joinData->title,
+                        'content' => $joinData->content,
+                        'start_date' => $joinData->start_date,
+                        'end_date' => $joinData->end_date,
+                        'status' => (string)$joinData->status,
+                        'created_at' => $joinData->created_at,
+                        'updated_at' => $joinData->updated_at,
                         'name' => $userToken->name,
                         'bocoin' => $userToken->bocoin,
                         'student_id' => $userToken->student_id,
                         'expires' => $userToken->expires,
-                        'mobile' => $caseJoin->mobile,
-                        'pay' => $caseJoin->pay
+                        'mobile' => $joinData->mobile,
+                        'pay' => $joinData->pay
                     ];
 
                     $this->response = Service::response('success', 'OK', $data);
                     return $this;
                 }
 
-                $this->response = Service::response('success', 'OK', []);
+                $this->response = Service::response('exists', 'join not found');
                 return $this;
             }
         }
