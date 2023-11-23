@@ -129,10 +129,10 @@ class CaseClientService extends Service
 
         $data = $this->request->toArray();
 
-        dd($data);
-
         $caseJoin = CaseJoin::where('id', (int)$data['join_id'])
             ->update(['status' => (int)$data['status']]);
+
+        dd($data, $caseJoin);
 
         $this->response = Service::response('success', 'OK', []);
         return $this;
