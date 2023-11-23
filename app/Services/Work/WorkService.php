@@ -64,7 +64,8 @@ class WorkService extends Service
                     'student_id' => $userToken->student_id,
                     'expires' => $userToken->expires,
                     'mobile' => $userClient->mobile,
-                    'pay' => $userClient->pay
+                    'pay' => $userClient->pay,
+                    "join_id" => (string)$userClient->id
                 ];
 
 
@@ -89,7 +90,7 @@ class WorkService extends Service
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
 
-                CaseJoin::where('case_client_id', $data['itemId'])->update(['status' => $data['status']]);
+                CaseJoin::where('id', $data['join_id'])->update(['status' => $data['status']]);
 
                 $this->response = Service::response('success', 'OK', []);
                 return $this;
@@ -170,6 +171,7 @@ class WorkService extends Service
                     'userToken' => 'required|string',
                     'itemId' => 'required|string',
                     'status' => 'required|string',
+                    "join_id" => 'required|string',
                 ];
                 $data = $this->request->toArray();
                 break;
