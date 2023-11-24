@@ -21,6 +21,8 @@
         <input type="hidden" name="ChoosePayment" value="{{ $resArray['ChoosePayment'] }}">
         <input type="hidden" name="EncryptType" value="{{ $resArray['EncryptType'] }}">
         <input type="hidden" name="CheckMacValue" value="{{ $resArray['CheckMacValue'] }}">
+        <input type="hidden" name="NeedExtraPaidInfo" value="{{ $resArray['NeedExtraPaidInfo'] }}">
+
     </form>
 
     <script>
