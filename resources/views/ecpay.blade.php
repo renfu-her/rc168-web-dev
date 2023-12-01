@@ -22,12 +22,12 @@
         <input type="hidden" name="EncryptType" value="{{ $resArray['EncryptType'] }}">
         <input type="hidden" name="CheckMacValue" value="{{ $resArray['CheckMacValue'] }}">
         <input type="hidden" name="NeedExtraPaidInfo" value="{{ $resArray['NeedExtraPaidInfo'] }}">
-
+        
     </form>
 
     <script>
         window.addEventListener('load', function() {
-            document.getElementById('ecpay-post').submit();
+            // document.getElementById('ecpay-post').submit();
         });
     </script>
 </body>
