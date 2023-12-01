@@ -22,7 +22,7 @@
         <input type="hidden" name="EncryptType" value="{{ $resArray['EncryptType'] }}">
         <input type="hidden" name="CheckMacValue" value="{{ $resArray['CheckMacValue'] }}">
         <input type="hidden" name="NeedExtraPaidInfo" value="{{ $resArray['NeedExtraPaidInfo'] }}">
-        
+        <button type="submit">Send</button>
     </form>
 
     <script>
