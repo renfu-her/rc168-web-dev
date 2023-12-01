@@ -27,7 +27,7 @@
 
     <script>
         window.addEventListener('load', function() {
-            // document.getElementById('ecpay-post').submit();
+            document.getElementById('ecpay-post').submit();
         });
     </script>
 </body>
