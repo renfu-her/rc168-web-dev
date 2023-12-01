@@ -12,9 +12,9 @@ class EcpayController extends Controller
     public function index(Request $request)
     {
         $res = Http::withoutVerifying()->post('https://api-dev.besttour.com.tw/api/payment/ecpay', [
-            "item_description" => "AAAAAAAAAAAAAKKKK-123團費",
-            "item_name" => "AAAAAAAAAAAAAAAAAAKKKK-123團費",
-            "order_no" => "43210" . date('YmdHis'),
+            "item_description" => "KWL06BR91202A-476002團費",
+            "item_name" => "KWL06BR91202A-476002團費",
+            "order_no" => "476002F",
             "total_amount" => 100,
         ]);
 
