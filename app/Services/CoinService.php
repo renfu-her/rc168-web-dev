@@ -38,7 +38,7 @@ class CoinService extends Service
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
 
-                $coin = UserToken::where('user_token', $userToken)->count('bocoin');
+                $coin = CaseJoin::where('user_id', $userToken->user_id)->where('status', 2)->count('payment');
 
                 $this->response = Service::response('success', 'OK', ['coin' => $coin]);
                 return $this;
