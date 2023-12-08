@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CaseClientController;
 use App\Http\Controllers\Api\CaseJoinController;
 use App\Http\Controllers\Api\WorkController;
 use App\Http\Controllers\Api\JoinWriteController;
+use App\Http\Controllers\Api\CoinController;
 
 Route::post('/user_token/check', [UserTokenController::class, 'store'])->name('user.token.store');
 
@@ -29,4 +30,6 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/case-to-confirm', [WorkController::class, 'caseToConfirm'])->name('user.work.caseToConfirm');
 
     Route::post('/set-status', [CaseClientController::class, 'setStatus'])->name('user.client.setStatus');
+
+    Route::get('/coin', [CoinController::class, 'index']);
 });
