@@ -9,7 +9,7 @@ use App\Http\Controllers\EcpayController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::post('/upload/image', [ImageUploadController::class, 'imageUpload'])->name('image.upload');
-Route::get('/qrcode-scanner', [QRCodeController::class, 'QRCodeScanner'])->name('qrcode.scanner');
+// Route::post('/upload/image', [ImageUploadController::class, 'imageUpload'])->name('image.upload');
+// Route::get('/qrcode-scanner', [QRCodeController::class, 'QRCodeScanner'])->name('qrcode.scanner');
 
 Route::get('/ecpay', [EcpayController::class, 'index']);
