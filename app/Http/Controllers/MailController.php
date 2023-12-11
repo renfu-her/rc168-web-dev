@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\MailService as Service;
 
 use Illuminate\Support\Facades\Mail;
 
