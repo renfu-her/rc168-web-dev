@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Mail;
 
-class MailController extends Controller
+class SendMailController extends Controller
 {
     // index
-    public function index(Request $request)
+    public function send(Request $request)
     {
         $data = [
             'content' => '測試',
