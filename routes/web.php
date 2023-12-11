@@ -6,6 +6,7 @@ use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EcpayController;
+use App\Http\Controllers\MailController;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -13,3 +14,4 @@ Route::get('/', [HomeController::class, 'index']);
 // Route::get('/qrcode-scanner', [QRCodeController::class, 'QRCodeScanner'])->name('qrcode.scanner');
 
 Route::get('/ecpay', [EcpayController::class, 'index']);
+Route::get('/send_mail', [MailController::class, 'index']);
