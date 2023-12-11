@@ -17,7 +17,7 @@ class SendMailController extends Controller
         ];
 
         Mail::send('emails.test', $data, function ($message) use ($data) {
-            $message->to('renfu.her@gmail.com')->subject('測試');
+            $message->to('renfu.her@gmail.com')->subject('測試 ' . date('YmdHis'));
         });
 
         return '';
