@@ -16,8 +16,8 @@ class SendMailController extends Controller
             'content' => '測試',
         ];
 
-        // return Mail::send('emails.test', $data, function ($message) use ($data) {
-        //     $message->to('renfu.her@gmail.com')->subject('測試');
-        // });
+        return Mail::send('emails.test', $data, function ($message) use ($data) {
+            $message->to('renfu.her@gmail.com')->subject('測試');
+        });
     }
 }
