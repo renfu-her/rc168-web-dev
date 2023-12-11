@@ -13,11 +13,13 @@ class SendMailController extends Controller
     public function send(Request $request)
     {
         $data = [
-            'content' => '測試',
+            'content' => '測試 ' . date('YmdHis'),
         ];
 
-        return Mail::send('emails.test', $data, function ($message) use ($data) {
+        Mail::send('emails.test', $data, function ($message) use ($data) {
             $message->to('renfu.her@gmail.com')->subject('測試');
         });
+
+        return '';
     }
 }
