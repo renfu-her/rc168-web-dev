@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\HtmlString;
 
 class SendMailController extends Controller
 {
@@ -13,6 +14,8 @@ class SendMailController extends Controller
     public function send(Request $request)
     {
         $data = $request->all();
+
+        $data['body'] = new HtmlString($data['body']);
 
         Mail::send([], [], function ($message) use ($data) {
             $message
