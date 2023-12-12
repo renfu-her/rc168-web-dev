@@ -15,15 +15,13 @@ class SendMailController extends Controller
     {
         $data = $request->all();
 
-        $body = new HtmlString($data['body']);
-
-        Mail::send([], [], function ($message) use ($data, $body) {
+        Mail::send([], [], function ($message) use ($data) {
             $message
                 ->from($data['from']['email'], $data['from']['name'])
                 ->to($data['to']['email'], $data['to']['name'])
                 ->replyTo($data['reply_to']['email'], $data['reply_to']['name'])
                 ->subject($data['subject'])
-                ->setBody($body, "text/html");
+                ->html($data['body']);
         });
 
         return '';
