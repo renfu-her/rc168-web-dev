@@ -14,7 +14,7 @@ class SendMailController extends Controller
     {
         $data = $request->all();
 
-        Mail::send([], $data, function ($message) use ($data) {
+        Mail::send([], [], function ($message) use ($data) {
             $message
                 ->from($data['from']['email'], $data['from']['name'])
                 ->to($data['to']['email'], $data['to']['name'])
