@@ -20,7 +20,7 @@ class SendMailController extends Controller
                 ->to($data['to']['email'], $data['to']['name'])
                 ->replyTo($data['reply_to']['email'], $data['reply_to']['name'])
                 ->subject($data['subject'])
-                ->setBody($data['body'], "text/html; charset=utf-8");
+                ->setBody($data['body'], "text/html");
         });
 
         return '';
