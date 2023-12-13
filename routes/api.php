@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\CaseJoinController;
 use App\Http\Controllers\Api\WorkController;
 use App\Http\Controllers\Api\JoinWriteController;
 use App\Http\Controllers\Api\CoinController;
+use App\Http\Controllers\Api\UserBonusController;
+
 use App\Http\Controllers\SendMailController;
 
 Route::post('/user_token/check', [UserTokenController::class, 'store'])->name('user.token.store');
@@ -33,6 +35,9 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/set-status', [CaseClientController::class, 'setStatus'])->name('user.client.setStatus');
 
     Route::get('/coin', [CoinController::class, 'index']);
+
+    Route::post('/bonus/save', [UserBonusController::class, 'save']);
+    Route::get('/bonus/getAll', [UserBonusController::class, 'getAll']);
 });
 
 Route::post('/send_mail', [SendMailController::class, 'send']);
