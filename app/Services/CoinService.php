@@ -12,6 +12,7 @@ use Exception;
 use App\Models\CaseClient;
 use App\Models\CaseJoin;
 use App\Models\UserToken;
+use App\Models\UserBonus;
 
 class CoinService extends Service
 {
@@ -39,8 +40,11 @@ class CoinService extends Service
             if (!empty($userToken)) {
 
                 $coin = CaseJoin::where('user_id', $userToken->user_id)->where('status', 2)->sum('payment');
+                $coinDelete = UserBonus::where('user_id', $userToken->user_id)->sum('coins');
 
-                $this->response = Service::response('success', 'OK', ['coin' => $coin]);
+                $coins = $coin - $coinDelete;
+
+                $this->response = Service::response('success', 'OK', ['coin' => $coins]);
                 return $this;
             }
         }
