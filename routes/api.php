@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\WorkController;
 use App\Http\Controllers\Api\JoinWriteController;
 use App\Http\Controllers\Api\CoinController;
 use App\Http\Controllers\Api\UserBonusController;
+use App\Http\Controllers\Api\BonusController;
 
 use App\Http\Controllers\SendMailController;
 
@@ -38,6 +39,9 @@ Route::group(['prefix' => 'user'], function () {
 
     Route::post('/bonus/save', [UserBonusController::class, 'save']);
     Route::get('/bonus/getAll', [UserBonusController::class, 'getAll']);
+
+    Route::get('/bonus', [BonusController::class, 'index']);
+    Route::post('/bonus', [BonusController::class, 'store']);
 });
 
 Route::post('/send_mail', [SendMailController::class, 'send']);

@@ -67,13 +67,9 @@ class UserBonusService extends Service
             $userToken = UserToken::where('user_token', $data['userToken'])->first();
             if (!empty($userToken)) {
 
-                $userBonusArray = [];
-                $vk = 0;
-                $userBonus = UserBonus::where('user_id', 1)->get();
-
+                $userBonus = UserBonus::where('user_id', $userToken->user_id)->get();
 
                 $this->response = Service::response('success', 'OK', $userBonus);
-                
             }
 
             $this->response = Service::response('success', 'OK', []);
