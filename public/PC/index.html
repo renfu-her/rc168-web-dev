@@ -27,11 +27,11 @@
     </div>
     <script>
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/PC.loader.js";
+      var loaderUrl = buildUrl + "/CC.loader.js";
       var config = {
-        dataUrl: buildUrl + "/PC.data",
-        frameworkUrl: buildUrl + "/PC.framework.js",
-        codeUrl: buildUrl + "/PC.wasm",
+        dataUrl: buildUrl + "/CC.data",
+        frameworkUrl: buildUrl + "/CC.framework.js",
+        codeUrl: buildUrl + "/CC.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "My project",
@@ -53,8 +53,8 @@
           mobileWarning.style.display = "none";
         }, 5000);
       } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        canvas.style.width = "900px";
+        canvas.style.height = "1600px";
       }
       loadingBar.style.display = "block";
 
