@@ -21,6 +21,8 @@ class Service
 
     );
     private $user_id;
+    public $api_url = 'https://ocapi.remember1688.com/';
+    public $api_key = 'CNQ4eX5WcbgFQVkBXFKmP9AE2AYUpU2HySz2wFhwCZ3qExG6Tep7ZCSZygwzYfsF';
 
     private $status = [
         1  => 'pending',    // 未處理
@@ -58,6 +60,8 @@ class Service
 
     public function __construct(){
 
+        $api_url = $this->api_url;
+        $api_key = $this->api_key;
 
     }
 

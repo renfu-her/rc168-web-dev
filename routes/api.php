@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\JoinWriteController;
 use App\Http\Controllers\Api\CoinController;
 use App\Http\Controllers\Api\UserBonusController;
 use App\Http\Controllers\Api\BonusController;
+use App\Http\Controllers\Api\ProductDetailController;
 
 use App\Http\Controllers\SendMailController;
 
@@ -45,3 +46,6 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::post('/send_mail', [SendMailController::class, 'send']);
+
+// 另外的 API
+Route::get('/product/detail/{product_id}', [ProductDetailController::class, 'detail']);
