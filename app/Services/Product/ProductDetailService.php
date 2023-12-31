@@ -29,7 +29,9 @@ class ProductDetailService extends Service
         $data = $this->request->toArray();
         
         $productDetail = Http::get($this->api_url . 'index.php?route=extension/module/api/gws_product&product_id=' . $data['id'] . '&api_key=' . $this->api_key);
-        dd($productDetail->json());
+        $this->response = $productDetail->json();
+
+        return $this;
     }
 
 
