@@ -45,8 +45,12 @@ class ProductDetailService extends Service
         $dom = HtmlDomParser::file_get_html($httpHref);
 
         $images = [];
-        foreach ($dom->find('.thumbnail img') as $e) {
-            array_push($images, $e->outertext);
+        foreach ($dom->find('.thumbnail') as $e) {
+            // $imgSrc = str_replace("74x74", "500x400", $e->src);
+            // if(empty($imgSrc)){
+            //     $imgSrc = $e->src;
+            // }
+            array_push($images, $e->href);
         }
 
         // dd($images);
