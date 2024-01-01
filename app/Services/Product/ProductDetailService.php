@@ -33,7 +33,7 @@ class ProductDetailService extends Service
 
         $res = $productDetail->json();
 
-        $this->response = $productDetail->json();
+        $this->response = $productDetail;
 
         return $this;
     }
