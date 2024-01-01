@@ -42,9 +42,10 @@ class ProductDetailService extends Service
         $httpHref = html_entity_decode($prodDetail['href']);
 
         $href = Http::get($httpHref);
+        $hrefStr = html_entity_decode($href->body());
 
         $imgArray = [];
-        $crawler = new Crawler($href->body());
+        $crawler = new Crawler($hrefStr);
         dd($crawler);
         $crawler->filter('.thumbnails img')->each(function (Crawler $node) {
             $imgSrc = $node->attr('src');
