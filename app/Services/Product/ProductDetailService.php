@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use Exception;
 
 use Symfony\Component\DomCrawler\Crawler;
+use voku\helper\HtmlDomParser;
 
 class ProductDetailService extends Service
 {
@@ -41,22 +42,19 @@ class ProductDetailService extends Service
 
         $httpHref = html_entity_decode($prodDetail['href']);
 
-        $href = Http::get($httpHref);
-        $hrefStr = html_entity_decode($href->body());
+        $dom = HtmlDomParser::file_get_html($httpHref);
 
-        $imgArray = [];
-        $crawler = new Crawler($hrefStr);
-        dd($crawler);
-        $crawler->filter('.thumbnails img')->each(function (Crawler $node) {
-            $imgSrc = $node->attr('src');
-            $imgArray[] = $imgSrc;
-        });
+        $images = [];
+        foreach ($dom->find('.thumbnail img') as $e) {
+            array_push($images, $e->outertext);
+        }
 
-        dd($imgArray);
+        // dd($images);
 
-        // $http = Http::get($productDetail);
-
-        $this->response = Service::response('success', 'OK', $productDetail->json());
+        $result = $prodDetail;
+        $result['images'] = $images;
+        
+        $this->response = Service::response('success', 'OK', $result);
 
         return $this;
     }
