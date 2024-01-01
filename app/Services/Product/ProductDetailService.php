@@ -23,7 +23,6 @@ class ProductDetailService extends Service
         $this->request = collect($request);
     }
 
-    // TODO: 產品明細
     public function detail()
     {
 
@@ -31,9 +30,11 @@ class ProductDetailService extends Service
         
         $productDetail = Http::get($this->api_url . 'index.php?route=extension/module/api/gws_product&product_id=' . $data['id'] . '&api_key=' . $this->api_key);
 
-        $res = $productDetail->json();
+        // $res = $productDetail->json();
 
-        $this->response = $productDetail;
+        // $http = Http::get($productDetail);
+
+        $this->response = Service::response('success', 'OK', $productDetail->json());
 
         return $this;
     }
