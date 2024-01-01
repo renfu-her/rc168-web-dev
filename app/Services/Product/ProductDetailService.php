@@ -45,6 +45,7 @@ class ProductDetailService extends Service
 
         $imgArray = [];
         $crawler = new Crawler($href->body());
+        dd($crawler);
         $crawler->filter('.thumbnails img')->each(function (Crawler $node) {
             $imgSrc = $node->attr('src');
             $imgArray[] = $imgSrc;
