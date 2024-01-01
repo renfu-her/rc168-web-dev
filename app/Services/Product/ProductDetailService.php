@@ -30,7 +30,7 @@ class ProductDetailService extends Service
     {
 
         $data = $this->request->toArray();
-        
+
         $productDetail = Http::get($this->api_url . 'index.php?route=extension/module/api/gws_product&product_id=' . $data['id'] . '&api_key=' . $this->api_key);
 
         $res = $productDetail->body();
@@ -41,11 +41,11 @@ class ProductDetailService extends Service
 
         $httpHref = html_entity_decode($prodDetail['href']);
 
-        $href = Http::get($httpHref);
-        $hrefStr = html_entity_decode($href->body());
+        // $href = Http::get($httpHref);
+        // $hrefStr = html_entity_decode($href->body());
 
         $imgArray = [];
-        $crawler = new Crawler($hrefStr);
+        $crawler = new Crawler($httpHref);
         dd($crawler);
         $crawler->filter('.thumbnails img')->each(function (Crawler $node) {
             $imgSrc = $node->attr('src');
@@ -53,7 +53,7 @@ class ProductDetailService extends Service
         });
 
         dd($imgArray);
-          
+
         // $http = Http::get($productDetail);
 
         $this->response = Service::response('success', 'OK', $productDetail->json());
