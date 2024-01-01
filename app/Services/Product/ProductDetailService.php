@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Carbon;
 use Exception;
 
+use Symfony\Component\DomCrawler\Crawler;
+
 class ProductDetailService extends Service
 {
     use RulesTrait;
@@ -35,7 +37,19 @@ class ProductDetailService extends Service
 
         $res = json_decode($res, true);
 
-        dd($res);
+        $prodDetail = $res['product'][0];
+
+        $httpHref = html_entity_decode($prodDetail['href']);
+
+        $imgArray = [];
+        $crawler = new Crawler($httpHref);
+        $crawler->filter('.thumbnails img')->each(function (Crawler $node) {
+            $imgSrc = $node->attr('src');
+            $imgArray[] = $imgSrc;
+        });
+
+        dd($imgArray);
+          
         // $http = Http::get($productDetail);
 
         $this->response = Service::response('success', 'OK', $productDetail->json());
