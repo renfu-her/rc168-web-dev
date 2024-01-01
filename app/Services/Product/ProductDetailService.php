@@ -33,6 +33,8 @@ class ProductDetailService extends Service
 
         $res = $productDetail->body();
 
+        $res = json_decode($res, true);
+
         dd($res);
         // $http = Http::get($productDetail);
 
