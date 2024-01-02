@@ -73,8 +73,7 @@ class ProductDetailService extends Service
 
         $res = json_decode($res, true);
 
-        dd($res);
-        $description = $res['description'];
+        $description = $res['product'][0]['description'];
 
         dd($description);
 
