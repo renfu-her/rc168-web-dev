@@ -10,8 +10,6 @@ class ProductDetailController extends Controller
     public function detail(Request $request, $id)
     {
 
-        dd($id);
-
         return (new Service($request, $id))
                 ->detail()
                 ->getResponse();
