@@ -75,7 +75,7 @@ class ProductDetailService extends Service
 
         $description = $res['product'][0]['description'];
 
-        $this->response = response()->json($description);
+        $this->response = Service::response('success', 'OK', $description);
 
         return $this;
 
