@@ -75,7 +75,9 @@ class ProductDetailService extends Service
 
         $description = $res['product'][0]['description'];
 
-        dd($description);
+        $this->response = response()->json($description);
+
+        return $this;
 
     }
 
