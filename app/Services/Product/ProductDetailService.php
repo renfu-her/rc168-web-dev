@@ -57,10 +57,26 @@ class ProductDetailService extends Service
 
         $result = $prodDetail;
         $result['images'] = $images;
-        
+
         $this->response = Service::response('success', 'OK', $result);
 
         return $this;
+    }
+
+    public function getContent()
+    {
+        $data = $this->request->toArray();
+
+        $productDetail = Http::get($this->api_url . 'index.php?route=extension/module/api/gws_product&product_id=' . $data['id'] . '&api_key=' . $this->api_key);
+
+        $res = $productDetail->body();
+
+        $res = json_decode($res, true);
+
+        $description = $res['description'];
+
+        dd($description);
+
     }
 
 

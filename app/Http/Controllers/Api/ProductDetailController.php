@@ -7,10 +7,18 @@ use App\Services\Product\ProductDetailService as Service;
 class ProductDetailController extends Controller
 {
     // index
-    public function detail(Request $request)
+    public function detail(Request $request, $id)
     {
-        return (new Service($request))
+        return (new Service($request, $id))
                 ->detail()
+                ->getResponse();
+    }
+
+    //TODO: 抓取內容
+    public function getContent(Request $request, $id)
+    {
+        return (new Service($request, $id))
+                ->getContent()
                 ->getResponse();
     }
     

@@ -48,4 +48,5 @@ Route::group(['prefix' => 'user'], function () {
 Route::post('/send_mail', [SendMailController::class, 'send']);
 
 // 另外的 API
-Route::get('/product/detail', [ProductDetailController::class, 'detail']);
+Route::get('/product/detail/{id}', [ProductDetailController::class, 'detail']);
+Route::get('/product/detail/content/{id}', [ProductDetailController::class, 'getContent']);
