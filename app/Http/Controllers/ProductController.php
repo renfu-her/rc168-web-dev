@@ -15,8 +15,6 @@ class ProductController extends Controller
         $result = $res->body();
 
         $result = json_decode($result, true);
-
-        dd($result);
         
         return view('productContent', compact('result'));
     }
