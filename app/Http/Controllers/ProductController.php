@@ -13,6 +13,10 @@ class ProductController extends Controller
         $res = Http::withoutVerifying()->get(config('app.url') . '/api/product/detail/content/' . $product_id);
 
         $result = $res->body();
+
+        $result = json_decode($result, true);
+
+        dd($result);
         
         return view('productContent', compact('result'));
     }
