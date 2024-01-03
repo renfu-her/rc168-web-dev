@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    {{ $result['data'] }}
+    {!! $result['data'] !!}
 </body>
 </html>
