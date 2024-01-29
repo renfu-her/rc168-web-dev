@@ -85,18 +85,18 @@ class ProductDetailService extends Service
         $data = $this->request->toArray();
 
         $address = Http::get($this->api_url . '/gws_customer_address&customer_id=' . $data['customer'][0]['customer_id'] . '&address_id=' . $data['address_id'] . '&api_key=' . $this->api_key);
-        $addressData = $address->json()['customer_address'][0];
+        $addressData = $address->json()['customer_address'];
 
         $customer = Http::get($this->api_url . '/gws_customer&customer_id=' . $data['customer'][0]['customer_id'] . '&api_key=' . $this->api_key);
         $customerData = $customer->json()['customer'];
 
         $submitData = [
-            'customer[customer_id]' => $customerData['customer_id'],
+            'customer[customer_id]' => $customerData[0]['customer_id'],
             'customer[customer_group_id]' => 1,
-            'customer[firstname]' => $customerData['firstname'],
-            'customer[lastname]' => $customerData['lastname'],
-            'customer[email]' => $customerData['email'],
-            'customer[telephone]' => $customerData['telephone'],
+            'customer[firstname]' => $customerData[0]['firstname'],
+            'customer[lastname]' => $customerData[0]['lastname'],
+            'customer[email]' => $customerData[0]['email'],
+            'customer[telephone]' => $customerData[0]['telephone'],
         ];
 
 
