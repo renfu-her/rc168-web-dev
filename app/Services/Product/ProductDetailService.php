@@ -78,14 +78,13 @@ class ProductDetailService extends Service
         $this->response = Service::response('success', 'OK', $description);
 
         return $this;
-
     }
 
     public function setOrder()
     {
         $data = $this->request->toArray();
 
-        dd($data);
+        $this->response = Service::response('success', 'OK', $data);
 
         return $this;
     }
