@@ -81,6 +81,15 @@ class ProductDetailService extends Service
 
     }
 
+    public function setOrder()
+    {
+        $data = $this->request->toArray();
+
+        dd($data);
+
+        return $this;
+    }
+
 
 
     public function runValidate($method)

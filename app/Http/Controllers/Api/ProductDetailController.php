@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Product\ProductDetailService as Service;
+
 class ProductDetailController extends Controller
 {
     // index
@@ -11,16 +13,23 @@ class ProductDetailController extends Controller
     {
 
         return (new Service($request, $id))
-                ->detail()
-                ->getResponse();
+            ->detail()
+            ->getResponse();
     }
 
     //TODO: 抓取內容
     public function getContent(Request $request, $id)
     {
         return (new Service($request, $id))
-                ->getContent()
-                ->getResponse();
+            ->getContent()
+            ->getResponse();
     }
-    
+
+    //TODO: 發送 order
+    public function setOrder(Request $request)
+    {
+        return (new Service($request))
+            ->setOrder()
+            ->getResponse();
+    }
 }
