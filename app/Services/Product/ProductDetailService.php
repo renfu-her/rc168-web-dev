@@ -90,7 +90,7 @@ class ProductDetailService extends Service
         $customer = Http::get($this->api_url . '/gws_customer&customer_id=' . $data['customer'][0]['customer_id'] . '&api_key=' . $this->api_key);
         $customerData = $customer->json()['customer'];
 
-        dd($data['customer'][0]['customer_id']);
+        // dd($data['customer'][0]['customer_id']);
 
         $submitData = [
             'customer[customer_id]' => $customerData[0]['customer_id'],
