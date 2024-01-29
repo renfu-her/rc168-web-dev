@@ -85,7 +85,7 @@ class ProductDetailService extends Service
         $data = $this->request->toArray();
 
         $address = Http::get($this->api_url . '/gws_customer_address&customer_id=' . $data['customer'][0]['customer_id'] . '&address_id=' . $data['address_id'] . '&api_key=' . $this->api_key);
-        $addressData = $address->json()['customer_address'];
+        $addressData = $address->json()['customer_address'][0];
 
         $customer = Http::get($this->api_url . '/gws_customer&customer_id=' . $data['customer'][0]['customer_id'] . '&api_key=' . $this->api_key);
         $customerData = $customer->json()['customer'];
