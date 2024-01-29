@@ -50,4 +50,4 @@ Route::post('/send_mail', [SendMailController::class, 'send']);
 // 另外的 API
 Route::get('/product/detail/{id}', [ProductDetailController::class, 'detail']);
 Route::get('/product/detail/content/{id}', [ProductDetailController::class, 'getContent']);
-Route::get('/product/submit', [ProductDetailController::class, 'setOrder']);
+Route::post('/product/submit', [ProductDetailController::class, 'setOrder']);
