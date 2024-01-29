@@ -32,7 +32,7 @@ class ProductDetailService extends Service
 
         $data = $this->request->toArray();
 
-        $productDetail = Http::get($this->api_url . 'index.php?route=extension/module/api/gws_product&product_id=' . $this->dataId . '&api_key=' . $this->api_key);
+        $productDetail = Http::get($this->api_url . '/gws_product&product_id=' . $this->dataId . '&api_key=' . $this->api_key);
 
         $res = $productDetail->body();
 
@@ -67,7 +67,7 @@ class ProductDetailService extends Service
     {
         $data = $this->request->toArray();
 
-        $productDetail = Http::get($this->api_url . 'index.php?route=extension/module/api/gws_product&product_id=' . $this->dataId . '&api_key=' . $this->api_key);
+        $productDetail = Http::get($this->api_url . '/gws_product&product_id=' . $this->dataId . '&api_key=' . $this->api_key);
 
         $res = $productDetail->body();
 
@@ -84,7 +84,23 @@ class ProductDetailService extends Service
     {
         $data = $this->request->toArray();
 
-        $this->response = Service::response('success', 'OK', $data);
+        $address = Http::get($this->api_url . '/gws_customer_address&customer_id=' . $data['customer']['customer_id'] . '&address_id=' . $data['address_id'] . '&api_key=' . $this->api_key);
+        $addressData = $address->json()['order'];
+
+        $customer = Http::get($this->api_url . '/gws_customer&customer_id=' . $data['customer']['customer_id'] . '&api_key=' . $this->api_key);
+        $customerData = $customer->json()['customer'];
+
+        $submitData = [
+            'customer[customer_id]' => $customerData['customer_id'],
+            'customer[customer_group_id]' => 1,
+            'customer[firstname]' => $customerData['firstname'],
+            'customer[lastname]' => $customerData['lastname'],
+            'customer[email]' => $customerData['email'],
+            'customer[telephone]' => $customerData['telephone'],
+        ];
+
+
+        $this->response = Service::response('success', 'OK', $submitData);
 
         return $this;
     }
