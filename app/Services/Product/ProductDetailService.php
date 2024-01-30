@@ -92,7 +92,7 @@ class ProductDetailService extends Service
 
         $customer = Http::get($this->api_url . '/gws_customer&customer_id=' . $customerId . '&api_key=' . $this->api_key);
         $customerData = $customer->json()['customer'];
-        dd($addressData);
+
         $countryId = $addressData[0]['country_id'];
         $zoneId = $addressData[0]['zone_id'];
 
@@ -115,7 +115,7 @@ class ProductDetailService extends Service
             'payment_address[city]' => $customerData[0]['city'],
             'payment_address[postcode]' => $customerData[0]['postcode'],
             'payment_address[country_id]' => $countryId,
-            'payment_address[zone_id]' => $customerData[0]['zone_id']
+            'payment_address[zone_id]' => $zoneId
 
             // "address_id": "94",
             // "customer_id": "180",
