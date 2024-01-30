@@ -101,6 +101,9 @@ class ProductDetailService extends Service
         $submitData = [
             'customer' => [
                 'customer_id' => $customerId,
+                'customer_group_id' => 1,
+                'firstname' => 1,
+
             ],
             'customer[customer_group_id]' => 1,
             'customer[firstname]' => $customerData[0]['firstname'],
@@ -182,7 +185,7 @@ class ProductDetailService extends Service
             'Content-Type' => 'application/x-www-form-urlencoded',
         ];
 
-        $result = Http::withHeaders($headers)
+        $result = Http::withOptions(['debug' => true])->withHeaders($headers)
             ->post($this->api_url . '/gws_customer_order/add&country_id=' . $countryId . '&api_key=' . $this->api_key, $submitData);
         dd($result->json(), $submitData);
 
