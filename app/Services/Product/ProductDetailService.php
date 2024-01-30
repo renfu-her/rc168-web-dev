@@ -105,7 +105,7 @@ class ProductDetailService extends Service
             'customer[lastname]' => $customerData[0]['lastname'],
             'customer[email]' => $customerData[0]['email'],
             'customer[telephone]' => $customerData[0]['telephone'],
-            'customer[custom_field]' => '',
+            'customer[custom_field[1]]' => '711',
             'customer[fax]' => $customerData[0]['fax'],
 
             // payment_address
