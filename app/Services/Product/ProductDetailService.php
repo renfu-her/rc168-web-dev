@@ -105,7 +105,7 @@ class ProductDetailService extends Service
             'customer[lastname]' => $customerData[0]['lastname'],
             'customer[email]' => $customerData[0]['email'],
             'customer[telephone]' => $customerData[0]['telephone'],
-            'customer[custom_field[1]]' => '711',
+            'customer[custom_field]' => '711',
             'customer[fax]' => $customerData[0]['fax'],
 
             // payment_address
@@ -118,6 +118,7 @@ class ProductDetailService extends Service
             'payment_address[postcode]' => $addressData[0]['postcode'],
             'payment_address[country_id]' => $countryId,
             'payment_address[zone_id]' => $zoneId,
+            'payment_address[custom_field]' => '711',
 
             'payment_method[title]' => "LINE Pay",
             'payment_method[code]' => "linepay_sainent",
@@ -133,6 +134,7 @@ class ProductDetailService extends Service
             'shipping_address[country_id]' => $countryId,
             'shipping_address[zone_id]' => $zoneId,
             'shipping_address[address_format]' => $addressData[0]['address_1'],
+            'shipping_address[custom_field]' => '711',
         ];
 
 
