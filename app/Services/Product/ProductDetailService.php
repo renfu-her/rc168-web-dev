@@ -118,6 +118,7 @@ class ProductDetailService extends Service
             'payment_address[postcode]' => $addressData[0]['postcode'],
             'payment_address[country_id]' => $countryId,
             'payment_address[zone_id]' => $zoneId,
+            'payment_address[address_format]' => $addressData[0]['address_1'],
             'payment_method[title]' => "運費",
             'payment_method[code]' => "flat.flat",
 
@@ -130,7 +131,8 @@ class ProductDetailService extends Service
             'shippig_address[city]' => $addressData[0]['city'],
             'shippig_address[postcode]' => $addressData[0]['postcode'],
             'shippig_address[country_id]' => $countryId,
-            'shippig_address[zone_id]' => $zoneId
+            'shippig_address[zone_id]' => $zoneId,
+            'shipping_address[address_format]' => $addressData[0]['address_1'],
         ];
 
 
