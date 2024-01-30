@@ -167,7 +167,7 @@ class ProductDetailService extends Service
         $submitData['total'] = $total;
         $submitData["totals[0]['code']"] = "sub_total";
         $submitData["totals[0]['title']"] = "Sub-Total";
-        $submitData["totals[0]['value']"] = "1250";
+        $submitData["totals[0]['value']"] = $total;
         $submitData["totals[0]['sort_order']"] = "1";
 
         // shipping_method
