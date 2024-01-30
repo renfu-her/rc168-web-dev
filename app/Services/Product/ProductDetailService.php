@@ -122,13 +122,13 @@ class ProductDetailService extends Service
         // country name
         $country = Http::get($this->api_url . '/gws_country&country_id=' . $countryId . '&api_key=' . $this->api_key);
         $countryData = $country->json()['country'];
-        array_push($submitData, ["payment_address['country']" => $countryData[0]['name']]);
+        $submitData["payment_address['country']"] = $countryData[0]['name'];
 
         $zone = Http::get($this->api_url . '/gws_zone&country_id=' . $countryId . '&api_key=' . $this->api_key);
         $zoneData = $zone->json()['zones'];
         foreach ($zoneData as $value) {
             if ($value['zone_id'] == $zoneId) {
-                array_push($submitData, ["payment_address['zone']" => $value['name']]);
+                $submitData["payment_address['zone']"] = $value['name'];
             }
         }
 
