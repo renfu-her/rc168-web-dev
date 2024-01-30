@@ -118,7 +118,7 @@ class ProductDetailService extends Service
             'payment_address[postcode]' => $addressData[0]['postcode'],
             'payment_address[country_id]' => $countryId,
             'payment_address[zone_id]' => $zoneId,
-            
+
             // shipping_address
             'shipping_address[firstname]' => $customerData[0]['firstname'],
             'shipping_address[lastname]' => $customerData[0]['lastname'],
@@ -148,9 +148,30 @@ class ProductDetailService extends Service
         }
 
         // product array
-        foreach($data['products'] as $value){
-            $submitData["payment_address['country']"] = $value['product_id'];
+        $total = 0;
+        foreach ($data['products'] as $key => $value) {
+            $submitData["products[" . $key . "]['product_id']"] = $value['product_id'];
+            $submitData["products[" . $key . "]['model']"] = $value['product_id'];
+            $submitData["products[" . $key . "]['name']"] = $value['name'];
+            $submitData["products[" . $key . "]['quantity']"] = $value['quantity'];
+            $submitData["products[" . $key . "]['price']"] = $value['price'];
+            $submitData["products[" . $key . "]['total']"] = $value['total'];
+            $submitData["products[" . $key . "]['tax_class_id']"] = 9;
+
+            $submitData["products[" . $key . "]['download']"] = $value['download'];
+            $submitData["products[" . $key . "]['subtract']"] = 1;
+            $submitData["products[" . $key . "]['reward']"] = 0;
+            $total += $value['total'];
         }
+
+        $submitData['total'] = $total;
+        $submitData["totals[0]['code']"] = "sub_total";
+        $submitData["totals[0]['title']"] = "Sub-Total";
+        $submitData["totals[0]['value']"] = "1250";
+        $submitData["totals[0]['sort_order']"] = "1";
+
+        $result = Http::asForm()
+            ->post($this->api_url . '/gws_customer_order/add&country_id=' . $countryId . '&api_key=' . $this->api_key, $submitData);
 
         $this->response = Service::response('success', 'OK', $submitData);
 
