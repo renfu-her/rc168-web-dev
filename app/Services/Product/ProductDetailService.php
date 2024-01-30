@@ -119,8 +119,8 @@ class ProductDetailService extends Service
             'payment_address[country_id]' => $countryId,
             'payment_address[zone_id]' => $zoneId,
 
-            'payment_method[title]' => "運費",
-            'payment_method[code]' => "flat.flat",
+            'payment_method[title]' => "LINE Pay",
+            'payment_method[code]' => "linepay_sainent",
 
             // shipping_address
             'shipping_address[firstname]' => $customerData[0]['firstname'],
@@ -178,8 +178,8 @@ class ProductDetailService extends Service
         $submitData["totals[0][sort_order]"] = "1";
 
         // shipping_method
-        $submitData["shipping_method[title]"] = "LINE Pay";
-        $submitData["shipping_method[code]"] = "linepay_sainent";
+        $submitData["shipping_method[title]"] = "運費";
+        $submitData["shipping_method[code]"] = "flat.flat";
 
 
         $result = Http::asForm()
