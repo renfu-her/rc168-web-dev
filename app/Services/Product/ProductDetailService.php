@@ -110,9 +110,9 @@ class ProductDetailService extends Service
             'payment_address[firstname]' => $customerData[0]['firstname'],
             'payment_address[lastname]' => $customerData[0]['lastname'],
             'payment_address[company]' => '',
-            'payment_address[address_1]' => $customerData[0]['address_1'],
-            'payment_address[address_2]' => $customerData[0]['address_2'],
-            'payment_address[city]' => $customerData[0]['city'],
+            'payment_address[address_1]' => $addressData[0]['address_1'],
+            'payment_address[address_2]' => $addressData[0]['address_2'],
+            'payment_address[city]' => $addressData[0]['city'],
             'payment_address[postcode]' => $customerData[0]['postcode'],
             'payment_address[country_id]' => $countryId,
             'payment_address[zone_id]' => $zoneId
