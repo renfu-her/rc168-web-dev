@@ -180,7 +180,7 @@ class ProductDetailService extends Service
 
         $result = Http::asForm()->withHeaders($headers)
             ->post($this->api_url . '/gws_customer_order/add&country_id=' . $countryId . '&api_key=' . $this->api_key, $submitData);
-        dd($result);
+        dd($result->json());
 
         $this->response = Service::response('success', 'OK', $submitData);
 
