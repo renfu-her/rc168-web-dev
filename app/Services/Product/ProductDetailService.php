@@ -84,23 +84,70 @@ class ProductDetailService extends Service
     {
         $data = $this->request->toArray();
 
-        $address = Http::get($this->api_url . '/gws_customer_address&customer_id=' . $data['customer'][0]['customer_id'] . '&address_id=' . $data['address_id'] . '&api_key=' . $this->api_key);
+        $addressId = $data['address_id'];
+        $customerId = $data['customer'][0]['customer_id'];
+
+        $address = Http::get($this->api_url . '/gws_customer_address&customer_id=' . $customerId . '&address_id=' . $addressId . '&api_key=' . $this->api_key);
         $addressData = $address->json()['customer_address'];
 
-        $customer = Http::get($this->api_url . '/gws_customer&customer_id=' . $data['customer'][0]['customer_id'] . '&api_key=' . $this->api_key);
+        $customer = Http::get($this->api_url . '/gws_customer&customer_id=' . $customerId . '&api_key=' . $this->api_key);
         $customerData = $customer->json()['customer'];
+
+        $countryId = $customerData[0]['country_id'];
+        $zoneId = $customerData[0]['zone_id'];
 
         // dd($data['customer'][0]['customer_id']);
 
         $submitData = [
-            'customer[customer_id]' => $customerData[0]['customer_id'],
+            'customer[customer_id]' => $customerId,
             'customer[customer_group_id]' => 1,
             'customer[firstname]' => $customerData[0]['firstname'],
             'customer[lastname]' => $customerData[0]['lastname'],
             'customer[email]' => $customerData[0]['email'],
             'customer[telephone]' => $customerData[0]['telephone'],
+            'customer[custom_field]' => '',
+            'customer[fax]' => $customerData[0]['fax'],
+            'payment_address[firstname]' => $customerData[0]['firstname'],
+            'payment_address[lastname]' => $customerData[0]['lastname'],
+            'payment_address[company]' => '',
+            'payment_address[address_1]' => $customerData[0]['address_1'],
+            'payment_address[address_2]' => $customerData[0]['address_2'],
+            'payment_address[city]' => $customerData[0]['city'],
+            'payment_address[postcode]' => $customerData[0]['postcode'],
+            'payment_address[country_id]' => $countryId,
+            'payment_address[zone_id]' => $customerData[0]['zone_id']
+
+            // "address_id": "94",
+            // "customer_id": "180",
+            // "firstname": "her",
+            // "lastname": "patrick",
+            // "company": "",
+            // "address_1": "address",
+            // "address_2": "",
+            // "city": "test city",
+            // "postcode": "30000",
+            // "country_id": "223",
+            // "zone_id": "3625",
+
         ];
 
+
+        // country name
+        $country = Http::get($this->api_url . '/gws_country&country_id=' . $countryId . '&api_key=' . $this->api_key);
+        $countryData = $country->json()['country'];
+        array_push($submitData, ["payment_address['country']" => $countryData[0]['name']]);
+
+        $zone = Http::get($this->api_url . '/gws_zone&country_id=' . $countryId . '&api_key=' . $this->api_key);
+        $zoneData = $zone->json()['zones'];
+        foreach ($zoneData as $value) {
+            if ($value['zone_id'] == $zoneId) {
+                array_push($submitData, ["payment_address['zone']" => $value['name']]);
+            }
+        }
+
+
+
+        // zone name
 
         $this->response = Service::response('success', 'OK', $submitData);
 
