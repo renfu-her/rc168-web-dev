@@ -100,8 +100,8 @@ class ProductDetailService extends Service
 
         $submitData = [
             'customer' => [
-                'customer_id' => $customerId,
-                'customer_group_id' => 1,
+                'customer_id' => (string)$customerId,
+                'customer_group_id' => (string)1,
                 'firstname' => $customerData[0]['firstname'],
                 'lastname' => $customerData[0]['lastname'],
                 'email' => $customerData[0]['email'],
@@ -158,24 +158,24 @@ class ProductDetailService extends Service
         $total = 0;
         foreach ($data['products'] as $key => $value) {
             $submitData["products"] = [
-                'product_id' => $value['product_id'],
-                'model' => $value['product_id'],
+                'product_id' => (string)$value['product_id'],
+                'model' => (string)$value['product_id'],
                 'name' => $value['name'],
-                'quantity' => $value['quantity'],
-                'price' => $value['price'],
-                'total' => $value['total'],
-                'tax_class_id' => 9,
+                'quantity' => (string)$value['quantity'],
+                'price' => (string)$value['price'],
+                'total' => (string)$value['total'],
+                'tax_class_id' => (string)9,
                 'download' => '',
-                'subtract' => 1,
-                'reward' => 0
+                'subtract' => (string)1,
+                'reward' => (string)0
             ];
             $total += $value['total'];
         }
 
-        $submitData['total'] = $total;
+        $submitData['total'] = (string)$total;
         $submitData["totals[0]['code']"] = "sub_total";
         $submitData["totals[0]['title']"] = "Sub-Total";
-        $submitData["totals[0]['value']"] = $total;
+        $submitData["totals[0]['value']"] = (string)$total;
         $submitData["totals[0]['sort_order']"] = "1";
 
         // shipping_method
