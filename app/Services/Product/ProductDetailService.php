@@ -157,7 +157,7 @@ class ProductDetailService extends Service
         // product array
         $total = 0;
         foreach ($data['products'] as $key => $value) {
-            $submitData["products[" . $key . "]"] = [
+            $submitData["products"] = [
                 'product_id' => $value['product_id'],
                 'model' => $value['product_id'],
                 'name' => $value['name'],
