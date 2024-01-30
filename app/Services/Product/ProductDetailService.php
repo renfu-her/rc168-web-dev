@@ -118,7 +118,7 @@ class ProductDetailService extends Service
             'payment_address[postcode]' => $addressData[0]['postcode'],
             'payment_address[country_id]' => $countryId,
             'payment_address[zone_id]' => $zoneId,
-            
+
             'payment_method[title]' => "運費",
             'payment_method[code]' => "flat.flat",
 
@@ -184,9 +184,8 @@ class ProductDetailService extends Service
 
         $result = Http::asForm()
             ->post($this->api_url . '/gws_customer_order/add&customer_id=' . $customerId . '&api_key=' . $this->api_key, $submitData);
-        dd($result->json(), $submitData);
 
-        $this->response = Service::response('success', 'OK', $submitData);
+        $this->response = Service::response('success', 'OK', $result->json());
 
         return $this;
     }
