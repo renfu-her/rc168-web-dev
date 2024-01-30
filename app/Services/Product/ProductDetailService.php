@@ -125,13 +125,13 @@ class ProductDetailService extends Service
             // shipping_address
             'shipping_address[firstname]' => $customerData[0]['firstname'],
             'shipping_address[lastname]' => $customerData[0]['lastname'],
-            'shippig_address[company]' => '',
-            'shippig_address[address_1]' => $addressData[0]['address_1'],
-            'shippig_address[address_2]' => $addressData[0]['address_2'],
-            'shippig_address[city]' => $addressData[0]['city'],
-            'shippig_address[postcode]' => $addressData[0]['postcode'],
-            'shippig_address[country_id]' => $countryId,
-            'shippig_address[zone_id]' => $zoneId,
+            'shipping_address[company]' => '',
+            'shipping_address[address_1]' => $addressData[0]['address_1'],
+            'shipping_address[address_2]' => $addressData[0]['address_2'],
+            'shipping_address[city]' => $addressData[0]['city'],
+            'shipping_address[postcode]' => $addressData[0]['postcode'],
+            'shipping_address[country_id]' => $countryId,
+            'shipping_address[zone_id]' => $zoneId,
             'shipping_address[address_format]' => $addressData[0]['address_1'],
         ];
 
@@ -140,14 +140,14 @@ class ProductDetailService extends Service
         $country = Http::get($this->api_url . '/gws_country&country_id=' . $countryId . '&api_key=' . $this->api_key);
         $countryData = $country->json()['country'];
         $submitData["payment_address['country']"] = $countryData[0]['name'];
-        $submitData["shippig_address['country']"] = $countryData[0]['name'];
+        $submitData["shipping_address['country']"] = $countryData[0]['name'];
 
         $zone = Http::get($this->api_url . '/gws_zone&country_id=' . $countryId . '&api_key=' . $this->api_key);
         $zoneData = $zone->json()['zones'];
         foreach ($zoneData as $value) {
             if ($value['zone_id'] == $zoneId) {
                 $submitData["payment_address['zone']"] = $value['name'];
-                $submitData["shippig_address['zone']"] = $value['name'];
+                $submitData["shipping_address['zone']"] = $value['name'];
             }
         }
 
