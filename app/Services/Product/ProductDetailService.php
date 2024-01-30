@@ -118,7 +118,7 @@ class ProductDetailService extends Service
             'payment_address[postcode]' => $addressData[0]['postcode'],
             'payment_address[country_id]' => $countryId,
             'payment_address[zone_id]' => $zoneId,
-            'payment_address[address_format]' => $addressData[0]['address_1'],
+            
             'payment_method[title]' => "運費",
             'payment_method[code]' => "flat.flat",
 
@@ -150,6 +150,9 @@ class ProductDetailService extends Service
                 $submitData["shipping_address[zone]"] = $value['name'];
             }
         }
+
+        $submitData['payment_address[address_format]'] = $addressData[0]['postcode'] . ' ' . $countryData[0]['name'] . $submitData["payment_address[zone]"] . $addressData[0]['address_1'];
+        $submitData['shipping_address[address_format]'] = $addressData[0]['postcode'] . ' ' . $countryData[0]['name'] . $submitData["payment_address[zone]"] . $addressData[0]['address_1'];
 
         // product array
         $total = 0;
