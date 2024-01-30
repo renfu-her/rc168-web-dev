@@ -107,6 +107,8 @@ class ProductDetailService extends Service
             'customer[telephone]' => $customerData[0]['telephone'],
             'customer[custom_field]' => '',
             'customer[fax]' => $customerData[0]['fax'],
+
+            // payment_address
             'payment_address[firstname]' => $customerData[0]['firstname'],
             'payment_address[lastname]' => $customerData[0]['lastname'],
             'payment_address[company]' => '',
@@ -115,7 +117,18 @@ class ProductDetailService extends Service
             'payment_address[city]' => $addressData[0]['city'],
             'payment_address[postcode]' => $addressData[0]['postcode'],
             'payment_address[country_id]' => $countryId,
-            'payment_address[zone_id]' => $zoneId
+            'payment_address[zone_id]' => $zoneId,
+            
+            // shipping_address
+            'shipping_address[firstname]' => $customerData[0]['firstname'],
+            'shipping_address[lastname]' => $customerData[0]['lastname'],
+            'shippig_address[company]' => '',
+            'shippig_address[address_1]' => $addressData[0]['address_1'],
+            'shippig_address[address_2]' => $addressData[0]['address_2'],
+            'shippig_address[city]' => $addressData[0]['city'],
+            'shippig_address[postcode]' => $addressData[0]['postcode'],
+            'shippig_address[country_id]' => $countryId,
+            'shippig_address[zone_id]' => $zoneId
         ];
 
 
@@ -123,18 +136,21 @@ class ProductDetailService extends Service
         $country = Http::get($this->api_url . '/gws_country&country_id=' . $countryId . '&api_key=' . $this->api_key);
         $countryData = $country->json()['country'];
         $submitData["payment_address['country']"] = $countryData[0]['name'];
+        $submitData["shippig_address['country']"] = $countryData[0]['name'];
 
         $zone = Http::get($this->api_url . '/gws_zone&country_id=' . $countryId . '&api_key=' . $this->api_key);
         $zoneData = $zone->json()['zones'];
         foreach ($zoneData as $value) {
             if ($value['zone_id'] == $zoneId) {
                 $submitData["payment_address['zone']"] = $value['name'];
+                $submitData["shippig_address['zone']"] = $value['name'];
             }
         }
 
-
-
-        // zone name
+        // product array
+        foreach($data['products'] as $value){
+            $submitData["payment_address['country']"] = $value['product_id'];
+        }
 
         $this->response = Service::response('success', 'OK', $submitData);
 
