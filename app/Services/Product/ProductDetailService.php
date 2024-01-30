@@ -109,64 +109,65 @@ class ProductDetailService extends Service
                 'telephone' => $customerData[0]['telephone'],
                 'custom_field' => '',
                 'fax' => $customerData[0]['fax'],
-
+            ],
+            'payment' => [
+                'firstname' => $customerData[0]['firstname'],
+                'lastname' => $customerData[0]['lastname'],
+                'country' => '',
+                'address_1' => $customerData[0]['address_1'],
+                'address_2' => $customerData[0]['address_2'],
+                'city' => $customerData[0]['city'],
+                'postcode' => $addressData[0]['postcode'],
+                'country_id' => $addressData[0]['country_id'],
+                'zone_id' => $addressData[0]['zone_id'],
+            ],
+            'payment_method' => [
+                'title' => '運費',
+                'code' => 'flat.flat'
+            ],
+            'shipping_address' => [
+                'firstname' => $customerData[0]['firstname'],
+                'lastnamme' => $customerData[0]['lastname'],
+                'company' => '',
+                'city' => $addressData[0]['city'],
+                'postcode' => $addressData[0]['postcode'],
+                'country_id' => $addressData[0]['country_id'],
+                'zone_id' => $addressData[0]['zone_id'],
             ],
 
-            // payment_address
-            'payment_address[firstname]' => $customerData[0]['firstname'],
-            'payment_address[lastname]' => $customerData[0]['lastname'],
-            'payment_address[company]' => '',
-            'payment_address[address_1]' => $addressData[0]['address_1'],
-            'payment_address[address_2]' => $addressData[0]['address_2'],
-            'payment_address[city]' => $addressData[0]['city'],
-            'payment_address[postcode]' => $addressData[0]['postcode'],
-            'payment_address[country_id]' => $countryId,
-            'payment_address[zone_id]' => $zoneId,
-            'payment_method[title]' => "運費",
-            'payment_method[code]' => "flat.flat",
-
-            // shipping_address
-            'shipping_address[firstname]' => $customerData[0]['firstname'],
-            'shipping_address[lastname]' => $customerData[0]['lastname'],
-            'shippig_address[company]' => '',
-            'shippig_address[address_1]' => $addressData[0]['address_1'],
-            'shippig_address[address_2]' => $addressData[0]['address_2'],
-            'shippig_address[city]' => $addressData[0]['city'],
-            'shippig_address[postcode]' => $addressData[0]['postcode'],
-            'shippig_address[country_id]' => $countryId,
-            'shippig_address[zone_id]' => $zoneId
         ];
 
 
         // country name
         $country = Http::get($this->api_url . '/gws_country&country_id=' . $countryId . '&api_key=' . $this->api_key);
         $countryData = $country->json()['country'];
-        $submitData["payment_address['country']"] = $countryData[0]['name'];
-        $submitData["shippig_address['country']"] = $countryData[0]['name'];
+        $submitData["payment_address[country]"] = $countryData[0]['name'];
+        $submitData["shippig_address[country]"] = $countryData[0]['name'];
 
         $zone = Http::get($this->api_url . '/gws_zone&country_id=' . $countryId . '&api_key=' . $this->api_key);
         $zoneData = $zone->json()['zones'];
         foreach ($zoneData as $value) {
             if ($value['zone_id'] == $zoneId) {
-                $submitData["payment_address['zone']"] = $value['name'];
-                $submitData["shippig_address['zone']"] = $value['name'];
+                $submitData["payment_address[zone]"] = $value['name'];
+                $submitData["shippig_address[zone]"] = $value['name'];
             }
         }
 
         // product array
         $total = 0;
         foreach ($data['products'] as $key => $value) {
-            $submitData["products[" . $key . "]['product_id']"] = $value['product_id'];
-            $submitData["products[" . $key . "]['model']"] = $value['product_id'];
-            $submitData["products[" . $key . "]['name']"] = $value['name'];
-            $submitData["products[" . $key . "]['quantity']"] = $value['quantity'];
-            $submitData["products[" . $key . "]['price']"] = $value['price'];
-            $submitData["products[" . $key . "]['total']"] = $value['total'];
-            $submitData["products[" . $key . "]['tax_class_id']"] = 9;
-
-            $submitData["products[" . $key . "]['download']"] = '';
-            $submitData["products[" . $key . "]['subtract']"] = 1;
-            $submitData["products[" . $key . "]['reward']"] = 0;
+            $submitData["products[" . $key . "]"] = [
+                'product_id' => $value['product_id'],
+                'model' => $value['product_id'],
+                'name' => $value['name'],
+                'quantity' => $value['quantity'],
+                'price' => $value['price'],
+                'total' => $value['total'],
+                'tax_class_id' => 9,
+                'download' => '',
+                'subtract' => 1,
+                'reward' => 0
+            ];
             $total += $value['total'];
         }
 
