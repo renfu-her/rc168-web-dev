@@ -119,14 +119,14 @@ class ProductDetailService extends Service
                 'postcode' => $addressData[0]['postcode'],
                 'country_id' => $addressData[0]['country_id'],
                 'zone_id' => $addressData[0]['zone_id'],
-                'address_form' => $addressData[0]['address']
+                'address_form' => $addressData[0]['address_1']
             ],
             'payment_method' => [
                 'title' => '運費',
                 'code' => 'flat.flat'
             ],
             'shipping_address' => [
-                'address_form' => $addressData[0]['address'],
+                'address_form' => $addressData[0]['address_1'],
                 'firstname' => $customerData[0]['firstname'],
                 'lastnamme' => $customerData[0]['lastname'],
                 'company' => '',
