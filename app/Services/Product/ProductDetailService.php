@@ -170,6 +170,10 @@ class ProductDetailService extends Service
         $submitData["totals[0]['value']"] = "1250";
         $submitData["totals[0]['sort_order']"] = "1";
 
+        // shipping_method
+        $submitData["shipping_method['title']"] = "LINE Pay";
+        $submitData["shipping_method['code']"] = "linepay_sainent";
+
         $result = Http::asForm()
             ->post($this->api_url . '/gws_customer_order/add&country_id=' . $countryId . '&api_key=' . $this->api_key, $submitData);
 
