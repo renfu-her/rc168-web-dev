@@ -103,15 +103,14 @@ class ProductDetailService extends Service
                 'customer_id' => $customerId,
                 'customer_group_id' => 1,
                 'firstname' => $customerData[0]['firstname'],
+                'firstname' => $customerData[0]['firstname'],
+                'lastname' => $customerData[0]['lastname'],
+                'email' => $customerData[0]['email'],
+                'telephone' => $customerData[0]['telephone'],
+                'custom_field' => '',
+                'fax' => $customerData[0]['fax'],
 
             ],
-            'customer[customer_group_id]' => 1,
-            'customer[firstname]' => $customerData[0]['firstname'],
-            'customer[lastname]' => $customerData[0]['lastname'],
-            'customer[email]' => $customerData[0]['email'],
-            'customer[telephone]' => $customerData[0]['telephone'],
-            'customer[custom_field]' => '',
-            'customer[fax]' => $customerData[0]['fax'],
 
             // payment_address
             'payment_address[firstname]' => $customerData[0]['firstname'],
