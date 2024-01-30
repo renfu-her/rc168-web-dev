@@ -99,7 +99,9 @@ class ProductDetailService extends Service
         // dd($data['customer'][0]['customer_id']);
 
         $submitData = [
-            'customer[customer_id]' => $customerId,
+            'customer' => [
+                'customer_id' => $customerId,
+            ],
             'customer[customer_group_id]' => 1,
             'customer[firstname]' => $customerData[0]['firstname'],
             'customer[lastname]' => $customerData[0]['lastname'],
