@@ -175,12 +175,12 @@ class ProductDetailService extends Service
         $submitData["shipping_method['code']"] = "linepay_sainent";
 
         $headers = [
-            'Content-Type' => 'application/x-www-form-urlencoded',
+            'Content-Type' => 'application/form-data',
         ];
 
         $result = Http::asForm()->withHeaders($headers)
             ->post($this->api_url . '/gws_customer_order/add&country_id=' . $countryId . '&api_key=' . $this->api_key, $submitData);
-        dd($result->json());
+        dd($result->json(), $submitData);
 
         $this->response = Service::response('success', 'OK', $submitData);
 
