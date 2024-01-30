@@ -103,7 +103,6 @@ class ProductDetailService extends Service
                 'customer_id' => $customerId,
                 'customer_group_id' => 1,
                 'firstname' => $customerData[0]['firstname'],
-                'firstname' => $customerData[0]['firstname'],
                 'lastname' => $customerData[0]['lastname'],
                 'email' => $customerData[0]['email'],
                 'telephone' => $customerData[0]['telephone'],
@@ -111,21 +110,23 @@ class ProductDetailService extends Service
                 'fax' => $customerData[0]['fax'],
             ],
             'payment' => [
-                'firstname' => $customerData[0]['firstname'],
-                'lastname' => $customerData[0]['lastname'],
+                'firstname' => $addressData[0]['firstname'],
+                'lastname' => $addressData[0]['lastname'],
                 'country' => '',
-                'address_1' => $customerData[0]['address_1'],
-                'address_2' => $customerData[0]['address_2'],
-                'city' => $customerData[0]['city'],
+                'address_1' => $addressData[0]['address_1'],
+                'address_2' => $addressData[0]['address_2'],
+                'city' => $addressData[0]['city'],
                 'postcode' => $addressData[0]['postcode'],
                 'country_id' => $addressData[0]['country_id'],
                 'zone_id' => $addressData[0]['zone_id'],
+                'address_form' => $addressData[0]['address']
             ],
             'payment_method' => [
                 'title' => '運費',
                 'code' => 'flat.flat'
             ],
             'shipping_address' => [
+                'address_form' => $addressData[0]['address'],
                 'firstname' => $customerData[0]['firstname'],
                 'lastnamme' => $customerData[0]['lastname'],
                 'company' => '',
