@@ -154,17 +154,17 @@ class ProductDetailService extends Service
         // product array
         $total = 0;
         foreach ($data['products'] as $key => $value) {
-            $submitData["products[" . $key . "]['product_id']"] = $value['product_id'];
-            $submitData["products[" . $key . "]['model']"] = $value['product_id'];
-            $submitData["products[" . $key . "]['name']"] = $value['name'];
-            $submitData["products[" . $key . "]['quantity']"] = $value['quantity'];
-            $submitData["products[" . $key . "]['price']"] = $value['price'];
-            $submitData["products[" . $key . "]['total']"] = $value['total'];
-            $submitData["products[" . $key . "]['tax_class_id']"] = 9;
+            $submitData["products[" . $key . "][product_id]"] = $value['product_id'];
+            $submitData["products[" . $key . "][model]"] = $value['name'];
+            $submitData["products[" . $key . "][name]"] = $value['name'];
+            $submitData["products[" . $key . "][quantity]"] = $value['quantity'];
+            $submitData["products[" . $key . "][price]"] = $value['price'];
+            $submitData["products[" . $key . "][total]"] = $value['total'];
+            $submitData["products[" . $key . "][tax_class_id]"] = 9;
 
-            $submitData["products[" . $key . "]['download']"] = '';
-            $submitData["products[" . $key . "]['subtract']"] = 1;
-            $submitData["products[" . $key . "]['reward']"] = 0;
+            $submitData["products[" . $key . "][download]"] = '';
+            $submitData["products[" . $key . "][subtract]"] = 1;
+            $submitData["products[" . $key . "][reward]"] = 0;
             $total += $value['total'];
         }
 
