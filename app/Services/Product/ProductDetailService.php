@@ -139,15 +139,15 @@ class ProductDetailService extends Service
         // country name
         $country = Http::get($this->api_url . '/gws_country&country_id=' . $countryId . '&api_key=' . $this->api_key);
         $countryData = $country->json()['country'];
-        $submitData["payment_address['country']"] = $countryData[0]['name'];
-        $submitData["shipping_address['country']"] = $countryData[0]['name'];
+        $submitData["payment_address[country]"] = $countryData[0]['name'];
+        $submitData["shipping_address[country]"] = $countryData[0]['name'];
 
         $zone = Http::get($this->api_url . '/gws_zone&country_id=' . $countryId . '&api_key=' . $this->api_key);
         $zoneData = $zone->json()['zones'];
         foreach ($zoneData as $value) {
             if ($value['zone_id'] == $zoneId) {
-                $submitData["payment_address['zone']"] = $value['name'];
-                $submitData["shipping_address['zone']"] = $value['name'];
+                $submitData["payment_address[zone]"] = $value['name'];
+                $submitData["shipping_address[zone]"] = $value['name'];
             }
         }
 
@@ -169,14 +169,14 @@ class ProductDetailService extends Service
         }
 
         $submitData['total'] = $total;
-        $submitData["totals[0]['code']"] = "sub_total";
-        $submitData["totals[0]['title']"] = "Sub-Total";
-        $submitData["totals[0]['value']"] = $total;
-        $submitData["totals[0]['sort_order']"] = "1";
+        $submitData["totals[0][code]"] = "sub_total";
+        $submitData["totals[0][title]"] = "Sub-Total";
+        $submitData["totals[0][value]"] = $total;
+        $submitData["totals[0][sort_order]"] = "1";
 
         // shipping_method
-        $submitData["shipping_method['title']"] = "LINE Pay";
-        $submitData["shipping_method['code']"] = "linepay_sainent";
+        $submitData["shipping_method[title]"] = "LINE Pay";
+        $submitData["shipping_method[code]"] = "linepay_sainent";
 
 
         $result = Http::asForm()
