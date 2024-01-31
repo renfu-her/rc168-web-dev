@@ -33,7 +33,7 @@
             console.log('PDF loaded');
 
             // Fetch the first page
-            var pageNumber = 1;
+            var pageNumber = 2;
             pdf.getPage(pageNumber).then(function(page) {
                 console.log('Page loaded');
 
@@ -63,11 +63,6 @@
             console.error(reason);
         });
     </script>
-
-    <h1>PDF.js 'Hello, base64!' example</h1>
-
-    <p>Please use <a href="https://mozilla.github.io/pdf.js/getting_started/#download"><i>official releases</i></a> in
-        production environments.</p>
 
     <canvas id="the-canvas"></canvas>
 </body>
