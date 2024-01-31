@@ -16,7 +16,7 @@
     <script type="module">
         // If absolute URL from the remote server is provided, configure the CORS
         // header on that server.
-        var url = '{{ asset('pdf/Eg01.pdf') }}';
+        var url = '{{ asset('pdf/TOM05BR240131AJ.pdf') }}';
 
         // Loaded via <script> tag, create shortcut to access PDF.js exports.
 
