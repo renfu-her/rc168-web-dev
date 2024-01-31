@@ -23,6 +23,6 @@ route::get('/product/content/{id}', [ProductController::class, 'content']);
 
 route::post('/test/url', [TestController::class, 'url']);
 
-route::get('/pdf', function(){
+route::get('/test/pdf', function(){
     return view('pdf');
 });
