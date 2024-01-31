@@ -7,10 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PDF</title>
 
-    <script src="{{ asset('js/pdf.mjs') }}" type="module"></script>
+    <script src="//mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
 </head>
 
 <body>
+
 
     <script type="module">
         // If absolute URL from the remote server is provided, configure the CORS
