@@ -44,9 +44,15 @@
             pageRendering = true;
             // Using promise to fetch the page
             pdfDoc.getPage(num).then(function(page) {
-                var viewport = page.getViewport({
-                    scale: scale
+                let viewport = page.getViewport({
+                    scale: 1
                 });
+                const container = canvas.parentElement;
+                const scale = container.clientWidth / viewport.width;
+                viewport = page.getViewport({
+                    scale
+                });
+
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
 
@@ -117,6 +123,12 @@
 
             // Initial/first page rendering
             renderPage(pageNum);
+        });
+
+        window.addEventListener('resize', () => {
+            if (pdfDoc) {
+                renderPage(pageNum);
+            }
         });
     </script>
 
