@@ -45,8 +45,6 @@ class ProductPaymentController extends Controller
             'userId' => $customerId
         ];
 
-        dd($formData);
-
         return $this->checkout->setPostData($formData);
     }
 }
