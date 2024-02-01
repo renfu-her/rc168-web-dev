@@ -40,9 +40,9 @@ class ProductPaymentController extends Controller
 
         $formData = [
             'ItemDescription' => $itemDescription,
-            'items' => $items,
-            'paymentMethod' => 'Credit',
-            'userId' => $customerId
+            'Items' => $items,
+            'PaymentMethod' => 'Credit',
+            'UserId' => $customerId
         ];
 
         return $this->checkout->setPostData($formData)->send();
