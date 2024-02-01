@@ -25,7 +25,7 @@ class ProductPaymentController extends Controller
 
         $data = json_decode($content, true);
         
-        $addressId = $data['address_id'];
+        // $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
 
         $items = [];
