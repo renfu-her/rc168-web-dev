@@ -42,6 +42,7 @@ class ProductPaymentController extends Controller
             'ItemDescription' => $itemDescription,
             'Items' => $items,
             'PaymentMethod' => 'Credit',
+            'TotalAmount' => $total,
             'UserId' => $customerId
         ];
 
