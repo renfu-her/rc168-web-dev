@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Carbon;
 use Exception;
 
+use TsaiYiHua\ECPay\Checkout;
 use Symfony\Component\DomCrawler\Crawler;
 use voku\helper\HtmlDomParser;
 
@@ -120,8 +121,6 @@ class ProductDetailService extends Service
             'payment_address[zone_id]' => $zoneId,
             'payment_address[custom_field][1]' => '711',
 
-            'payment_method[title]' => "LINE Pay",
-            'payment_method[code]' => "linepay_sainent",
 
             // shipping_address
             'shipping_address[firstname]' => $customerData[0]['firstname'],
@@ -156,6 +155,19 @@ class ProductDetailService extends Service
         $submitData['payment_address[address_format]'] = $addressData[0]['postcode'] . ' ' . $countryData[0]['name'] . $submitData["payment_address[zone]"] . $addressData[0]['address_1'];
         $submitData['shipping_address[address_format]'] = $addressData[0]['postcode'] . ' ' . $countryData[0]['name'] . $submitData["payment_address[zone]"] . $addressData[0]['address_1'];
 
+        // payment
+        $payment_method = $data['payment_method'];
+        if ($payment_method == 'linepay_sainent') {
+            $submitData['payment_method[title]'] = "LINE Pay";
+            $submitData['payment_method[code]'] = "linepay_sainent";
+        } elseif ($payment_method == 'ecpaypayment') {
+            $submitData['payment_method[title]'] = "線上刷卡";
+            $submitData['payment_method[code]'] = "ecpaypayment";
+        } else {
+            $submitData['payment_method[title]'] = "銀行轉帳";
+            $submitData['payment_method[code]'] = "bank_transfer";
+        }
+
         // product array
         $total = 0;
         foreach ($data['products'] as $key => $value) {
@@ -186,12 +198,19 @@ class ProductDetailService extends Service
         $result = Http::asForm()
             ->post($this->api_url . '/gws_customer_order/add&customer_id=' . $customerId . '&api_key=' . $this->api_key, $submitData);
 
+
         $this->response = Service::response('success', 'OK', $result->json());
 
         return $this;
     }
 
+    public function setEcpay()
+    {
 
+        $data = $this->request->toArray();
+
+ 
+    }
 
     public function runValidate($method)
     {

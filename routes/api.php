@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\CoinController;
 use App\Http\Controllers\Api\UserBonusController;
 use App\Http\Controllers\Api\BonusController;
 use App\Http\Controllers\Api\ProductDetailController;
+use App\Http\Controllers\Api\ProductPaymentController;
 
 use App\Http\Controllers\SendMailController;
 
@@ -51,3 +52,4 @@ Route::post('/send_mail', [SendMailController::class, 'send']);
 Route::get('/product/detail/{id}', [ProductDetailController::class, 'detail']);
 Route::get('/product/detail/content/{id}', [ProductDetailController::class, 'getContent']);
 Route::post('/product/submit', [ProductDetailController::class, 'setOrder']);
+Route::post('/product/payment', [ProductPaymentController::class, 'index']);

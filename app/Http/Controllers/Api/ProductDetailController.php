@@ -32,4 +32,5 @@ class ProductDetailController extends Controller
             ->setOrder()
             ->getResponse();
     }
+
 }
