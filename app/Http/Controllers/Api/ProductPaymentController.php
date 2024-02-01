@@ -19,13 +19,12 @@ class ProductPaymentController extends Controller
     public function payment(Request $request)
     {
 
-        $data = $request->all();
+        $req = $request->all();
 
-        $content = Storage::disk('public')->get( $data['customerId'] . '.txt');
+        $content = Storage::disk('public')->get( $req['customerId'] . '.txt');
 
-
-        dd($content);
-
+        $data = json_decode($content, true);
+        
         $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
 
