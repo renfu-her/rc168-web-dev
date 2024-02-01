@@ -39,7 +39,7 @@ class ProductPaymentController extends Controller
 
 
         $formData = [
-            'itemDescription' => $itemDescription,
+            'ItemDescription' => $itemDescription,
             'items' => $items,
             'paymentMethod' => 'Credit',
             'userId' => $customerId
