@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use TsaiYiHua\ECPay\Checkout;
+use Illuminate\Support\Facades\Storage;
 
 class ProductPaymentController extends Controller
 {
@@ -19,6 +20,11 @@ class ProductPaymentController extends Controller
     {
 
         $data = $request->all();
+
+        $content = Storage::disk('public')->get( $data['customerId'] . '.txt');
+
+
+        dd($content);
 
         $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];

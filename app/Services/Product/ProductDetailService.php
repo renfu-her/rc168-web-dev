@@ -12,6 +12,7 @@ use Exception;
 use TsaiYiHua\ECPay\Checkout;
 use Symfony\Component\DomCrawler\Crawler;
 use voku\helper\HtmlDomParser;
+use Illuminate\Support\Facades\Storage;
 
 class ProductDetailService extends Service
 {
@@ -195,6 +196,9 @@ class ProductDetailService extends Service
         $submitData["shipping_method[code]"] = "flat.flat";
 
 
+
+        Storage::disk('public')->put( $customerId . '.txt', $submitData);
+
         $result = Http::asForm()
             ->post($this->api_url . '/gws_customer_order/add&customer_id=' . $customerId . '&api_key=' . $this->api_key, $submitData);
 
@@ -204,13 +208,6 @@ class ProductDetailService extends Service
         return $this;
     }
 
-    public function setEcpay()
-    {
-
-        $data = $this->request->toArray();
-
- 
-    }
 
     public function runValidate($method)
     {
