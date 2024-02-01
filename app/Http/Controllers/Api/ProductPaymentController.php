@@ -20,8 +20,6 @@ class ProductPaymentController extends Controller
 
         $data = $request->all();
 
-        dd($data);
-
         $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
 
@@ -46,6 +44,8 @@ class ProductPaymentController extends Controller
             'paymentMethod' => 'Credit',
             'userId' => $customerId
         ];
+
+        dd($formData);
 
         return $this->checkout->setPostData($formData);
     }
