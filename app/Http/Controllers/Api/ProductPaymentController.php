@@ -61,4 +61,19 @@ class ProductPaymentController extends Controller
 
         return $this->checkout->setPostData($formData)->send();
     }
+
+    // 付款結果
+    public function paymentResult(Request $request)
+    {
+
+        $data = $request->all();
+
+        if($data['RtnMsg'] == 'Success'){
+            $msg = '付款已經完成';
+        } else {
+            $msg = '付款失敗';
+        }
+
+        return view('paymentSuccess', compact('msg', 'data'));
+    }
 }

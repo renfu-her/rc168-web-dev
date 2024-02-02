@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\ProductPaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\QRCodeController;
@@ -21,6 +21,4 @@ route::post('/upload/image', [ImageUploadController::class, 'imageUpload'])->nam
 
 route::get('/product/content/{id}', [ProductController::class, 'content']);
 
-route::post('/ecpay/return', function () {
-    return view('paymentSuccess');
-})->name('ecpay.return');
+route::post('/ecpay/return', [ProductPaymentController::class, 'paymentResult'])->name('ecpay.return');
