@@ -42,6 +42,8 @@ class ProductPaymentController extends Controller
             $total += $value['total'];
         }
 
+        $total += $data['shipping_cost'];
+
 
         $formData = [
             'ItemDescription' => $itemDescription,
