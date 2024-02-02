@@ -15,7 +15,7 @@
     <div class="container">
         <div class="d-flex justify-content-center align-items-center" style="width: 100%; height: 100%">
             <div class="col-12 text-center" style="margin-top: 250px">
-                @if ($data['RtnMsg'] == 'Success')
+                @if ($data['RtnCode'] == 1)
                     <h4 style="color: blue">{{ $msg }}</h4>
                 @else
                     <h4 style="color: red">{{ $msg }}</h4>
