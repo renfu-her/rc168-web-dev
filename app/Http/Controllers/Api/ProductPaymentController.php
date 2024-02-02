@@ -21,7 +21,7 @@ class ProductPaymentController extends Controller
 
         $req = $request->all();
 
-        $content = Storage::disk('public')->get( $req['customerId'] . '.txt');
+        $content = Storage::disk('public')->get($req['customerId'] . '.txt');
 
         $data = json_decode($content, true);
 
@@ -42,9 +42,14 @@ class ProductPaymentController extends Controller
             $total += $value['total'];
         }
 
-        dd($data);
-        $total += $data['shipping_cost'];
-
+        if (empty($data['shipping_cost'])) {
+            $items[count($data['products']) + 1] = [
+                'name' => '運費',
+                'qty' => 1,
+                'unit' => '件',
+                'price' => $data['shipping_cost'],
+            ];
+        }
 
         $formData = [
             'ItemDescription' => $itemDescription,
