@@ -42,7 +42,7 @@ class ProductPaymentController extends Controller
             $total += $value['total'];
         }
 
-        if (empty($data['shipping_cost'])) {
+        if (!empty($data['shipping_cost'])) {
             $items[count($data['products']) + 1] = [
                 'name' => '運費',
                 'qty' => 1,
