@@ -35,10 +35,8 @@ class ProductPaymentController extends Controller
     }
 
     // ecpay
-    public function ecpay(Request $request)
+    public function ecpay(Request $request, $data)
     {
-
-        $data = $request->all();
 
         // $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
@@ -78,10 +76,9 @@ class ProductPaymentController extends Controller
     }
 
     // line pay
-    public function linepay(Request $request)
+    public function linepay(Request $request, $data)
     {
 
-        $data = $request->all();
 
         dd($data);
     }
