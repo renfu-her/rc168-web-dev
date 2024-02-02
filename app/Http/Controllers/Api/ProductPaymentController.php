@@ -25,8 +25,6 @@ class ProductPaymentController extends Controller
 
         $data = json_decode($content, true);
 
-        dd(env('ECPAY_MERCHANT_ID'));
-
         // $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
 
@@ -51,7 +49,6 @@ class ProductPaymentController extends Controller
             'PaymentMethod' => 'Credit',
             'TotalAmount' => $total,
             'UserId' => $customerId,
-            'MerchantID' => env('ECPAY_MERCHANT_ID'),
         ];
 
         return $this->checkout->setPostData($formData)->send();
