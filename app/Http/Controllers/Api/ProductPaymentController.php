@@ -51,8 +51,6 @@ class ProductPaymentController extends Controller
             ];
         }
 
-        dd($items);
-
         $formData = [
             'ItemDescription' => $itemDescription,
             'Items' => $items,
