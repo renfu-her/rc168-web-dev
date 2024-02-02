@@ -74,6 +74,6 @@ class ProductPaymentController extends Controller
             $msg = '付款失敗';
         }
 
-        return view('paymentSuccess', compact('msg', 'data'));
+        return view('paymentResult', compact('msg', 'data'));
     }
 }
