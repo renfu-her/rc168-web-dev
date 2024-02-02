@@ -13,11 +13,13 @@
 <body>
 
     <div class="container">
-        <div class="col-12 text-center h-100">
-            <h2>付款完成，請回上一頁</h2>
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-12 text-center">
+                <h4 style="color: blue">付款已經完成</h4>
+            </div>
         </div>
-
     </div>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
