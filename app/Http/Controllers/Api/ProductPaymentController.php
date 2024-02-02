@@ -68,6 +68,8 @@ class ProductPaymentController extends Controller
 
         $data = $request->all();
 
+        dd($data);
+
         if($data['RtnMsg'] == 'Success'){
             $msg = '付款已經完成';
         } else {
