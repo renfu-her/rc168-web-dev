@@ -26,9 +26,9 @@ class ProductPaymentController extends Controller
         $data = json_decode($content, true);
 
         if($data['payment_method'] == 'ecpaypayment'){
-            $this->ecpay($data);
+            return $this->ecpay($data);
         } elseif($data['payment_method'] == 'linepay_sainent'){
-            $this->linepay($data);
+            return $this->linepay($data);
         }
 
         
@@ -71,8 +71,6 @@ class ProductPaymentController extends Controller
             'UserId' => $customerId,
             'OrderResultURL' => env('APP_URL') . '/payment/success',
         ];
-
-        dd($formData);
 
         return $this->checkout->setPostData($formData)->send();
     }
