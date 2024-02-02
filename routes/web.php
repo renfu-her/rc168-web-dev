@@ -21,4 +21,6 @@ route::post('/upload/image', [ImageUploadController::class, 'imageUpload'])->nam
 
 route::get('/product/content/{id}', [ProductController::class, 'content']);
 
-
+route::get('/payment/success', function () {
+    return view('paymentSuccess');
+});

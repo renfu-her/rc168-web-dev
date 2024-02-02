@@ -56,6 +56,7 @@ class ProductPaymentController extends Controller
             'Items' => $items,
             'PaymentMethod' => 'Credit',
             'UserId' => $customerId,
+            'OrderResultURL' => env('APP_URL') . '/payment/success',
         ];
 
         return $this->checkout->setPostData($formData)->send();
