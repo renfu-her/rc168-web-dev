@@ -14,7 +14,7 @@
 
     <div class="container">
         <div class="d-flex justify-content-center align-items-center" style="width: 100%; height: 100%">
-            <div class="col-12 text-center">
+            <div class="col-12 text-center" style="margin-top: 45%">
                 <h4 style="color: blue">付款已經完成</h4>
             </div>
         </div>
