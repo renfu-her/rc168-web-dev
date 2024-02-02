@@ -77,8 +77,6 @@ class ProductPaymentController extends Controller
     public function linepay($data, $req)
     {
 
-        dd($data, $req);
-
         $total = 0;
         $itemDescription = '';
         foreach ($data['products'] as $key => $value) {
@@ -103,7 +101,7 @@ class ProductPaymentController extends Controller
 
         $order = [
             "amount" => $total,
-            "order_id" => $req['order_id'],
+            "order_id" => $req['orderId'],
             "packages" => [
                 [
                     "id" => "0001",
