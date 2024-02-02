@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7fa36db7525872ae3533cbcb7681605",
+    "content-hash": "84490e1e967055610f58cd77f46587a8",
     "packages": [
         {
             "name": "brick/math",
@@ -5948,6 +5948,49 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "yidas/line-pay-sdk",
+            "version": "3.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yidas/line-pay-sdk-php.git",
+                "reference": "2b673028173fdb9dadede5139065fcc178dc7a44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yidas/line-pay-sdk-php/zipball/2b673028173fdb9dadede5139065fcc178dc7a44",
+                "reference": "2b673028173fdb9dadede5139065fcc178dc7a44",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~5.3.3||~6.0||~7.0",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "yidas\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "LINE Pay SDK for PHP",
+            "homepage": "https://github.com/yidas/line-pay-sdk-php",
+            "keywords": [
+                "LINE SDK",
+                "api",
+                "line pay",
+                "php",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/yidas/line-pay-sdk-php/issues",
+                "source": "https://github.com/yidas/line-pay-sdk-php"
+            },
+            "time": "2021-10-26T09:32:20+00:00"
         }
     ],
     "packages-dev": [

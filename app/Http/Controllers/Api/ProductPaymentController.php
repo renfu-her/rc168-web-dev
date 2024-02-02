@@ -25,6 +25,21 @@ class ProductPaymentController extends Controller
 
         $data = json_decode($content, true);
 
+        if($data['payment_method'] == 'ecpaypayment'){
+            $this->ecpay($data);
+        } elseif($data['payment_method'] == 'linepay_sainent'){
+            $this->linepay($data);
+        }
+
+        
+    }
+
+    // ecpay
+    public function ecpay(Request $request)
+    {
+
+        $data = $request->all();
+
         // $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
 
@@ -60,6 +75,15 @@ class ProductPaymentController extends Controller
         ];
 
         return $this->checkout->setPostData($formData)->send();
+    }
+
+    // line pay
+    public function linepay(Request $request)
+    {
+
+        $data = $request->all();
+
+        dd($data);
     }
 
     // 付款結果
