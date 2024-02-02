@@ -77,6 +77,8 @@ class ProductPaymentController extends Controller
     public function linepay($data, $req)
     {
 
+        dd($data, $req);
+
         $total = 0;
         $itemDescription = '';
         foreach ($data['products'] as $key => $value) {
