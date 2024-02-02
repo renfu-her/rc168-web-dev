@@ -21,9 +21,11 @@ class ProductPaymentController extends Controller
 
         $req = $request->all();
 
-        $content = Storage::disk('public')->get($req['customerId'] . '.txt');
+        $content = Storage::disk('public')->get( $req['customerId'] . '.txt');
 
         $data = json_decode($content, true);
+
+        dd(env('ECPAY_MERCHANT_ID'));
 
         // $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
