@@ -21,11 +21,4 @@ route::post('/upload/image', [ImageUploadController::class, 'imageUpload'])->nam
 
 route::get('/product/content/{id}', [ProductController::class, 'content']);
 
-route::post('/test/url', [TestController::class, 'url']);
 
-route::get('/test/pdf', function(){
-    return view('pdf');
-});
-route::get('/test/pdf_base64', function(){
-    return view('pdfBase64');
-});

@@ -52,4 +52,4 @@ Route::post('/send_mail', [SendMailController::class, 'send']);
 Route::get('/product/detail/{id}', [ProductDetailController::class, 'detail']);
 Route::get('/product/detail/content/{id}', [ProductDetailController::class, 'getContent']);
 Route::post('/product/submit', [ProductDetailController::class, 'setOrder']);
-Route::post('/product/payment', [ProductPaymentController::class, 'payment']);
+Route::get('/product/payment', [ProductPaymentController::class, 'payment']);
