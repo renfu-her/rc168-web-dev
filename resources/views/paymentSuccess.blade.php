@@ -13,8 +13,8 @@
 <body>
 
     <div class="container">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-12 text-center" style="width: 100%; height: 100%">
+        <div class="justify-content-center align-items-center" style="width: 100%; height: 100%">
+            <div class="col-12 text-center">
                 <h4 style="color: blue">付款已經完成</h4>
             </div>
         </div>
