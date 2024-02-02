@@ -24,8 +24,6 @@ class ProductPaymentController extends Controller
         $content = Storage::disk('public')->get( $req['customerId'] . '.txt');
 
         $data = json_decode($content, true);
-
-        dd($data);
         
         // $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
