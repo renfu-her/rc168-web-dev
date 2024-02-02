@@ -8,6 +8,8 @@ use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TestController;
 
+
+
 // use App\Http\Controllers\EcpayController;
 
 
@@ -22,3 +24,11 @@ route::post('/upload/image', [ImageUploadController::class, 'imageUpload'])->nam
 route::get('/product/content/{id}', [ProductController::class, 'content']);
 
 route::post('/ecpay/return', [ProductPaymentController::class, 'paymentResult'])->name('ecpay.return');
+
+Route::group(['prefix' => '/payment/line-pay'], function () {
+    Route::get('/confirm', [ProductPaymentController::class, 'confirm']);
+    Route::get('/cancel', [ProductPaymentController::class, 'cancel']);
+    // Route::post('/', [ProductPaymentController::class, 'index']);
+    Route::post('/', [ProductPaymentController::class, 'linepay']);
+    Route::post('/refund', [ProductPaymentController::class, 'refund']);
+});
