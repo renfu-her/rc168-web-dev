@@ -128,7 +128,7 @@ class ProductPaymentController extends Controller
 
         $response = $linePay->request($order);
 
-        dd($order);
+        dd($order, $response->isSuccessful());
 
         if (!$response->isSuccessful()) {
             dd($response->getBody());
