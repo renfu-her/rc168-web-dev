@@ -116,8 +116,8 @@ class ProductPaymentController extends Controller
                 ]
             ],
             'redirectUrls' => [
-                'confirmUrl' => env('APP_URL') . '/line-pay/confirm',
-                'cancelUrl' => env('APP_URL') . '/line-pay/cancel',
+                'confirmUrl' => config('app.url') . '/line-pay/confirm',
+                'cancelUrl' => config('app.url') . '/line-pay/cancel',
             ],
         ];
 
