@@ -103,7 +103,7 @@ class ProductPaymentController extends Controller
 
         $order = [
             "amount" => $total,
-            "order_id" => $req['orderId'],
+            "orderId" => $req['orderId'],
             "packages" => [
                 [
                     "id" => "0001",
