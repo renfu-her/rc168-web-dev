@@ -108,7 +108,7 @@ class ProductPaymentController extends Controller
 
         $total += $data['shipping_cost'];
 
-        $request = $linePay->request([
+        $response = $linePay->request([
             "amount" => $total,
             "orderId" => 'OID-' .  $req['orderId'],
             "currency" => "TWD",
@@ -127,18 +127,18 @@ class ProductPaymentController extends Controller
         ]);
 
 
-        dd($request->isSuccessful());
+        dd($response->isSuccessful());
 
-        if (!$request->isSuccessful()) {
-            throw new Exception("ErrorCode {$request['returnCode']}: {$request['returnMessage']}");
+        if (!$response->isSuccessful()) {
+            throw new Exception("ErrorCode {$response['returnCode']}: {$response['returnMessage']}");
         }
 
 
 
 
-        dd($request->getPaymentUrl());
+        dd($response->getPaymentUrl());
         // Redirect to LINE Pay payment URL 
-        header('Location: ' . $request->getPaymentUrl());
+        header('Location: ' . $response->getPaymentUrl());
     }
 
     public function confirm(Request $request)
