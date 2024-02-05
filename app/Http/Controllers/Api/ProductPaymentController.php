@@ -129,7 +129,8 @@ class ProductPaymentController extends Controller
 
        
         if (!$response->isSuccessful()) {
-            throw new Exception("ErrorCode {$response['returnCode']}: {$response['returnMessage']}");
+            dd($response->getBody());
+            // throw new Exception("ErrorCode {$response['returnCode']}: {$response['returnMessage']}");
         }
 
 
