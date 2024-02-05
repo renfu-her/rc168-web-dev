@@ -122,8 +122,6 @@ class ProductPaymentController extends Controller
         ];
 
 
-        dd($order);
-        
         $linePay = new \yidas\linePay\Client([
             'channelId' => config('line_pay.LINE_PAY_CHANNEL_ID'),
             'channelSecret' => config('line_pay.LINE_PAY_CHANNEL_SECRET'),
@@ -137,7 +135,7 @@ class ProductPaymentController extends Controller
             throw new Exception("ErrorCode {$request->returnCode}: {$request->returnMessage}");
         }
 
-        dd($request);
+        dd($request->getPaymentUrl());
         // Redirect to LINE Pay payment URL 
         header('Location: ' . $request->getPaymentUrl());
     }
