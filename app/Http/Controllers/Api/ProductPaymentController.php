@@ -108,7 +108,7 @@ class ProductPaymentController extends Controller
 
         $total += $data['shipping_cost'];
 
-        $response = $linePay->request([
+        $order = [
             "amount" => $total,
             "orderId" => 'OID-' .  $req['orderId'],
             "currency" => "TWD",
@@ -124,17 +124,14 @@ class ProductPaymentController extends Controller
                 'confirmUrl' => config('app.url') . '/line-pay/confirm',
                 'cancelUrl' => config('app.url') . '/line-pay/cancel',
             ],
-        ]);
+        ];
 
+        $response = $linePay->request($order);
 
-       
         if (!$response->isSuccessful()) {
             dd($response->getBody());
             // throw new Exception("ErrorCode {$response['returnCode']}: {$response['returnMessage']}");
         }
-
-
-
 
         dd($response->getPaymentUrl());
         // Redirect to LINE Pay payment URL 
