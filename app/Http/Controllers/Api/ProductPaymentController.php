@@ -116,7 +116,7 @@ class ProductPaymentController extends Controller
         ];
 
         $orderRequest = new Request(['order' => $order]);
-        dd($orderRequest);
+        dd($orderRequest->json());
     }
 
     public function confirm(Request $request)
@@ -160,4 +160,6 @@ class ProductPaymentController extends Controller
 
         return view('paymentResult', compact('msg', 'data'));
     }
+
+    
 }
