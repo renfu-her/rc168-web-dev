@@ -132,7 +132,6 @@ class ProductPaymentController extends Controller
             // throw new Exception("ErrorCode {$response['returnCode']}: {$response['returnMessage']}");
         }
 
-        dd($response->getPaymentUrl());
         // Redirect to LINE Pay payment URL 
         header('Location: ' . $response->getPaymentUrl());
     }
@@ -150,7 +149,7 @@ class ProductPaymentController extends Controller
 
         // confirm
         $confirm = $linePay->confirm($req['transactionId'], [
-            "amount" => $order->amount,
+            "amount" => $req["amount"],
             "currency" => 'TWD',
         ]);
 
