@@ -121,6 +121,8 @@ class ProductPaymentController extends Controller
             ],
         ];
 
+        dd($order);
+
         $linePay = new \yidas\linePay\Client([
             'channelId' => config('line_pay.LINE_PAY_CHANNEL_ID'),
             'channelSecret' => config('line_pay.LINE_PAY_CHANNEL_SECRET'),
