@@ -160,6 +160,4 @@ class ProductPaymentController extends Controller
 
         return view('paymentResult', compact('msg', 'data'));
     }
-
-    
 }
