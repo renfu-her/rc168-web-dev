@@ -99,7 +99,7 @@ class ProductPaymentController extends Controller
         }
 
         if (!empty($data['shipping_cost'])) {
-            $items[count($data['products']) + 1] = [
+            $items[count($data['products'])] = [
                 'name' => '運費',
                 'quantity' => 1,
                 'price' => (int)$data['shipping_cost'],
