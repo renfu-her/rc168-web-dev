@@ -79,6 +79,13 @@ class ProductPaymentController extends Controller
     public function linepay($data, $req)
     {
 
+        $linePay = new \yidas\linePay\Client([
+            'channelId' => config('line_pay.LINE_PAY_CHANNEL_ID'),
+            'channelSecret' => config('line_pay.LINE_PAY_CHANNEL_SECRET'),
+            'isSandbox' => config('line_pay.LINE_PAY_SANDBOX')
+        ]);
+
+
         $total = 0;
         $itemDescription = '';
         foreach ($data['products'] as $key => $value) {
@@ -101,9 +108,9 @@ class ProductPaymentController extends Controller
 
         $total += $data['shipping_cost'];
 
-        $order = [
+        $request = $linePay->request([
             "amount" => $total,
-            "orderId" => 'OID-' . date('YmdHis') . '-' . $req['orderId'],
+            "orderId" => 'OID-' .  $req['orderId'],
             "currency" => "TWD",
             "packages" => [
                 [
@@ -117,18 +124,10 @@ class ProductPaymentController extends Controller
                 'confirmUrl' => config('app.url') . '/line-pay/confirm',
                 'cancelUrl' => config('app.url') . '/line-pay/cancel',
             ],
-        ];
-
-
-        $linePay = new \yidas\linePay\Client([
-            'channelId' => config('line_pay.LINE_PAY_CHANNEL_ID'),
-            'channelSecret' => config('line_pay.LINE_PAY_CHANNEL_SECRET'),
-            'isSandbox' => config('line_pay.LINE_PAY_SANDBOX')
         ]);
 
-        $request = $linePay->request($order);
 
-        dd($order, $request->isSuccessful());
+        dd($request->isSuccessful());
 
         if (!$request->isSuccessful()) {
             throw new Exception("ErrorCode {$request['returnCode']}: {$request['returnMessage']}");
