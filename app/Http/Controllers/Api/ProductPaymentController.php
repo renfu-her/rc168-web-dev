@@ -115,8 +115,13 @@ class ProductPaymentController extends Controller
             ]
         ];
 
-        $orderRequest = new Request(['order' => $order]);
-        dd($orderRequest->json());
+        $linePay = new \yidas\linePay\Client([
+            'channelId' => config('line_pay.LINE_PAY_CHANNEL_ID'),
+            'channelSecret' => config('line_pay.LINE_PAY_CHANNEL_SECRET'),
+            'isSandbox' => config('line_pay.LINE_PAY_SANDBOX')
+        ]);
+
+        dd($linePay);
     }
 
     public function confirm(Request $request)
