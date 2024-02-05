@@ -103,7 +103,7 @@ class ProductPaymentController extends Controller
 
         $order = [
             "amount" => $total,
-            "orderId" => $req['orderId'],
+            "orderId" => 'OID-' . date('YmdHis') . '-' . $req['orderId'],
             "currency" => "TWD",
             "packages" => [
                 [
