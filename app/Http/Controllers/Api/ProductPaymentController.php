@@ -134,7 +134,7 @@ class ProductPaymentController extends Controller
         dd($request->isSuccessful());
 
         if (!$request->isSuccessful()) {
-            throw new Exception("ErrorCode {$request->returnCode}: {$request->returnMessage}");
+            throw new Exception("ErrorCode {$request['returnCode']}: {$request['returnMessage']}");
         }
 
         dd($request->getPaymentUrl());
