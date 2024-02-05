@@ -110,10 +110,7 @@ class ProductPaymentController extends Controller
                     "id" => "0001",
                     "amount" => $total,
                     "name" => $itemDescription,
-                    "products" => [
-                        $items
-                    ]
-
+                    "products" => $items
                 ]
             ],
             'redirectUrls' => [
