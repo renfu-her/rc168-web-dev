@@ -91,8 +91,8 @@ class ProductPaymentController extends Controller
         foreach ($data['products'] as $key => $value) {
             $items[$key] = [
                 'name' => $value['name'],
-                'quantity' => $value['quantity'],
-                'price' => $value['price'],
+                'quantity' => (int)$value['quantity'],
+                'price' => (int)$value['price'],
             ];
             $itemDescription .= $value['name'] . '|';
             $total += $value['total'];
@@ -102,7 +102,7 @@ class ProductPaymentController extends Controller
             $items[count($data['products']) + 1] = [
                 'name' => '運費',
                 'quantity' => 1,
-                'price' => $data['shipping_cost'],
+                'price' => (int)$data['shipping_cost'],
             ];
         }
 
@@ -115,7 +115,7 @@ class ProductPaymentController extends Controller
             "packages" => [
                 [
                     "id" => "0001",
-                    "amount" => $total,
+                    "amount" => (int)$total,
                     "name" => $itemDescription,
                     "products" => $items
                 ]
