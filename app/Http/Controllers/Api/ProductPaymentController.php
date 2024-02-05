@@ -106,7 +106,7 @@ class ProductPaymentController extends Controller
             ];
         }
 
-        $total += $data['shipping_cost'];
+        $total += (int)$data['shipping_cost'];
 
         $order = [
             "amount" => $total,
