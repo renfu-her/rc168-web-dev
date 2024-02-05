@@ -128,10 +128,7 @@ class ProductPaymentController extends Controller
 
         $response = $linePay->request($order);
 
-        dd($order, $response->isSuccessful());
-
         if (!$response->isSuccessful()) {
-            dd($response->getBody());
             // throw new Exception("ErrorCode {$response['returnCode']}: {$response['returnMessage']}");
         }
 
