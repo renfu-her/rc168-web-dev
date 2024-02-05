@@ -121,8 +121,7 @@ class ProductPaymentController extends Controller
             ],
         ];
 
-        dd($order, config('line_pay.LINE_PAY_CHANNEL_ID'), config('line_pay.LINE_PAY_CHANNEL_SECRET'), config('line_pay.LINE_PAY_SANDBOX'));
-
+        
         $linePay = new \yidas\linePay\Client([
             'channelId' => config('line_pay.LINE_PAY_CHANNEL_ID'),
             'channelSecret' => config('line_pay.LINE_PAY_CHANNEL_SECRET'),
@@ -130,6 +129,8 @@ class ProductPaymentController extends Controller
         ]);
 
         $request = $linePay->request($order);
+
+        dd($request);
 
         if (!$request->isSuccessful()) {
             throw new Exception("ErrorCode {$request->returnCode}: {$request->returnMessage}");
