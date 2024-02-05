@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use TsaiYiHua\ECPay\Checkout;
 use Illuminate\Support\Facades\Storage;
+use Exception;
+
 
 class ProductPaymentController extends Controller
 {
@@ -112,7 +114,11 @@ class ProductPaymentController extends Controller
                     ]
 
                 ]
-            ]
+            ],
+            'redirectUrls' => [
+                'confirmUrl' => env('APP_URL') . '/line-pay/confirm',
+                'cancelUrl' => env('APP_URL') . '/line-pay/cancel',
+            ],
         ];
 
         $linePay = new \yidas\linePay\Client([
@@ -121,7 +127,15 @@ class ProductPaymentController extends Controller
             'isSandbox' => config('line_pay.LINE_PAY_SANDBOX')
         ]);
 
-        dd($linePay);
+        $request = $linePay->request($order);
+
+        if (!$request->isSuccessful()) {
+            throw new Exception("ErrorCode {$request->returnCode}: {$request->returnMessage}");
+        }
+
+        dd($request);
+        // Redirect to LINE Pay payment URL 
+        header('Location: ' . $request->getPaymentUrl());
     }
 
     public function confirm(Request $request)
