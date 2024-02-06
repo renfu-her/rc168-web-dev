@@ -173,7 +173,7 @@ class ProductPaymentController extends Controller
 
         // confirm
         $confirm = $linePay->confirm($req['transactionId'], [
-            "amount" => $req["amount"],
+            "amount" => $order->amount,
             "currency" => 'TWD',
         ]);
 
