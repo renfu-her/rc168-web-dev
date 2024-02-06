@@ -87,12 +87,10 @@ class ProductPaymentController extends Controller
         ]);
 
 
-        dd($data, $req);
-
         $order = new Order();
         $order->type = 1;
         $order->order_id = 'OID-' . $req['orderId'];
-        $order->amount = $req['amount'];
+        $order->amount = $data['amount'];
         $order->status = 0;
         $order->save();
 
