@@ -133,6 +133,13 @@ class ProductPaymentController extends Controller
             // throw new Exception("ErrorCode {$response['returnCode']}: {$response['returnMessage']}");
         }
 
+        $responseArray = $response->toArray();
+
+        $web = $responseArray['info']['paymentUrl']['web'];
+        $order = Order::where('order_id', 'OID-' . $req['orderId'])->first();
+        $order->info = json_encode($responseArray['info']);
+        $order->save();
+
         // Redirect to LINE Pay payment URL 
         header('Location: ' . $response->getPaymentUrl());
     }
@@ -148,7 +155,7 @@ class ProductPaymentController extends Controller
             'isSandbox' => config('line_pay.LINE_PAY_SANDBOX')
         ]);
 
-        $order = Order::where('order_id', $req['orderId'])->first();
+        $order = Order::where('order_id', 'OID-' . $req['orderId'])->first();
         $order->transaction_id = $req['transactionId'];
         $order->status = 1;
         $order->save();
@@ -166,15 +173,15 @@ class ProductPaymentController extends Controller
 
         $detailArray = $detail->toArray();
 
-        $apiRes = $detailArray['info'][0];
+        // $apiRes = $detailArray['info'][0];
 
-        $order->info = json_encode(
-            [
-                'order' => $order->info,
-                'info_payment' => $apiRes
-            ]
-        );
-        $order->save();
+        // $order->info = json_encode(
+        //     [
+        //         'order' => $order->info,
+        //         'info_payment' => $apiRes
+        //     ]
+        // );
+        // $order->save();
 
         if ($detailArray['returnCode'] == '0000') {
             $msg = '付款已經完成';
