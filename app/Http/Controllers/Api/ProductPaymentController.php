@@ -148,7 +148,7 @@ class ProductPaymentController extends Controller
             'isSandbox' => config('line_pay.LINE_PAY_SANDBOX')
         ]);
 
-        $order = Order::where('order_no', $req['orderId'])->first();
+        $order = Order::where('order_id', $req['orderId'])->first();
         $order->transaction_id = $req['transactionId'];
         $order->status = 1;
         $order->save();
