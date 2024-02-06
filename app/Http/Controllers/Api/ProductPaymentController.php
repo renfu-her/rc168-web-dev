@@ -135,6 +135,8 @@ class ProductPaymentController extends Controller
 
         $responseArray = $response->toArray();
 
+        dd($responseArray);
+
         $web = $responseArray['info']['paymentUrl']['web'];
         $order = Order::where('order_id', 'OID-' . $req['orderId'])->first();
         $order->info = json_encode($responseArray['info']);
