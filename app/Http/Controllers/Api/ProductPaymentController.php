@@ -184,15 +184,15 @@ class ProductPaymentController extends Controller
 
         $detailArray = $detail->toArray();
 
-        // $apiRes = $detailArray['info'][0];
+        $apiRes = $detailArray['info'][0];
 
-        // $order->info = json_encode(
-        //     [
-        //         'order' => $order->info,
-        //         'info_payment' => $apiRes
-        //     ]
-        // );
-        // $order->save();
+        $order->info = json_encode(
+            [
+                'order' => $order->info,
+                'info_payment' => $apiRes
+            ]
+        );
+        $order->save();
 
         if ($detailArray['returnCode'] == '0000') {
             $msg = '付款已經完成';
