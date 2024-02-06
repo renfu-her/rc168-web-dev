@@ -87,6 +87,13 @@ class ProductPaymentController extends Controller
         ]);
 
 
+        $order = new Order();
+        $order->type = 1;
+        $order->order_id = 'OID-' . $req['orderId'];
+        $order->amount = $req['amount'];
+        $order->status = 0;
+        $order->save();
+
         $total = 0;
         $itemDescription = '';
         foreach ($data['products'] as $key => $value) {
