@@ -25,7 +25,7 @@ route::get('/product/content/{id}', [ProductController::class, 'content']);
 
 route::post('/ecpay/return', [ProductPaymentController::class, 'paymentResult'])->name('ecpay.return');
 
-Route::group(['prefix' => '/payment/line-pay'], function () {
+Route::group(['prefix' => '/line-pay'], function () {
     Route::get('/confirm', [ProductPaymentController::class, 'confirm']);
     Route::get('/cancel', [ProductPaymentController::class, 'cancel']);
     // Route::post('/', [ProductPaymentController::class, 'index']);
