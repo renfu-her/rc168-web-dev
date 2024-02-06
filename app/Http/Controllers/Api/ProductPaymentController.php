@@ -87,6 +87,8 @@ class ProductPaymentController extends Controller
         ]);
 
 
+        dd($data, $req);
+
         $order = new Order();
         $order->type = 1;
         $order->order_id = 'OID-' . $req['orderId'];
