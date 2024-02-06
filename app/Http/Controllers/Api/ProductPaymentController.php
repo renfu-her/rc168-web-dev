@@ -161,6 +161,14 @@ class ProductPaymentController extends Controller
         $detailArray = $detail->toArray();
 
         $apiRes = $detailArray['info'][0];
+
+        if($detailArray['returnCode'] == '0000'){
+            $msg = '付款已經完成';
+        } else {
+            $msg = '付款失敗';
+        }
+
+        return view('paymentResult', compact('msg'));
     }
 
     // 付款結果
