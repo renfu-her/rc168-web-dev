@@ -158,7 +158,7 @@ class ProductPaymentController extends Controller
 
         $req = $request->all();
 
-        $orderId = 'OID-' . $req['orderId'];
+        $orderId = $req['orderId'];
 
         $linePay = new \yidas\linePay\Client([
             'channelId' => config('line_pay.LINE_PAY_CHANNEL_ID'),
