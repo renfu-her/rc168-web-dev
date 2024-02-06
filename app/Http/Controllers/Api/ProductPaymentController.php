@@ -86,10 +86,10 @@ class ProductPaymentController extends Controller
             'isSandbox' => config('line_pay.LINE_PAY_SANDBOX')
         ]);
 
+        $orderId = 'OID-' . $req['orderId'];
 
         $order = new Order();
-        $order->type = 1;
-        $order->order_id = 'OID-' . $req['orderId'];
+        $order->order_id = $orderId;
         $order->amount = $data['amount'];
         $order->status = 0;
         $order->save();
@@ -118,7 +118,7 @@ class ProductPaymentController extends Controller
 
         $order = [
             "amount" => $total,
-            "orderId" => 'OID-' .  $req['orderId'],
+            "orderId" => $orderId,
             "currency" => "TWD",
             "packages" => [
                 [
@@ -137,7 +137,7 @@ class ProductPaymentController extends Controller
         $response = $linePay->request($order);
 
         // if (!$response->isSuccessful()) {
-            // throw new Exception("ErrorCode {$response['returnCode']}: {$response['returnMessage']}");
+        // throw new Exception("ErrorCode {$response['returnCode']}: {$response['returnMessage']}");
         // }
 
         $responseArray = $response->toArray();
@@ -145,7 +145,7 @@ class ProductPaymentController extends Controller
         // dd($responseArray);
 
         $web = $responseArray['info']['paymentUrl']['web'];
-        $order = Order::where('order_id', 'OID-' . $req['orderId'])->first();
+        $order = Order::where('order_id', $orderId)->first();
         $order->info = json_encode($responseArray['info']);
         $order->save();
 
@@ -158,13 +158,15 @@ class ProductPaymentController extends Controller
 
         $req = $request->all();
 
+        $orderId = 'OID-' . $req['orderId'];
+
         $linePay = new \yidas\linePay\Client([
             'channelId' => config('line_pay.LINE_PAY_CHANNEL_ID'),
             'channelSecret' => config('line_pay.LINE_PAY_CHANNEL_SECRET'),
             'isSandbox' => config('line_pay.LINE_PAY_SANDBOX')
         ]);
 
-        $order = Order::where('order_id', 'OID-' . $req['orderId'])->first();
+        $order = Order::where('order_id', $orderId)->first();
         $order->transaction_id = $req['transactionId'];
         $order->status = 1;
         $order->save();
