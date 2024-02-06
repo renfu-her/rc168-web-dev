@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use TsaiYiHua\ECPay\Checkout;
 use Illuminate\Support\Facades\Storage;
 use Exception;
+use App\Models\Order;
 
 
 class ProductPaymentController extends Controller
@@ -147,6 +148,11 @@ class ProductPaymentController extends Controller
             'isSandbox' => config('line_pay.LINE_PAY_SANDBOX')
         ]);
 
+        $order = Order::where('order_no', $req['orderId'])->first();
+        $order->transaction_id = $req['transactionId'];
+        $order->status = 1;
+        $order->save();
+
         // confirm
         $confirm = $linePay->confirm($req['transactionId'], [
             "amount" => $req["amount"],
@@ -162,7 +168,15 @@ class ProductPaymentController extends Controller
 
         $apiRes = $detailArray['info'][0];
 
-        if($detailArray['returnCode'] == '0000'){
+        $order->info = json_encode(
+            [
+                'order' => $order->info,
+                'info_payment' => $apiRes
+            ]
+        );
+        $order->save();
+
+        if ($detailArray['returnCode'] == '0000') {
             $msg = '付款已經完成';
         } else {
             $msg = '付款失敗';
