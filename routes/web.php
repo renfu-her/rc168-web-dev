@@ -7,7 +7,7 @@ use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TestController;
-
+use App\Http\Controllers\GoogleController;
 
 
 // use App\Http\Controllers\EcpayController;
@@ -32,3 +32,5 @@ Route::group(['prefix' => '/line-pay'], function () {
     Route::post('/', [ProductPaymentController::class, 'linepay']);
     Route::post('/refund', [ProductPaymentController::class, 'refund']);
 });
+
+Route::get('/google/drive', [GoogleController::class, 'drive']);
