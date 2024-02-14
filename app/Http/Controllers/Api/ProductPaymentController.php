@@ -196,11 +196,14 @@ class ProductPaymentController extends Controller
 
         if ($detailArray['returnCode'] == '0000') {
             $msg = '付款已經完成';
+            $status = 'success';
         } else {
             $msg = '付款失敗';
+            $status = 'fail';
         }
 
-        return view('linePayResult', compact('detailArray', 'msg'));
+        // return view('linePayResult', compact('detailArray', 'msg', 'status'));
+        return redirect('/payment/result?status=' . $status);
     }
 
     // 付款結果
@@ -211,10 +214,23 @@ class ProductPaymentController extends Controller
 
         if ($data['RtnCode'] == 1) {
             $msg = '付款已經完成';
+            $status = 'success';
         } else {
             $msg = '付款失敗';
+            $status = 'fail';
         }
 
-        return view('paymentResult', compact('msg', 'data'));
+        // return view('paymentResult', compact('msg', 'data', 'status'));
+        return redirect('/payment/result?status=' . $status);
+    }
+
+    public function payResult(Request $request)
+    {
+
+        $data = $request->all();
+
+        $status = $data['status'];
+
+        return view('paymentResult', compact('status'));
     }
 }

@@ -25,12 +25,14 @@ route::get('/product/content/{id}', [ProductController::class, 'content']);
 
 route::post('/ecpay/return', [ProductPaymentController::class, 'paymentResult'])->name('ecpay.return');
 
-Route::group(['prefix' => '/line-pay'], function () {
-    Route::get('/confirm', [ProductPaymentController::class, 'confirm']);
-    Route::get('/cancel', [ProductPaymentController::class, 'cancel']);
+route::group(['prefix' => '/line-pay'], function () {
+    route::get('/confirm', [ProductPaymentController::class, 'confirm']);
+    route::get('/cancel', [ProductPaymentController::class, 'cancel']);
     // Route::post('/', [ProductPaymentController::class, 'index']);
-    Route::post('/', [ProductPaymentController::class, 'linepay']);
-    Route::post('/refund', [ProductPaymentController::class, 'refund']);
+    route::post('/', [ProductPaymentController::class, 'linepay']);
+    route::post('/refund', [ProductPaymentController::class, 'refund']);
 });
+
+route::get('/payment/result', [ProductPaymentController::class, 'payResult'])->name('payment.result');
 
 Route::get('/google/drive', [GoogleController::class, 'drive']);
