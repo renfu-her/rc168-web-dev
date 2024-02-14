@@ -203,7 +203,7 @@ class ProductPaymentController extends Controller
         }
 
         // return view('linePayResult', compact('detailArray', 'msg', 'status'));
-        return redirect('/payment/result?status=' . $status);
+        return redirect('/payment/result?status=' . $status . '&orderId=' . $orderId);
     }
 
     // 付款結果
@@ -212,16 +212,19 @@ class ProductPaymentController extends Controller
 
         $data = $request->all();
 
+        $orderId = '';
+
         if ($data['RtnCode'] == 1) {
             $msg = '付款已經完成';
             $status = 'success';
+            $orderId = $data['OrderInfo']['TradeNo'];
         } else {
             $msg = '付款失敗';
             $status = 'fail';
         }
 
         // return view('paymentResult', compact('msg', 'data', 'status'));
-        return redirect('/payment/result?status=' . $status);
+        return redirect('/payment/result?status=' . $status . '&orderId=' . $orderId);
     }
 
     public function payResult(Request $request)
