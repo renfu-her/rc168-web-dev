@@ -215,7 +215,7 @@ class ProductPaymentController extends Controller
         $orderId = '';
 
         if ($data['RtnCode'] == 1) {
-            $msg = '付款已經完成';
+            $msg = "付款已經完成";
             $status = 'success';
             $orderId = $data['OrderInfo']['TradeNo'];
         } else {
