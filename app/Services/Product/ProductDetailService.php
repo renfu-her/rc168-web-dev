@@ -182,6 +182,15 @@ class ProductDetailService extends Service
             $submitData["products[" . $key . "][download]"] = '';
             $submitData["products[" . $key . "][subtract]"] = 1;
             $submitData["products[" . $key . "][reward]"] = 0;
+
+            // 處理選項
+            if (isset($value['options']) && is_array($value['options'])) {
+                foreach ($value['options'] as $optionKey => $optionValue) {
+                    $submitData["products[" . $key . "][option][" . $optionKey . "][product_option_id]"] = $optionValue['product_option_id'];
+                    $submitData["products[" . $key . "][option][" . $optionKey . "][product_option_value_id]"] = $optionValue['product_option_value_id'];
+                }
+            }
+
             $total += $value['total'];
         }
 
@@ -198,7 +207,7 @@ class ProductDetailService extends Service
 
 
         Storage::disk('public')->put($customerId . '.txt', json_encode($data));
-        
+
 
         $result = Http::asForm()
             ->post($this->api_url . '/gws_customer_order/add&customer_id=' . $customerId . '&api_key=' . $this->api_key, $submitData);
