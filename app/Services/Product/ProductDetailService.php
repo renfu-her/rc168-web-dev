@@ -206,13 +206,12 @@ class ProductDetailService extends Service
 
 
 
-        Storage::disk('public')->put($customerId . '.txt', json_encode($data));
+        Storage::disk('public')->put('customerId-' . $customerId, json_encode($data));
+        Storage::disk('public')->put('submitData-' . $customerId, json_encode($submitData));
 
 
         $result = Http::asForm()
             ->post($this->api_url . '/gws_customer_order/add&customer_id=' . $customerId . '&api_key=' . $this->api_key, $submitData);
-
-        dd($submitData, $data);
 
 
         $this->response = Service::response('success', 'OK', $result->json());
