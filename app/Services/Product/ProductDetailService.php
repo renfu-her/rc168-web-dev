@@ -256,14 +256,10 @@ class ProductDetailService extends Service
         $submitData["shipping_address[cellphone]"] = "0922013171";
         $submitData["shipping_address[pickupstore]"] = "0922013171";
 
-
-
         Storage::disk('public')->put('customerId-' . $customerId, json_encode($data));
         Storage::disk('public')->put('submitData-' . $customerId, json_encode($submitData));
 
-
-        var_dump($submitData);
-        exit;
+        dd($submitData);
 
         $result = Http::asForm()
             ->post($this->api_url . '/gws_appcustomer_order/add&customer_id=' . $customerId . '&api_key=' . $this->api_key, $submitData);
