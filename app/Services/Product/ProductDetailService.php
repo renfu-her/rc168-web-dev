@@ -84,56 +84,96 @@ class ProductDetailService extends Service
 
     public function setOrder()
     {
-        // $dataJson = '{
-        //     "address_id": 77,
-        //     "customer": [
-        //       {
-        //         "customer_id": 137,
-        //         "customer_group_id": 1,
-        //         "store_id": 0,
-        //         "language_id": 1,
-        //         "firstname": "客服",
-        //         "lastname": "記得",
-        //         "email": "serviceunit1688@gmail.com",
-        //         "telephone": "0988888888",
-        //         "fax": "",
-        //         "newsletter": 0,
-        //         "default_address_id": 77,
-        //         "custom_field": [],
-        //         "ip": "112.104.89.159",
-        //         "status": 1,
-        //         "safe": 0,
-        //         "token": "",
-        //         "code": "",
-        //         "date_added": "2022-05-10 12:53:47"
-        //       }
-        //     ],
-        //     "products": [
-        //       {
-        //         "product_id": 3476,
-        //         "quantity": 1,
-        //         "price": 1000,
-        //         "total": 1000,
-        //         "name": "衣索比亞 耶加雪菲 日曬咖啡豆",
-        //         "options": []
-        //       },
-        //       {
-        //         "product_id": 3477,
-        //         "quantity": 1,
-        //         "price": 800,
-        //         "total": 800,
-        //         "name": "印尼國寶 PNG天堂鳥 水洗 咖啡豆",
-        //         "options": []
-        //       }
-        //     ],
-        //     "shipping_sort_order": 15,
-        //     "payment_method": "linepay_sainent",
-        //     "shipping_cost": 0.0,
-        //     "amount": 1800.0
-        //   }';
+        $dataJson = '{
+            "customer": {
+              "customer_id": "137",
+              "customer_group_id": 1,
+              "firstname": "客服",
+              "lastname": "記得",
+              "email": "serviceunit1688@gmail.com",
+              "telephone": "0988888888",
+              "custom_field": "",
+              "fax": ""
+            },
+            "payment_address": {
+              "firstname": "客服",
+              "lastname": "記得",
+              "company": "",
+              "address_1": "f22",
+              "address_2": "",
+              "city": "sasas",
+              "postcode": "",
+              "country_id": "206",
+              "zone_id": "3135",
+              "custom_field": {
+                "1": "711"
+              },
+              "country": "台灣",
+              "zone": "基隆市",
+              "address_format": " 台灣基隆市f22",
+              "cellphone": "0922013171",
+              "pickupstore": "0922013171"
+            },
+            "shipping_address": {
+              "firstname": "客服",
+              "lastname": "記得",
+              "company": "",
+              "address_1": "f22",
+              "address_2": "",
+              "city": "sasas",
+              "postcode": "",
+              "country_id": "206",
+              "zone_id": "3135",
+              "address_format": " 台灣基隆市f22",
+              "custom_field": {
+                "1": "711"
+              },
+              "country": "台灣",
+              "zone": "基隆市",
+              "cellphone": "0922013171",
+              "pickupstore": "0922013171"
+            },
+            "payment_method": {
+              "title": "LINE Pay",
+              "code": "linepay_sainent"
+            },
+            "products": [
+              {
+                "product_id": "3481",
+                "model": "POS測試商品1",
+                "name": "POS測試商品1",
+                "quantity": 1,
+                "price": 100,
+                "total": 100,
+                "tax_class_id": 9,
+                "download": "",
+                "subtract": 1,
+                "reward": 0,
+                "option": [
+                  {
+                    "product_option_id": "3505",
+                    "product_option_value_id": "19002"
+                  }
+                ]
+              }
+            ],
+            "total": 100,
+            "totals": [
+              {
+                "code": "sub_total",
+                "title": "Sub-Total",
+                "value": 100,
+                "sort_order": "1"
+              }
+            ],
+            "shipping_method": {
+              "title": "運費",
+              "code": "flat.flat"
+            }
+          }';
 
-        // $data = json_decode($dataJson, true);
-        $data = $this->request->toArray();
+        $data = json_decode($dataJson, true);
+        // $data = $this->request->toArray();
 
         $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
