@@ -251,6 +251,10 @@ class ProductDetailService extends Service
         // shipping_method
         $submitData["shipping_method[title]"] = "運費";
         $submitData["shipping_method[code]"] = "flat.flat";
+        $submitData["payment_address[cellphone]"] = "0922013171";
+        $submitData["payment_address[pickupstore]"] = "0922013171";
+        $submitData["shipping_address[cellphone]"] = "0922013171";
+        $submitData["shipping_address[pickupstore]"] = "0922013171";
 
 
 
