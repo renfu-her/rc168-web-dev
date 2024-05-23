@@ -133,7 +133,7 @@ class ProductDetailService extends Service
             'amount': 1800.0
           }";
 
-        $data = json_encode($dataJson, true);
+        $data = json_decode($dataJson);
 
         dd($data, $dataJson);
 
