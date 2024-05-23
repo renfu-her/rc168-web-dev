@@ -132,9 +132,9 @@ class ProductDetailService extends Service
             "amount": 1800.0
         }';
 
-        $data = json_decode($dataJson);
+        $data = json_decode($dataJson, true);
 
-        dd($data, $dataJson);
+        dd($data);
 
         $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
