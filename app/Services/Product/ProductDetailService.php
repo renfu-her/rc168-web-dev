@@ -87,50 +87,50 @@ class ProductDetailService extends Service
         $dataJson = '{
             "address_id": 77,
             "customer": [
-                {
-                    "customer_id": 137,
-                    "customer_group_id": 1,
-                    "store_id": 0,
-                    "language_id": 1,
-                    "firstname": "客服",
-                    "lastname": "記得",
-                    "email": "serviceunit1688@gmail.com",
-                    "telephone": "0988888888",
-                    "fax": "",
-                    "newsletter": 0,
-                    "default_address_id": 77,
-                    "custom_field": [],
-                    "ip": "202.39.11.29",
-                    "status": 1,
-                    "safe": 0,
-                    "token": "",
-                    "code": "",
-                    "date_added": "2022-05-10 12:53:47"
-                }
+              {
+                "customer_id": 137,
+                "customer_group_id": 1,
+                "store_id": 0,
+                "language_id": 1,
+                "firstname": "客服",
+                "lastname": "記得",
+                "email": "serviceunit1688@gmail.com",
+                "telephone": "0988888888",
+                "fax": "",
+                "newsletter": 0,
+                "default_address_id": 77,
+                "custom_field": [],
+                "ip": "112.104.89.159",
+                "status": 1,
+                "safe": 0,
+                "token": "",
+                "code": "",
+                "date_added": "2022-05-10 12:53:47"
+              }
             ],
             "products": [
-                {
-                    "product_id": 3476,
-                    "quantity": 1,
-                    "price": 1000,
-                    "total": 1000,
-                    "name": "衣索比亞 耶加雪菲 日曬咖啡豆",
-                    "options": []
-                },
-                {
-                    "product_id": 3477,
-                    "quantity": 1,
-                    "price": 800,
-                    "total": 800,
-                    "name": "印尼國寶 PNG天堂鳥 水洗 咖啡豆",
-                    "options": []
-                }
+              {
+                "product_id": 3476,
+                "quantity": 1,
+                "price": 1000,
+                "total": 1000,
+                "name": "衣索比亞 耶加雪菲 日曬咖啡豆",
+                "options": []
+              },
+              {
+                "product_id": 3477,
+                "quantity": 1,
+                "price": 800,
+                "total": 800,
+                "name": "印尼國寶 PNG天堂鳥 水洗 咖啡豆",
+                "options": []
+              }
             ],
             "shipping_sort_order": 15,
             "payment_method": "linepay_sainent",
             "shipping_cost": 0.0,
             "amount": 1800.0
-        }';
+          }';
 
         $data = json_decode($dataJson, true);
 
