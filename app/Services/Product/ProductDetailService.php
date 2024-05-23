@@ -85,71 +85,37 @@ class ProductDetailService extends Service
     public function setOrder()
     {
         $dataJson = '{
-            "customer": {
-              "customer_id": "137",
-              "customer_group_id": 1,
-              "firstname": "客服",
-              "lastname": "記得",
-              "email": "serviceunit1688@gmail.com",
-              "telephone": "0988888888",
-              "custom_field": "",
-              "fax": ""
-            },
-            "payment_address": {
-              "firstname": "客服",
-              "lastname": "記得",
-              "company": "",
-              "address_1": "f22",
-              "address_2": "",
-              "city": "sasas",
-              "postcode": "",
-              "country_id": "206",
-              "zone_id": "3135",
-              "custom_field": {
-                "1": "711"
-              },
-              "country": "台灣",
-              "zone": "基隆市",
-              "address_format": " 台灣基隆市f22",
-              "cellphone": "0922013171",
-              "pickupstore": "0922013171"
-            },
-            "shipping_address": {
-              "firstname": "客服",
-              "lastname": "記得",
-              "company": "",
-              "address_1": "f22",
-              "address_2": "",
-              "city": "sasas",
-              "postcode": "",
-              "country_id": "206",
-              "zone_id": "3135",
-              "address_format": " 台灣基隆市f22",
-              "custom_field": {
-                "1": "711"
-              },
-              "country": "台灣",
-              "zone": "基隆市",
-              "cellphone": "0922013171",
-              "pickupstore": "0922013171"
-            },
-            "payment_method": {
-              "title": "LINE Pay",
-              "code": "linepay_sainent"
-            },
+            "address_id": "77",
+            "customer": [
+              {
+                "customer_id": "137",
+                "customer_group_id": "1",
+                "store_id": "0",
+                "language_id": "1",
+                "firstname": "客服",
+                "lastname": "記得",
+                "email": "serviceunit1688@gmail.com",
+                "telephone": "0988888888",
+                "fax": null,
+                "newsletter": "0",
+                "default_address_id": "77",
+                "custom_field": "[]",
+                "ip": "112.104.89.159",
+                "status": "1",
+                "safe": "0",
+                "token": null,
+                "code": null,
+                "date_added": "2022-05-10 12:53:47"
+              }
+            ],
             "products": [
               {
                 "product_id": "3481",
-                "model": "POS測試商品1",
-                "name": "POS測試商品1",
                 "quantity": 1,
                 "price": 100,
                 "total": 100,
-                "tax_class_id": 9,
-                "download": "",
-                "subtract": 1,
-                "reward": 0,
-                "option": [
+                "name": "POS測試商品1",
+                "options": [
                   {
                     "product_option_id": "3505",
                     "product_option_value_id": "19002"
@@ -157,19 +123,10 @@ class ProductDetailService extends Service
                 ]
               }
             ],
-            "total": 100,
-            "totals": [
-              {
-                "code": "sub_total",
-                "title": "Sub-Total",
-                "value": 100,
-                "sort_order": "1"
-              }
-            ],
-            "shipping_method": {
-              "title": "運費",
-              "code": "flat.flat"
-            }
+            "shipping_sort_order": 1,
+            "payment_method": "linepay_sainent",
+            "shipping_cost": 60,
+            "amount": 160
           }';
 
         $data = json_decode($dataJson, true);
