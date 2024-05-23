@@ -135,7 +135,7 @@ class ProductDetailService extends Service
 
         $data = json_encode($dataJson, true);
 
-        dd($data);
+        dd($data, $dataJson);
 
         $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
