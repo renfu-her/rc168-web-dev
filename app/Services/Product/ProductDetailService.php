@@ -84,56 +84,56 @@ class ProductDetailService extends Service
 
     public function setOrder()
     {
-        $dataJson = '{
-            "address_id": "77",
-            "customer": [
-              {
-                "customer_id": "137",
-                "customer_group_id": "1",
-                "store_id": "0",
-                "language_id": "1",
-                "firstname": "客服",
-                "lastname": "記得",
-                "email": "serviceunit1688@gmail.com",
-                "telephone": "0988888888",
-                "fax": null,
-                "newsletter": "0",
-                "default_address_id": "77",
-                "custom_field": "[]",
-                "ip": "112.104.89.159",
-                "status": "1",
-                "safe": "0",
-                "token": null,
-                "code": null,
-                "date_added": "2022-05-10 12:53:47"
-              }
-            ],
-            "products": [
-              {
-                "product_id": "3481",
-                "quantity": 1,
-                "price": 100,
-                "total": 100,
-                "name": "POS測試商品1",
-                "options": [
-                  {
-                    "product_option_id": "3505",
-                    "product_option_value_id": "19002",
-                    "name": "color(顏色)",
-                    "value": "橘色",
-                    "type": "select"
-                  }
-                ]
-              }
-            ],
-            "shipping_sort_order": 1,
-            "payment_method": "linepay_sainent",
-            "shipping_cost": 60,
-            "amount": 160
-          }';
+        // $dataJson = '{
+        //     "address_id": "77",
+        //     "customer": [
+        //       {
+        //         "customer_id": "137",
+        //         "customer_group_id": "1",
+        //         "store_id": "0",
+        //         "language_id": "1",
+        //         "firstname": "客服",
+        //         "lastname": "記得",
+        //         "email": "serviceunit1688@gmail.com",
+        //         "telephone": "0988888888",
+        //         "fax": null,
+        //         "newsletter": "0",
+        //         "default_address_id": "77",
+        //         "custom_field": "[]",
+        //         "ip": "112.104.89.159",
+        //         "status": "1",
+        //         "safe": "0",
+        //         "token": null,
+        //         "code": null,
+        //         "date_added": "2022-05-10 12:53:47"
+        //       }
+        //     ],
+        //     "products": [
+        //       {
+        //         "product_id": "3481",
+        //         "quantity": 1,
+        //         "price": 100,
+        //         "total": 100,
+        //         "name": "POS測試商品1",
+        //         "options": [
+        //           {
+        //             "product_option_id": "3505",
+        //             "product_option_value_id": "19002",
+        //             "name": "color(顏色)",
+        //             "value": "橘色",
+        //             "type": "select"
+        //           }
+        //         ]
+        //       }
+        //     ],
+        //     "shipping_sort_order": 1,
+        //     "payment_method": "linepay_sainent",
+        //     "shipping_cost": 60,
+        //     "amount": 160
+        //   }';
 
-        $data = json_decode($dataJson, true);
-        // $data = $this->request->toArray();
+        // $data = json_decode($dataJson, true);
+        $data = $this->request->toArray();
 
         $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
