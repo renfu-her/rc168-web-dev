@@ -137,6 +137,8 @@ class ProductPaymentController extends Controller
         ];
 
         Storage::disk('public')->put('order-' . $orderId, json_encode($order));
+        Storage::disk('public')->put('order-data-' . $orderId, json_encode($data));
+        Storage::disk('public')->put('order-req-' . $orderId, json_encode($req));
 
         $response = $linePay->request($order);
 
