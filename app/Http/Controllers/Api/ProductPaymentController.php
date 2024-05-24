@@ -8,6 +8,7 @@ use TsaiYiHua\ECPay\Checkout;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 use App\Models\Order;
+use App\Models\OrderData;
 
 
 class ProductPaymentController extends Controller
@@ -245,9 +246,14 @@ class ProductPaymentController extends Controller
     }
 
     // 新加入的 order
-    public function orderData(Request $request)
+    public function orderData(Request $request, $orderId)
     {
         $req = $request->all();
+
+        'OrderData'::create([
+            'order_no' => $orderId,
+            'data' => json_encode($req)
+        ]);
 
      }
 }
