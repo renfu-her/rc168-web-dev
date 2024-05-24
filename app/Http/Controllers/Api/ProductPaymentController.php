@@ -250,7 +250,7 @@ class ProductPaymentController extends Controller
     {
         $req = $request->all();
 
-        'OrderData'::create([
+        OrderData::create([
             'order_no' => $orderId,
             'data' => json_encode($req)
         ]);
