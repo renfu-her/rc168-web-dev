@@ -119,6 +119,9 @@ class ProductDetailService extends Service
                   {
                     "product_option_id": "3505",
                     "product_option_value_id": "19002"
+                    "name": "color(顏色)",
+                    "value": "橘色",
+                    "type": "select",
                   }
                 ]
               }
@@ -234,6 +237,9 @@ class ProductDetailService extends Service
                 foreach ($value['options'] as $optionKey => $optionValue) {
                     $submitData["products[" . $key . "][option][" . $optionKey . "][product_option_id]"] = $optionValue['product_option_id'];
                     $submitData["products[" . $key . "][option][" . $optionKey . "][product_option_value_id]"] = $optionValue['product_option_value_id'];
+                    $submitData["products[" . $key . "][option][" . $optionKey . "][name]"] = $optionValue['name'];
+                    $submitData["products[" . $key . "][option][" . $optionKey . "][value]"] = $optionValue['value'];
+                    $submitData["products[" . $key . "][option][" . $optionKey . "][type]"] = $optionValue['type'];
                 }
             }
 
