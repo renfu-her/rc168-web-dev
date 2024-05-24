@@ -49,7 +49,15 @@ Route::group(['prefix' => 'user'], function () {
 Route::post('/send_mail', [SendMailController::class, 'send']);
 
 // 另外的 API
+Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+    Route::get('/detail/{id}', [ProductDetailController::class, 'detail'])->name('detail');
+    Route::get('/detail/content/{id}', [ProductDetailController::class, 'getContent'])->name('detail.content');
+    Route::post('/submit', [ProductDetailController::class, 'setOrder'])->name('submit');
+    Route::get('/payment', [ProductPaymentController::class, 'payment'])->name('payment');
+    Route::get('/order/data/{orderId}', [ProductPaymentController::class, 'orderData'])->name('order.data');
+});
 Route::get('/product/detail/{id}', [ProductDetailController::class, 'detail']);
 Route::get('/product/detail/content/{id}', [ProductDetailController::class, 'getContent']);
 Route::post('/product/submit', [ProductDetailController::class, 'setOrder']);
-Route::get('/product/payment', [ProductPaymentController::class, 'payment']);
+Route::get('/product/payment', [ProductPaymentController::class, 'payment'])->name('product.payment');
+Route::get('/product/order/data/{orderId}', [ProductPaymentController::class, 'orderData'])->name('product.order.data');
