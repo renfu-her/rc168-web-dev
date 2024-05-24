@@ -95,16 +95,18 @@ class ProductPaymentController extends Controller
         $order->save();
 
         $total = 0;
-        $itemDescription = '';
+        $itemDescriptionArray = [];
         foreach ($data['products'] as $key => $value) {
             $items[$key] = [
                 'name' => $value['name'],
                 'quantity' => (int)$value['quantity'],
                 'price' => (int)$value['price'],
             ];
-            $itemDescription .= $value['name'] . '|';
+            $itemDescriptionArray[] = $value['name'];
             $total += $value['total'];
         }
+
+        $itemDescription = implode('|', $itemDescriptionArray);
 
         if (!empty($data['shipping_cost'])) {
             $items[count($data['products'])] = [
@@ -133,6 +135,8 @@ class ProductPaymentController extends Controller
                 'cancelUrl' => config('app.url') . '/line-pay/cancel',
             ],
         ];
+
+        Storage::disk('public')->put('order-' . $order, json_encode($order));
 
         $response = $linePay->request($order);
 
