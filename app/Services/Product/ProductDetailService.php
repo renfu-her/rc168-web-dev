@@ -118,7 +118,7 @@ class ProductDetailService extends Service
                 "options": [
                   {
                     "product_option_id": "3505",
-                    "product_option_value_id": "19002"
+                    "product_option_value_id": "19002",
                     "name": "color(顏色)",
                     "value": "橘色",
                     "type": "select"
