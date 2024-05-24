@@ -243,4 +243,11 @@ class ProductPaymentController extends Controller
 
         return view('paymentResult', compact('status'));
     }
+
+    // 新加入的 order
+    public function orderData(Request $request)
+    {
+        $req = $request->all();
+
+     }
 }
