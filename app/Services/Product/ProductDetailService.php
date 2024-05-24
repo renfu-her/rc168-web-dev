@@ -133,6 +133,7 @@ class ProductDetailService extends Service
         //   }';
 
         // $data = json_decode($dataJson, true);
+        
         $data = $this->request->toArray();
 
         $addressId = $data['address_id'];
