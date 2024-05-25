@@ -119,7 +119,7 @@ class ProductPaymentController extends Controller
 
         $total += (int)$data['shipping_cost'];
 
-        $order = [
+        $orderData = [
             "amount" => $total,
             "orderId" => $orderId,
             "currency" => "TWD",
@@ -137,11 +137,11 @@ class ProductPaymentController extends Controller
             ],
         ];
 
-        Storage::disk('public')->put('order', json_encode($order));
+        Storage::disk('public')->put('order', json_encode($orderData));
         Storage::disk('public')->put('order-data', json_encode($data));
         Storage::disk('public')->put('order-req', json_encode($req));
 
-        $response = $linePay->request($order);
+        $response = $linePay->request($orderData);
 
         // if (!$response->isSuccessful()) {
         // throw new Exception("ErrorCode {$response['returnCode']}: {$response['returnMessage']}");
