@@ -246,12 +246,12 @@ class ProductPaymentController extends Controller
     }
 
     // 新加入的 order
-    public function orderData(Request $request, $orderId)
+    public function orderData(Request $request, $customerId)
     {
         $req = $request->all();
 
         OrderData::create([
-            'order_no' => $orderId,
+            'customer_id' => $customerId,
             'data' => json_encode($req)
         ]);
     }
