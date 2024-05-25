@@ -145,16 +145,16 @@ class ProductDetailService extends Service
         // $data = json_decode($dataJson, true);
 
 
-        $data = $this->request->toArray();
+        // $data = $this->request->toArray();
+
+        $orderData = OrderData::where('customer_id', $customerId)->first();
+
+        $data = json_decode($orderData->data, true);
+
+        Storage::disk('public')->put('data-' . $customerId, json_encode($data));
 
         $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
-
-        // $customerId = $data['customerId'];
-
-        $data = OrderData::where('customer_id', $customerId)->first();
-
-        Storage::disk('public')->put('data-' . $customerId, json_encode($data->data));
 
         $address = Http::get($this->api_url . '/gws_customer_address&customer_id=' . $customerId . '&address_id=' . $addressId . '&api_key=' . $this->api_key);
         $addressData = $address->json()['customer_address'];
