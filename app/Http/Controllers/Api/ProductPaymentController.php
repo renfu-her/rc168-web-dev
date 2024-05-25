@@ -149,7 +149,7 @@ class ProductPaymentController extends Controller
 
         $responseArray = $response->toArray();
 
-        // dd($responseArray);
+        dd($responseArray);
 
         $web = $responseArray['info']['paymentUrl']['web'];
         $order = Order::where('order_id', $orderId)->first();
