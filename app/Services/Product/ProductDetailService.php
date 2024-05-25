@@ -144,13 +144,13 @@ class ProductDetailService extends Service
 
         // $data = json_decode($dataJson, true);
 
-        
+
         $data = $this->request->toArray();
 
         $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
 
-        $customerId = $data['customerId'];
+        // $customerId = $data['customerId'];
 
         $data = OrderData::where('customer_id', $customerId)->first();
 
