@@ -26,10 +26,10 @@ class ProductDetailController extends Controller
     }
 
     //TODO: 發送 order
-    public function setOrder(Request $request)
+    public function setOrder(Request $request, $customerId)
     {
-        return (new Service($request))
-            ->setOrder()
+        return (new Service($request, $customerId))
+            ->setOrder($customerId)
             ->getResponse();
     }
 
