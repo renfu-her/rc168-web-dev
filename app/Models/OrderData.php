@@ -10,7 +10,7 @@ class OrderData extends Model
     use HasFactory;
 
     protected $fillable = [
-        'order_no',
+        'customer_id',
         'data',
     ];
 }
