@@ -165,6 +165,8 @@ class ProductPaymentController extends Controller
 
         $req = $request->all();
 
+        dd($req);
+
         $orderId = $req['orderId'];
 
         $linePay = new \yidas\linePay\Client([
