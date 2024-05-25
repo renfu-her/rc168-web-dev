@@ -268,6 +268,7 @@ class ProductDetailService extends Service
         $submitData["shipping_address[cellphone]"] = "0922013171";
         $submitData["shipping_address[pickupstore]"] = "0922013171";
 
+        Storage::disk('public')->put($customerId . ".txt", json_encode($data));
         Storage::disk('public')->put('customerId', json_encode($data));
         Storage::disk('public')->put('submitData', json_encode($submitData));
 

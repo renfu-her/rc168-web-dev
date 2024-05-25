@@ -27,7 +27,7 @@ class ProductPaymentController extends Controller
 
         $content = Storage::disk('public')->get($req['customerId'] . '.txt');
 
-        $data = json_decode($content, true);
+        $data = json_decode($content, true);        
 
         if ($data['payment_method'] == 'ecpaypayment') {
             return $this->ecpay($data, $req);
