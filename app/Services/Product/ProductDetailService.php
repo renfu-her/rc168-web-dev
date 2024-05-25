@@ -85,7 +85,7 @@ class ProductDetailService extends Service
         return $this;
     }
 
-    public function setOrder()
+    public function setOrder($customerId)
     {
         // $dataJson = '{
         //     "address_id": "77",
