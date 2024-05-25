@@ -139,8 +139,8 @@ class ProductDetailService extends Service
             "amount": 560
           }';
 
-        // $data = json_decode($dataJson, true);
-        $data = $this->request->toArray();
+        $data = json_decode($dataJson, true);
+        // $data = $this->request->toArray();
         Storage::disk('public')->put('payment-data', json_encode($data));
 
         $addressId = $data['address_id'];
