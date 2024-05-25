@@ -56,8 +56,3 @@ Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
     Route::get('/payment', [ProductPaymentController::class, 'payment'])->name('payment');
     Route::post('/order/data/{orderId}', [ProductPaymentController::class, 'orderData'])->name('order.data');
 });
-Route::get('/product/detail/{id}', [ProductDetailController::class, 'detail']);
-Route::get('/product/detail/content/{id}', [ProductDetailController::class, 'getContent']);
-Route::post('/product/submit', [ProductDetailController::class, 'setOrder']);
-Route::get('/product/payment', [ProductPaymentController::class, 'payment'])->name('product.payment');
-Route::get('/product/order/data/{orderId}', [ProductPaymentController::class, 'orderData'])->name('product.order.data');
