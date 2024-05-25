@@ -27,7 +27,7 @@ class ProductPaymentController extends Controller
 
         $content = Storage::disk('public')->get($req['customerId'] . '.txt');
 
-        $data = json_decode($content, true);        
+        $data = json_decode($content, true);
 
         if ($data['payment_method'] == 'ecpaypayment') {
             return $this->ecpay($data, $req);
@@ -137,9 +137,9 @@ class ProductPaymentController extends Controller
             ],
         ];
 
-        Storage::disk('public')->put('order-' . $orderId, json_encode($order));
-        Storage::disk('public')->put('order-data-' . $orderId, json_encode($data));
-        Storage::disk('public')->put('order-req-' . $orderId, json_encode($req));
+        Storage::disk('public')->put('order', json_encode($order));
+        Storage::disk('public')->put('order-data', json_encode($data));
+        Storage::disk('public')->put('order-req', json_encode($req));
 
         $response = $linePay->request($order);
 
@@ -254,6 +254,5 @@ class ProductPaymentController extends Controller
             'order_no' => $orderId,
             'data' => json_encode($req)
         ]);
-
-     }
+    }
 }
