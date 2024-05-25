@@ -143,8 +143,6 @@ class ProductDetailService extends Service
         $data = $this->request->toArray();
         Storage::disk('public')->put('payment-data', json_encode($data));
 
-
-
         $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
 
