@@ -133,7 +133,8 @@ class ProductDetailService extends Service
         //   }';
 
         // $data = json_decode($dataJson, true);
-        
+        Storage::disk('public')->put('payment-data', json_encode($this->request->toArray()));
+
         $data = $this->request->toArray();
 
         $addressId = $data['address_id'];
@@ -261,8 +262,8 @@ class ProductDetailService extends Service
         $submitData["shipping_address[cellphone]"] = "0922013171";
         $submitData["shipping_address[pickupstore]"] = "0922013171";
 
-        Storage::disk('public')->put('customerId-' . $customerId, json_encode($data));
-        Storage::disk('public')->put('submitData-' . $customerId, json_encode($submitData));
+        Storage::disk('public')->put('customerId', json_encode($data));
+        Storage::disk('public')->put('submitData', json_encode($submitData));
 
         $result = Http::asForm()
             ->post($this->api_url . '/gws_appcustomer_order/add&customer_id=' . $customerId . '&api_key=' . $this->api_key, $submitData);
