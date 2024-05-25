@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Carbon;
 use Exception;
 
+use App\Models\Order;
+use App\Models\OrderData;
+
 use TsaiYiHua\ECPay\Checkout;
 use Symfony\Component\DomCrawler\Crawler;
 use voku\helper\HtmlDomParser;
@@ -140,11 +143,17 @@ class ProductDetailService extends Service
         //   }';
 
         // $data = json_decode($dataJson, true);
+
         $data = $this->request->toArray();
-        Storage::disk('public')->put('payment-data', json_encode($data));
 
         $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
+
+        $customerId = $data['customerId'];
+
+        $data = OrderData::where('customer_id', $customerId)->first();
+
+        Storage::disk('public')->put('data-' . $customerId, json_encode($data));
 
         $address = Http::get($this->api_url . '/gws_customer_address&customer_id=' . $customerId . '&address_id=' . $addressId . '&api_key=' . $this->api_key);
         $addressData = $address->json()['customer_address'];
