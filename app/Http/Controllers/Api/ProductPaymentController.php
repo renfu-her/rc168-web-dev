@@ -165,7 +165,7 @@ class ProductPaymentController extends Controller
 
         $req = $request->all();
 
-        dd($req);
+        // dd($req);
 
         $orderId = $req['orderId'];
 
