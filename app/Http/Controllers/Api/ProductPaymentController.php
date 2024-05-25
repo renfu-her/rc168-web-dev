@@ -20,12 +20,12 @@ class ProductPaymentController extends Controller
         $this->checkout = $checkout;
     }
     // index
-    public function payment(Request $request, $customerId)
+    public function payment(Request $request)
     {
 
         $req = $request->all();
 
-        $content = Storage::disk('public')->get($customerId . '.txt');
+        $content = Storage::disk('public')->get($req['customerId'] . '.txt');
 
         $data = json_decode($content, true);
 
