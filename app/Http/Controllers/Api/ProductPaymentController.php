@@ -87,7 +87,7 @@ class ProductPaymentController extends Controller
             'isSandbox' => config('line_pay.LINE_PAY_SANDBOX')
         ]);
 
-        $orderId = 'OID-' . $req['orderId'];
+        $orderId = 'ORDER-ID-' . $req['orderId'];
 
         $order = new Order();
         $order->order_id = $orderId;
@@ -125,7 +125,7 @@ class ProductPaymentController extends Controller
             "currency" => "TWD",
             "packages" => [
                 [
-                    "id" => "0001",
+                    "id" => time(),
                     "amount" => (int)$total,
                     "name" => $itemDescription,
                     "products" => $items
@@ -149,7 +149,7 @@ class ProductPaymentController extends Controller
 
         $responseArray = $response->toArray();
 
-        dd($orderId, $responseArray);
+        // dd($orderId, $responseArray);
 
         $web = $responseArray['info']['paymentUrl']['web'];
         $order = Order::where('order_id', $orderId)->first();
