@@ -139,10 +139,11 @@ class ProductDetailService extends Service
             "amount": 560
           }';
 
-        $data = json_decode($dataJson, true);
-        Storage::disk('public')->put('payment-data', json_encode($this->request->toArray()));
+        // $data = json_decode($dataJson, true);
+        $data = $this->request->toArray();
+        Storage::disk('public')->put('payment-data', json_encode($data));
 
-        // $data = $this->request->toArray();
+
 
         $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
@@ -271,8 +272,6 @@ class ProductDetailService extends Service
 
         Storage::disk('public')->put('customerId', json_encode($data));
         Storage::disk('public')->put('submitData', json_encode($submitData));
-
-        dd($data, $submitData);
 
         $result = Http::asForm()
             ->post($this->api_url . '/gws_appcustomer_order/add&customer_id=' . $customerId . '&api_key=' . $this->api_key, $submitData);
