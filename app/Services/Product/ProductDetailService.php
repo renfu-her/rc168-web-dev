@@ -211,10 +211,10 @@ class ProductDetailService extends Service
             $total += $value['total'];
         }
 
-        foreach ($data['totals'] as $key => $total) {
-            $submitData["totals[$key][code]"] = $total['code'];
-            $submitData["totals[$key][title]"] = $total['title'];
-            $submitData["totals[$key][text]"] = $total['text'];
+        foreach ($data['totals'] as $key => $totals) {
+            $submitData["totals[$key][code]"] = $totals['code'];
+            $submitData["totals[$key][title]"] = $totals['title'];
+            $submitData["totals[$key][text]"] = $totals['text'];
             // 根據需要，您可能需要添加 value 屬性
             $submitData["totals[$key][sort_order]"] = $key + 1;
         }
