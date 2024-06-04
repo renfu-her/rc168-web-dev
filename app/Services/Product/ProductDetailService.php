@@ -87,65 +87,6 @@ class ProductDetailService extends Service
 
     public function setOrder($customerId)
     {
-        // $dataJson = '{
-        //     "address_id": "77",
-        //     "customer": [
-        //       {
-        //         "customer_id": "137",
-        //         "customer_group_id": "1",
-        //         "store_id": "0",
-        //         "language_id": "1",
-        //         "firstname": "\u5ba2\u670d",
-        //         "lastname": "\u8a18\u5f97",
-        //         "email": "serviceunit1688@gmail.com",
-        //         "telephone": "0988888888",
-        //         "fax": null,
-        //         "newsletter": "0",
-        //         "default_address_id": "77",
-        //         "custom_field": "[]",
-        //         "ip": "112.104.89.159",
-        //         "status": "1",
-        //         "safe": "0",
-        //         "token": null,
-        //         "code": null,
-        //         "date_added": "2022-05-10 12:53:47"
-        //       }
-        //     ],
-        //     "products": [
-        //       {
-        //         "product_id": "3482",
-        //         "quantity": 1,
-        //         "price": 500,
-        //         "total": 500,
-        //         "name": "POS\u6e2c\u8a66\u5546\u54c12",
-        //         "options": [
-        //           {
-        //             "product_option_id": "3507",
-        //             "product_option_value_id": "19007",
-        //             "type": "radio",
-        //             "value": "10\u3001684  \u51854 \u59169 \u539a4mm",
-        //             "name": "C(\u55ae\u9078\u57f9\u6797\u7528)"
-        //           },
-        //           {
-        //             "product_option_id": "3508",
-        //             "product_option_value_id": "19009",
-        //             "type": "select",
-        //             "value": "\u539f\u8272",
-        //             "name": "color(\u984f\u8272)"
-        //           }
-        //         ]
-        //       }
-        //     ],
-        //     "shipping_sort_order": 1,
-        //     "payment_method": "linepay_sainent",
-        //     "shipping_cost": 60,
-        //     "amount": 560
-        //   }';
-
-        // $data = json_decode($dataJson, true);
-
-
-        // $data = $this->request->toArray();
 
         $orderData = OrderData::where('customer_id', $customerId)->first();
 
@@ -264,11 +205,19 @@ class ProductDetailService extends Service
             $total += $value['total'];
         }
 
+        foreach ($data['totals'] as $key => $total) {
+            $submitData["totals[$key][code]"] = $total['code'];
+            $submitData["totals[$key][title]"] = $total['title'];
+            $submitData["totals[$key][text]"] = $total['text'];
+            // 根據需要，您可能需要添加 value 屬性
+            $submitData["totals[$key][sort_order]"] = $key + 1;
+        }
+
         $submitData['total'] = $total;
-        $submitData["totals[0][code]"] = "sub_total";
-        $submitData["totals[0][title]"] = "Sub-Total";
-        $submitData["totals[0][value]"] = $total;
-        $submitData["totals[0][sort_order]"] = "1";
+        // $submitData["totals[0][code]"] = "sub_total";
+        // $submitData["totals[0][title]"] = "Sub-Total";
+        // $submitData["totals[0][value]"] = $total;
+        // $submitData["totals[0][sort_order]"] = "1";
 
         // shipping_method
         $submitData["shipping_method[title]"] = "運費";
