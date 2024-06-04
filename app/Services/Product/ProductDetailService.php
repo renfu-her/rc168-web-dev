@@ -11,6 +11,7 @@ use Exception;
 
 use App\Models\Order;
 use App\Models\OrderData;
+use App\Models\OrderLog;
 
 use TsaiYiHua\ECPay\Checkout;
 use Symfony\Component\DomCrawler\Crawler;
@@ -91,6 +92,11 @@ class ProductDetailService extends Service
         $orderData = OrderData::where('customer_id', $customerId)->first();
 
         $data = json_decode($orderData->data, true);
+
+        $orderLog = new OrderLog();
+        $orderLog->events = '訂單建立';
+        $orderLog->logs = json_encode($data);
+        $orderLog->save();
 
         Storage::disk('public')->put('data-' . $customerId, json_encode($data));
 
