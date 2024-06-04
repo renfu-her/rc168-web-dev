@@ -233,9 +233,14 @@ class ProductDetailService extends Service
         $submitData["shipping_address[cellphone]"] = "0922013171";
         $submitData["shipping_address[pickupstore]"] = "0922013171";
 
-        Storage::disk('public')->put($customerId . ".txt", json_encode($data));
-        Storage::disk('public')->put('customerId', json_encode($data));
-        Storage::disk('public')->put('submitData', json_encode($submitData));
+
+        $orderLog = new OrderLog();
+        $orderLog->events = '訂單產生 $submitData';
+        $orderLog->logs = json_encode($submitData);
+        $orderLog->save();
+        // Storage::disk('public')->put($customerId . ".txt", json_encode($data));
+        // Storage::disk('public')->put('customerId', json_encode($data));
+        // Storage::disk('public')->put('submitData', json_encode($submitData));
 
         $result = Http::asForm()
             ->post($this->api_url . '/gws_appcustomer_order/add&customer_id=' . $customerId . '&api_key=' . $this->api_key, $submitData);
