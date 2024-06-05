@@ -133,9 +133,7 @@ class ProductDetailService extends Service
             'api_key' => $this->api_key
         ]);
 
-        if ($response->failed()) {
-            throw new Exception("Failed to retrieve customer address");
-        }
+        dd($response->json());
 
         return $response->json()['customer_address'][0];
     }
