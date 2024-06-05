@@ -187,7 +187,7 @@ class ProductDetailService extends Service
             'payment_method' => $this->preparePaymentMethod($data['payment_method']),
             'products' => $this->prepareProducts($data['products']),
             'totals' => $this->prepareTotals($data['totals'], $data['shipping_cost'], $data['payment_method']),
-            'total' => array_sum(array_column($data['products'], 'total')),
+            'total' => array_sum(array_column($data['products'], 'total')) + $data['shipping_cost'],
             'shipping_method' => [
                 'title' => '運費',
                 'code' => 'flat.flat'
