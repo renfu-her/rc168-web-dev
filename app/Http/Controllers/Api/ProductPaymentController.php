@@ -30,6 +30,8 @@ class ProductPaymentController extends Controller
 
         $data = json_decode($content, true);
 
+        dd($data);
+
         if ($data['payment_method'] == 'ecpaypayment') {
             return $this->ecpay($data, $req);
         } elseif ($data['payment_method'] == 'linepay_sainent') {
