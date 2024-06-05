@@ -234,7 +234,7 @@ class ProductDetailService extends Service
 
 
         $orderLog = new OrderLog();
-        $orderLog->events = '訂單產生 $submitData';
+        $orderLog->events = '訂單 submitData';
         $orderLog->logs = json_encode($submitData);
         $orderLog->save();
         // Storage::disk('public')->put($customerId . ".txt", json_encode($data));
