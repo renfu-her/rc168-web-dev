@@ -149,8 +149,8 @@ class ProductDetailService extends Service
     {
         $countryResponse = Http::get(
             $this->api_url .
-                '/gws_country&country_id=' . $countryId,
-            '&api_key=' . $this->api_key
+                '/gws_country&country_id=' . $countryId .
+                '&api_key=' . $this->api_key
         );
 
         $zoneResponse = Http::get($this->api_url .
