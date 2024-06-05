@@ -127,11 +127,10 @@ class ProductDetailService extends Service
 
     private function getCustomerAddress($customerId, $addressId)
     {
-        $response = Http::get($this->api_url . '/gws_customer_address', [
-            'customer_id' => $customerId,
-            'address_id' => $addressId,
-            'api_key' => $this->api_key
-        ]);
+        $response = Http::get($this->api_url .
+            '/gws_customer_address&customer_id=' . $customerId .
+            '&address_id=' . $addressId .
+            '&api_key=' . $this->api_key);
 
         dd($response->json());
 
