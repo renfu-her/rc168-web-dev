@@ -99,10 +99,12 @@ class ProductDetailService extends Service
 
         $this->logOrderEvent('訂單建立', $data);
 
+        $vipCustomer = str_replace('$', '', $data['totals'][1]['text']);
+
         $addressData = $this->getCustomerAddress($data['customer'][0]['customer_id'], $data['address_id']);
         $customerData = $this->getCustomerData($data['customer'][0]['customer_id']);
 
-        $submitData = $this->prepareSubmitData($data, $addressData, $customerData);
+        $submitData = $this->prepareSubmitData($data, $addressData, $customerData, $vipCustomer);
 
         $this->logOrderEvent('訂單 submitData', $submitData);
 
@@ -166,7 +168,7 @@ class ProductDetailService extends Service
         ];
     }
 
-    private function prepareSubmitData($data, $addressData, $customerData)
+    private function prepareSubmitData($data, $addressData, $customerData, $vipCustomer)
     {
         $customerId = $data['customer'][0]['customer_id'];
         $countryAndZone = $this->getCountryAndZone($addressData['country_id'], $addressData['zone_id']);
@@ -186,7 +188,7 @@ class ProductDetailService extends Service
             'shipping_address' => $this->prepareAddressData($addressData, $customerData, $countryAndZone),
             'payment_method' => $this->preparePaymentMethod($data['payment_method']),
             'products' => $this->prepareProducts($data['products']),
-            'totals' => $this->prepareTotals($data['totals'], $data['shipping_cost'], $data['payment_method']),
+            'totals' => $this->prepareTotals($data['totals'], $data['shipping_cost'], $data['payment_method'], $vipCustomer),
             'total' => array_sum(array_column($data['products'], 'total')) + $data['shipping_cost'],
             'shipping_method' => [
                 'title' => '運費',
@@ -264,7 +266,7 @@ class ProductDetailService extends Service
         })->toArray();
     }
 
-    private function prepareTotals($totals, $shippingCost, $paymentMethod)
+    private function prepareTotals($totals, $shippingCost, $paymentMethod, $vipCustomer)
     {
         $additionalTotals = collect([
             [
@@ -275,12 +277,13 @@ class ProductDetailService extends Service
             ]
         ]);
 
-        $mappedTotals = collect($totals)->mapWithKeys(function ($total, $key) use ($shippingCost) {
+        $mappedTotals = collect($totals)->mapWithKeys(function ($total, $key) use ($shippingCost, $vipCustomer) {
             $value = str_replace('$', '', $total['text']);
             if ($total['code'] === 'total') {
                 $value += $shippingCost;
-                // 計算 5% 折扣
-                // $value = $value * 0.95;
+            }
+            if ($total['code'] === 'vip_customer') {
+                $value = '$' + $vipCustomer;
             }
 
             return [
