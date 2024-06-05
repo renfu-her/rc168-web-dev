@@ -266,14 +266,14 @@ class ProductDetailService extends Service
 
     private function prepareTotals($totals, $shippingCost, $paymentMethod)
     {
-        $totals = collect($totals)->map(function ($total) use ($shippingCost) {
-            $value = str_replace('$', '', $total['text']);
-            if ($total['code'] === 'sub_total') {
-                $value += $shippingCost;
-                $total['text'] = '$' . $value;
-            }
-            return $total;
-        });
+        // $totals = collect($totals)->map(function ($total) use ($shippingCost) {
+        //     $value = str_replace('$', '', $total['text']);
+        //     // if ($total['code'] === 'sub_total') {
+        //     //     $value += $shippingCost;
+        //     //     $total['text'] = '$' . $value;
+        //     // }
+        //     return $total;
+        // });
 
         // 插入运费项
         $totals->splice(2, 0, [[
