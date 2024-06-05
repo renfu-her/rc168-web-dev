@@ -280,7 +280,7 @@ class ProductDetailService extends Service
             if ($total['code'] === 'total') {
                 $value += $shippingCost;
                 // 計算 5% 折扣
-                $value = $value * 0.95;
+                // $value = $value * 0.95;
             }
 
             return [
