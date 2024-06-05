@@ -26,7 +26,7 @@ class ProductPaymentController extends Controller
 
         $req = $request->all();
 
-        $content = OrderLog::where('customer_id', $req['customerId'])->first()->content;
+        $content = OrderData::where('customer_id', $req['customerId'])->first()->content;
 
         $data = json_decode($content, true);
 
