@@ -266,12 +266,17 @@ class ProductDetailService extends Service
 
     private function prepareTotals($totals, $shippingCost, $paymentMethod)
     {
-        $mappedTotals = collect($totals)->mapWithKeys(function ($total, $key) {
+        $mappedTotals = collect($totals)->mapWithKeys(function ($total, $key) use ($shippingCost) {
+            $value = str_replace('$', '', $total['text']);
+            if ($total['code'] === 'sub_total') {
+                $value += $shippingCost;
+            }
+
             return [
                 $key => [
                     'code' => $total['code'],
                     'title' => $total['title'],
-                    'value' => str_replace('$', '', $total['text']),
+                    'value' => $value,
                     'sort_order' => $key + 1
                 ]
             ];
