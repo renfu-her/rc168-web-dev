@@ -283,7 +283,7 @@ class ProductDetailService extends Service
                 $value += $shippingCost;
             }
             if ($total['code'] === 'vip_customer') {
-                $value = '$' + $vipCustomer;
+                $value = '$' . $vipCustomer;
             }
 
             return [
