@@ -266,33 +266,37 @@ class ProductDetailService extends Service
 
     private function prepareTotals($totals, $shippingCost, $paymentMethod)
     {
-        $additionalTotals = collect([
-            [
-                'code' => $paymentMethod,
-                'title' => '運費',
-                'value' => $shippingCost,
-                'sort_order' => 1
-            ]
-        ]);
-
-        $mappedTotals = collect($totals)->mapWithKeys(function ($total, $key) use ($shippingCost) {
+        $totals = collect($totals)->map(function ($total) use ($shippingCost) {
             $value = str_replace('$', '', $total['text']);
             if ($total['code'] === 'sub_total') {
                 $value += $shippingCost;
+                $total['text'] = '$' . $value;
             }
-
-            return [
-                $key => [
-                    'code' => $total['code'],
-                    'title' => $total['title'],
-                    'value' => $value,
-                    'sort_order' => $key + 2 // 確保排序從2開始，1是運費
-                ]
-            ];
+            return $total;
         });
 
-        return $additionalTotals->merge($mappedTotals)->sortBy('sort_order')->values()->toArray();
+        // 插入运费项
+        $totals->splice(2, 0, [[
+            'code' => $paymentMethod,
+            'title' => '運費',
+            'text' => '$' . $shippingCost,
+        ]]);
+
+        // 更新 total 项
+        $totalValue = $totals->reduce(function ($carry, $item) {
+            return $carry + str_replace('$', '', $item['text']);
+        }, 0);
+
+        $totals = $totals->map(function ($total) use ($totalValue) {
+            if ($total['code'] === 'total') {
+                $total['text'] = '$' . $totalValue;
+            }
+            return $total;
+        });
+
+        return $totals->toArray();
     }
+
 
     private function getPaymentMethodTitle($paymentMethod)
     {
