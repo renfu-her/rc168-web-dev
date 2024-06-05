@@ -88,45 +88,34 @@ class ProductDetailService extends Service
 
     public function setOrder($customerId)
     {
-        $orderData = OrderData::where('customer_id', $customerId)->first();
-        if (!$orderData) {
-            return $this->response = Service::response('error', 'Order data not found.');
+        try {
+            $orderData = OrderData::where('customer_id', $customerId)->first();
+
+            if (!$orderData) {
+                return Service::response('error', 'Order data not found');
+            }
+
+            $data = json_decode($orderData->data, true);
+
+            $this->logOrderEvent('訂單建立', $data);
+
+            $addressData = $this->getCustomerAddress($data['customer'][0]['customer_id'], $data['address_id']);
+            $customerData = $this->getCustomerData($data['customer'][0]['customer_id']);
+
+            $submitData = $this->prepareSubmitData($data, $addressData, $customerData);
+
+            $this->logOrderEvent('訂單 submitData', $submitData);
+
+            $result = Http::asForm()->post($this->api_url . '/gws_appcustomer_order/add', [
+                'customer_id' => $data['customer'][0]['customer_id'],
+                'api_key' => $this->api_key,
+                'form_params' => $submitData,
+            ]);
+
+            return $this->response(Service::response('success', 'OK', $result->json()));
+        } catch (Exception $e) {
+            return Service::response('error', $e->getMessage());
         }
-
-        $data = json_decode($orderData->data, true);
-
-        $this->logOrderEvent('訂單建立', $data);
-
-        $addressId = $data['address_id'];
-        $customerId = $data['customer'][0]['customer_id'];
-
-        $addressData = $this->fetchData('gws_customer_address', [
-            'customer_id' => $customerId,
-            'address_id' => $addressId
-        ]);
-        dd($data, $addressData);
-
-        $customerData = $this->fetchData('gws_customer', [
-            'customer_id' => $customerId
-        ])['customer'];
-
-        $countryId = $addressData[0]['country_id'];
-        $zoneId = $addressData[0]['zone_id'];
-
-        $submitData = $this->buildSubmitData($data, $customerData, $addressData, $countryId, $zoneId);
-        $this->addCountryAndZoneNames($submitData, $countryId, $zoneId);
-
-        ksort($submitData);
-
-        $this->logOrderEvent('訂單 submitData', $submitData);
-
-        $result = Http::asForm()->post($this->api_url . '/gws_appcustomer_order/add&customer_id=' . $customerId . '&api_key=' . $this->api_key, $submitData);
-
-        if ($result->failed()) {
-            return $this->response = Service::response('error', 'Order submission failed.', $result->json());
-        }
-
-        return $this->response = Service::response('success', 'OK', $result->json());
     }
 
     private function logOrderEvent($event, $data)
@@ -137,141 +126,158 @@ class ProductDetailService extends Service
         $orderLog->save();
     }
 
-    private function fetchData($endpoint, $params)
+    private function getCustomerAddress($customerId, $addressId)
     {
-        $response = Http::get($this->api_url . "/$endpoint", array_merge($params, ['api_key' => $this->api_key]));
-        if ($response->failed()) {
-            throw new Exception("Failed to fetch data from $endpoint");
-        }
-        return $response->json();
+        $response = Http::get($this->api_url . '/gws_customer_address', [
+            'customer_id' => $customerId,
+            'address_id' => $addressId,
+            'api_key' => $this->api_key
+        ]);
+
+        return $response->json()['customer_address'][0];
     }
 
-    private function buildSubmitData($data, $customerData, $addressData, $countryId, $zoneId)
+    private function getCustomerData($customerId)
     {
-        $submitData = [
-            'customer[customer_id]' => $customerData[0]['customer_id'],
-            'customer[customer_group_id]' => 1,
-            'customer[firstname]' => $customerData[0]['firstname'],
-            'customer[lastname]' => $customerData[0]['lastname'],
-            'customer[email]' => $customerData[0]['email'],
-            'customer[telephone]' => $customerData[0]['telephone'],
-            'customer[custom_field]' => '',
-            'customer[fax]' => $customerData[0]['fax'],
+        $response = Http::get($this->api_url . '/gws_customer', [
+            'customer_id' => $customerId,
+            'api_key' => $this->api_key
+        ]);
 
-            // payment_address
-            'payment_address[firstname]' => $customerData[0]['firstname'],
-            'payment_address[lastname]' => $customerData[0]['lastname'],
-            'payment_address[company]' => '',
-            'payment_address[address_1]' => $addressData[0]['address_1'],
-            'payment_address[address_2]' => $addressData[0]['address_2'],
-            'payment_address[city]' => $addressData[0]['city'],
-            'payment_address[postcode]' => $addressData[0]['postcode'],
-            'payment_address[country_id]' => $countryId,
-            'payment_address[zone_id]' => $zoneId,
-            'payment_address[custom_field][1]' => '711',
+        return $response->json()['customer'][0];
+    }
 
-            // shipping_address
-            'shipping_address[firstname]' => $customerData[0]['firstname'],
-            'shipping_address[lastname]' => $customerData[0]['lastname'],
-            'shipping_address[company]' => '',
-            'shipping_address[address_1]' => $addressData[0]['address_1'],
-            'shipping_address[address_2]' => $addressData[0]['address_2'],
-            'shipping_address[city]' => $addressData[0]['city'],
-            'shipping_address[postcode]' => $addressData[0]['postcode'],
-            'shipping_address[country_id]' => $countryId,
-            'shipping_address[zone_id]' => $zoneId,
-            'shipping_address[address_format]' => $addressData[0]['address_1'],
-            'shipping_address[custom_field][1]' => '711',
+    private function getCountryAndZone($countryId, $zoneId)
+    {
+        $countryResponse = Http::get($this->api_url . '/gws_country', [
+            'country_id' => $countryId,
+            'api_key' => $this->api_key
+        ]);
+
+        $zoneResponse = Http::get($this->api_url . '/gws_zone', [
+            'country_id' => $countryId,
+            'api_key' => $this->api_key
+        ]);
+
+        $countryName = $countryResponse->json()['country'][0]['name'];
+        $zoneData = collect($zoneResponse->json()['zones'])->firstWhere('zone_id', $zoneId);
+
+        return [
+            'country' => $countryName,
+            'zone' => $zoneData['name']
         ];
+    }
 
-        $this->addProductsToSubmitData($submitData, $data['products']);
-        $this->addTotalsToSubmitData($submitData, $data['totals']);
+    private function prepareSubmitData($data, $addressData, $customerData)
+    {
+        $customerId = $data['customer'][0]['customer_id'];
+        $countryAndZone = $this->getCountryAndZone($addressData['country_id'], $addressData['zone_id']);
 
-        $submitData['total'] = array_reduce($data['products'], function ($carry, $item) {
-            return $carry + $item['total'];
-        }, 0);
-
-        $this->addPaymentMethod($submitData, $data['payment_method']);
+        $submitData = [
+            'customer' => [
+                'customer_id' => $customerId,
+                'customer_group_id' => 1,
+                'firstname' => $customerData['firstname'],
+                'lastname' => $customerData['lastname'],
+                'email' => $customerData['email'],
+                'telephone' => $customerData['telephone'],
+                'custom_field' => '',
+                'fax' => $customerData['fax']
+            ],
+            'payment_address' => $this->prepareAddressData($addressData, $customerData, $countryAndZone),
+            'shipping_address' => $this->prepareAddressData($addressData, $customerData, $countryAndZone),
+            'payment_method' => $this->preparePaymentMethod($data['payment_method']),
+            'products' => $this->prepareProducts($data['products']),
+            'totals' => $this->prepareTotals($data['totals']),
+            'total' => array_sum(array_column($data['products'], 'total')),
+            'shipping_method' => [
+                'title' => '運費',
+                'code' => 'flat.flat'
+            ]
+        ];
 
         return $submitData;
     }
 
-    private function addProductsToSubmitData(&$submitData, $products)
+    private function prepareAddressData($addressData, $customerData, $countryAndZone)
     {
-        foreach ($products as $key => $product) {
-            $submitData["products[$key][product_id]"] = $product['product_id'];
-            $submitData["products[$key][model]"] = $product['name'];
-            $submitData["products[$key][name]"] = $product['name'];
-            $submitData["products[$key][quantity]"] = $product['quantity'];
-            $submitData["products[$key][price]"] = $product['price'];
-            $submitData["products[$key][total]"] = $product['total'];
-            $submitData["products[$key][tax_class_id]"] = 9;
-            $submitData["products[$key][download]"] = '';
-            $submitData["products[$key][subtract]"] = 1;
-            $submitData["products[$key][reward]"] = 0;
-
-            if (isset($product['options']) && is_array($product['options'])) {
-                foreach ($product['options'] as $optionKey => $optionValue) {
-                    $submitData["products[$key][option][$optionKey][product_option_id]"] = $optionValue['product_option_id'];
-                    $submitData["products[$key][option][$optionKey][product_option_value_id]"] = $optionValue['product_option_value_id'];
-                    $submitData["products[$key][option][$optionKey][name]"] = $optionValue['name'];
-                    $submitData["products[$key][option][$optionKey][value]"] = $optionValue['value'];
-                    $submitData["products[$key][option][$optionKey][type]"] = $optionValue['type'];
-                }
-            }
-        }
-    }
-
-    private function addTotalsToSubmitData(&$submitData, $totals)
-    {
-        foreach ($totals as $key => $total) {
-            $submitData["totals[$key][code]"] = $total['code'];
-            $submitData["totals[$key][title]"] = $total['title'];
-            $submitData["totals[$key][value]"] = str_replace('$', '', $total['text']);
-            $submitData["totals[$key][sort_order]"] = $key + 1;
-        }
-    }
-
-    private function addPaymentMethod(&$submitData, $paymentMethod)
-    {
-        $methods = [
-            'linepay_sainent' => ['title' => 'LINE Pay', 'code' => 'linepay_sainent'],
-            'ecpaypayment' => ['title' => '線上刷卡', 'code' => 'ecpaypayment'],
-            'default' => ['title' => '銀行轉帳', 'code' => 'bank_transfer']
+        return [
+            'firstname' => $customerData['firstname'],
+            'lastname' => $customerData['lastname'],
+            'company' => '',
+            'address_1' => $addressData['address_1'],
+            'address_2' => $addressData['address_2'],
+            'city' => $addressData['city'],
+            'postcode' => $addressData['postcode'],
+            'country_id' => $addressData['country_id'],
+            'zone_id' => $addressData['zone_id'],
+            'country' => $countryAndZone['country'],
+            'zone' => $countryAndZone['zone'],
+            'custom_field' => ['1' => '711'],
+            'address_format' => "{$addressData['postcode']} {$countryAndZone['country']} {$countryAndZone['zone']} {$addressData['address_1']}",
+            'cellphone' => '0922013171',
+            'pickupstore' => '0922013171'
         ];
-
-        $method = $methods[$paymentMethod] ?? $methods['default'];
-        $submitData['payment_method[title]'] = $method['title'];
-        $submitData['payment_method[code]'] = $method['code'];
     }
 
-    private function addCountryAndZoneNames(&$submitData, $countryId, $zoneId)
+    private function preparePaymentMethod($paymentMethod)
     {
-        $countryData = $this->fetchData('gws_country', [
-            'country_id' => $countryId
-        ])['country'];
-
-        $submitData["payment_address[country]"] = $countryData[0]['name'];
-        $submitData["shipping_address[country]"] = $countryData[0]['name'];
-
-        $zoneData = $this->fetchData('gws_zone', [
-            'country_id' => $countryId
-        ])['zones'];
-
-        foreach ($zoneData as $value) {
-            if ($value['zone_id'] == $zoneId) {
-                $submitData["payment_address[zone]"] = $value['name'];
-                $submitData["shipping_address[zone]"] = $value['name'];
-            }
+        switch ($paymentMethod) {
+            case 'linepay_sainent':
+                return ['title' => 'LINE Pay', 'code' => 'linepay_sainent'];
+            case 'ecpaypayment':
+                return ['title' => '線上刷卡', 'code' => 'ecpaypayment'];
+            default:
+                return ['title' => '銀行轉帳', 'code' => 'bank_transfer'];
         }
-
-        $submitData['payment_address[address_format]'] = $this->formatAddress($submitData['payment_address'], $countryData[0]['name']);
-        $submitData['shipping_address[address_format]'] = $this->formatAddress($submitData['shipping_address'], $countryData[0]['name']);
     }
 
-    private function formatAddress($address, $countryName)
+    private function prepareProducts($products)
     {
-        return $address['postcode'] . ' ' . $countryName . $address['zone'] . $address['address_1'];
+        return collect($products)->map(function ($product, $key) {
+            return [
+                'product_id' => $product['product_id'],
+                'model' => $product['name'],
+                'name' => $product['name'],
+                'quantity' => $product['quantity'],
+                'price' => $product['price'],
+                'total' => $product['total'],
+                'tax_class_id' => 9,
+                'download' => '',
+                'subtract' => 1,
+                'reward' => 0,
+                'option' => $this->prepareProductOptions($product['options'] ?? [])
+            ];
+        })->toArray();
+    }
+
+    private function prepareProductOptions($options)
+    {
+        return collect($options)->mapWithKeys(function ($option, $key) {
+            return [
+                $key => [
+                    'product_option_id' => $option['product_option_id'],
+                    'product_option_value_id' => $option['product_option_value_id'],
+                    'name' => $option['name'],
+                    'value' => $option['value'],
+                    'type' => $option['type']
+                ]
+            ];
+        })->toArray();
+    }
+
+    private function prepareTotals($totals)
+    {
+        return collect($totals)->mapWithKeys(function ($total, $key) {
+            return [
+                $key => [
+                    'code' => $total['code'],
+                    'title' => $total['title'],
+                    'value' => str_replace('$', '', $total['text']),
+                    'sort_order' => $key + 1
+                ]
+            ];
+        })->toArray();
     }
 
 
