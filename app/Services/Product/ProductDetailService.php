@@ -266,6 +266,15 @@ class ProductDetailService extends Service
 
     private function prepareTotals($totals, $shippingCost, $paymentMethod)
     {
+        $additionalTotals = collect([
+            [
+                'code' => $paymentMethod,
+                'title' => '運費',
+                'value' => $shippingCost,
+                'sort_order' => 1
+            ]
+        ]);
+
         $mappedTotals = collect($totals)->mapWithKeys(function ($total, $key) use ($shippingCost) {
             $value = str_replace('$', '', $total['text']);
             if ($total['code'] === 'sub_total') {
@@ -277,22 +286,26 @@ class ProductDetailService extends Service
                     'code' => $total['code'],
                     'title' => $total['title'],
                     'value' => $value,
-                    'sort_order' => $key + 1
+                    'sort_order' => $key + 2 // 確保排序從2開始，1是運費
                 ]
             ];
         });
 
-        $additionalTotals = collect([
-            [
-                'code' => $paymentMethod,
-                'title' => '運費',
-                'value' => $shippingCost,
-                'sort_order' => $mappedTotals->count() + 1
-            ],
-        ]);
-
-        return $mappedTotals->merge($additionalTotals)->toArray();
+        return $additionalTotals->merge($mappedTotals)->sortBy('sort_order')->values()->toArray();
     }
+
+    private function getPaymentMethodTitle($paymentMethod)
+    {
+        switch ($paymentMethod) {
+            case 'linepay_sainent':
+                return "LINE Pay";
+            case 'ecpaypayment':
+                return "線上刷卡";
+            default:
+                return "銀行轉帳";
+        }
+    }
+
 
     public function runValidate($method)
     {
