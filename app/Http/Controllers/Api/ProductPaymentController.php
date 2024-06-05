@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Exception;
 use App\Models\Order;
 use App\Models\OrderData;
+use App\Models\OrderLog;
 
 
 class ProductPaymentController extends Controller
@@ -25,7 +26,7 @@ class ProductPaymentController extends Controller
 
         $req = $request->all();
 
-        $content = Storage::disk('public')->get($req['customerId'] . '.txt');
+        $content = OrderLog::where('customer_id', $req['customerId'])->first()->content;
 
         $data = json_decode($content, true);
 
