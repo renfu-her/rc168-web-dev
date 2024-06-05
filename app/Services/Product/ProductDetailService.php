@@ -103,7 +103,8 @@ class ProductDetailService extends Service
         $addressData = $this->fetchData('gws_customer_address', [
             'customer_id' => $customerId,
             'address_id' => $addressId
-        ])['customer_address'];
+        ]);
+        dd($data, $addressData);
 
         $customerData = $this->fetchData('gws_customer', [
             'customer_id' => $customerId
