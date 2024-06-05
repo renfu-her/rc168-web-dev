@@ -88,34 +88,33 @@ class ProductDetailService extends Service
 
     public function setOrder($customerId)
     {
-        try {
-            $orderData = OrderData::where('customer_id', $customerId)->first();
 
-            if (!$orderData) {
-                return Service::response('error', 'Order data not found');
-            }
+        $orderData = OrderData::where('customer_id', $customerId)->first();
 
-            $data = json_decode($orderData->data, true);
-
-            $this->logOrderEvent('訂單建立', $data);
-
-            $addressData = $this->getCustomerAddress($data['customer'][0]['customer_id'], $data['address_id']);
-            $customerData = $this->getCustomerData($data['customer'][0]['customer_id']);
-
-            $submitData = $this->prepareSubmitData($data, $addressData, $customerData);
-
-            $this->logOrderEvent('訂單 submitData', $submitData);
-
-            $result = Http::asForm()->post($this->api_url . '/gws_appcustomer_order/add', [
-                'customer_id' => $data['customer'][0]['customer_id'],
-                'api_key' => $this->api_key,
-                'form_params' => $submitData,
-            ]);
-
-            return $this->response(Service::response('success', 'OK', $result->json()));
-        } catch (Exception $e) {
-            return Service::response('error', $e->getMessage());
+        if (!$orderData) {
+            return Service::response('error', 'Order data not found');
         }
+
+        $data = json_decode($orderData->data, true);
+
+        $this->logOrderEvent('訂單建立', $data);
+
+        $addressData = $this->getCustomerAddress($data['customer'][0]['customer_id'], $data['address_id']);
+        $customerData = $this->getCustomerData($data['customer'][0]['customer_id']);
+
+        $submitData = $this->prepareSubmitData($data, $addressData, $customerData);
+
+        $this->logOrderEvent('訂單 submitData', $submitData);
+
+        $result = Http::asForm()->post($this->api_url . '/gws_appcustomer_order/add', [
+            'customer_id' => $data['customer'][0]['customer_id'],
+            'api_key' => $this->api_key,
+            'form_params' => $submitData,
+        ]);
+
+        $this->response = Service::response('success', 'OK', $result->json());
+
+        return $this;
     }
 
     private function logOrderEvent($event, $data)
