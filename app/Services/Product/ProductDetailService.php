@@ -106,11 +106,12 @@ class ProductDetailService extends Service
 
         $this->logOrderEvent('訂單 submitData', $submitData);
 
-        $result = Http::asForm()->post($this->api_url . '/gws_appcustomer_order/add', [
-            'customer_id' => $data['customer'][0]['customer_id'],
-            'api_key' => $this->api_key,
-            'form_params' => $submitData,
-        ]);
+        $result = Http::asForm()->post(
+            $this->api_url .
+                '/gws_appcustomer_order/add&customer_id' . $data['customer'][0]['customer_id'] .
+                '&api_key' . $this->api_key,
+            $submitData,
+        );
 
         $this->response = Service::response('success', 'OK', $result->json());
 
@@ -138,8 +139,8 @@ class ProductDetailService extends Service
     private function getCustomerData($customerId)
     {
         $response = Http::get($this->api_url .
-            '/gws_customer&customer_id' . $customerId .
-            '&api_key' . $this->api_key);
+            '/gws_customer&customer_id=' . $customerId .
+            '&api_key=' . $this->api_key);
 
         return $response->json()['customer'][0];
     }
@@ -148,13 +149,13 @@ class ProductDetailService extends Service
     {
         $countryResponse = Http::get(
             $this->api_url .
-                '/gws_country&country_id' . $countryId,
-            '&api_key' . $this->api_key
+                '/gws_country&country_id=' . $countryId,
+            '&api_key=' . $this->api_key
         );
 
         $zoneResponse = Http::get($this->api_url .
-            '/gws_zone&country_id' . $countryId .
-            '&api_key' . $this->api_key);
+            '/gws_zone&country_id=' . $countryId .
+            '&api_key=' . $this->api_key);
 
         $countryName = $countryResponse->json()['country'][0]['name'];
         $zoneData = collect($zoneResponse->json()['zones'])->firstWhere('zone_id', $zoneId);
