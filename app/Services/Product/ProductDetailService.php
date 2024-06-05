@@ -214,8 +214,7 @@ class ProductDetailService extends Service
         foreach ($data['totals'] as $key => $totals) {
             $submitData["totals[$key][code]"] = $totals['code'];
             $submitData["totals[$key][title]"] = $totals['title'];
-            $submitData["totals[$key][text]"] = $totals['text'];
-            // 根據需要，您可能需要添加 value 屬性
+            $submitData["totals[$key][value]"] = substr_replace('$', '', $totals['text']);
             $submitData["totals[$key][sort_order]"] = $key + 1;
         }
 
