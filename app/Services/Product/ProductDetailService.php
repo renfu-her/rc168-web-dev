@@ -277,11 +277,12 @@ class ProductDetailService extends Service
             ]
         ]);
 
-        dd($shippingCost);
+        
 
         $mappedTotals = collect($totals)->mapWithKeys(function ($total, $key) use ($shippingCost) {
             $value = str_replace('$', '', $total['text']);
             if ($total['code'] === 'total') {
+                dd($value, $shippingCost);
                 $value += $shippingCost;
             }
             // if ($total['code'] === 'vip_customer') {
