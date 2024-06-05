@@ -186,7 +186,7 @@ class ProductDetailService extends Service
             'shipping_address' => $this->prepareAddressData($addressData, $customerData, $countryAndZone),
             'payment_method' => $this->preparePaymentMethod($data['payment_method']),
             'products' => $this->prepareProducts($data['products']),
-            'totals' => $this->prepareTotals($data['totals']),
+            'totals' => $this->prepareTotals($data['totals'], $data['shipping_cost'], $data['payment_method']),
             'total' => array_sum(array_column($data['products'], 'total')),
             'shipping_method' => [
                 'title' => '運費',
@@ -264,9 +264,9 @@ class ProductDetailService extends Service
         })->toArray();
     }
 
-    private function prepareTotals($totals)
+    private function prepareTotals($totals, $shippingCost, $paymentMethod)
     {
-        return collect($totals)->mapWithKeys(function ($total, $key) {
+        $mappedTotals = collect($totals)->mapWithKeys(function ($total, $key) {
             return [
                 $key => [
                     'code' => $total['code'],
@@ -275,10 +275,19 @@ class ProductDetailService extends Service
                     'sort_order' => $key + 1
                 ]
             ];
-        })->toArray();
+        });
+
+        $additionalTotals = collect([
+            [
+                'code' => $paymentMethod,
+                'title' => '運費',
+                'value' => $shippingCost,
+                'sort_order' => $mappedTotals->count() + 1
+            ],
+        ]);
+
+        return $mappedTotals->merge($additionalTotals)->toArray();
     }
-
-
 
     public function runValidate($method)
     {
