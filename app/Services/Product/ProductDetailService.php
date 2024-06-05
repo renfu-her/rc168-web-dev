@@ -266,37 +266,35 @@ class ProductDetailService extends Service
 
     private function prepareTotals($totals, $shippingCost, $paymentMethod)
     {
-        // $totals = collect($totals)->map(function ($total) use ($shippingCost) {
-        //     $value = str_replace('$', '', $total['text']);
-        //     // if ($total['code'] === 'sub_total') {
-        //     //     $value += $shippingCost;
-        //     //     $total['text'] = '$' . $value;
-        //     // }
-        //     return $total;
-        // });
+        $additionalTotals = collect([
+            [
+                'code' => $paymentMethod,
+                'title' => '運費',
+                'value' => $shippingCost,
+                'sort_order' => 1
+            ]
+        ]);
 
-        // 插入运费项
-        $totals->splice(2, 0, [[
-            'code' => $paymentMethod,
-            'title' => '運費',
-            'text' => '$' . $shippingCost,
-        ]]);
-
-        // 更新 total 项
-        $totalValue = $totals->reduce(function ($carry, $item) {
-            return $carry + str_replace('$', '', $item['text']);
-        }, 0);
-
-        $totals = $totals->map(function ($total) use ($totalValue) {
+        $mappedTotals = collect($totals)->mapWithKeys(function ($total, $key) use ($shippingCost) {
+            $value = str_replace('$', '', $total['text']);
             if ($total['code'] === 'total') {
-                $total['text'] = '$' . $totalValue;
+                $value += $shippingCost;
+                // 計算 5% 折扣
+                $value = $value * 0.95;
             }
-            return $total;
+
+            return [
+                $key => [
+                    'code' => $total['code'],
+                    'title' => $total['title'],
+                    'value' => $value,
+                    'sort_order' => $key + 2 // 確保排序從2開始，1是運費
+                ]
+            ];
         });
 
-        return $totals->toArray();
+        return $additionalTotals->merge($mappedTotals)->sortBy('sort_order')->values()->toArray();
     }
-
 
     private function getPaymentMethodTitle($paymentMethod)
     {
