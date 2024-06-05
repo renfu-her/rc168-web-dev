@@ -26,11 +26,9 @@ class ProductPaymentController extends Controller
 
         $req = $request->all();
 
-        $content = OrderData::where('customer_id', $req['customerId'])->first()->content;
+        $content = OrderData::where('customer_id', $req['customerId'])->first()->data;
 
         $data = json_decode($content, true);
-
-        dd($data);
 
         if ($data['payment_method'] == 'ecpaypayment') {
             return $this->ecpay($data, $req);
