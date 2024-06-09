@@ -10,12 +10,16 @@ use Exception;
 use App\Models\Order;
 use App\Models\OrderData;
 use App\Models\OrderLog;
+use Illuminate\Support\Facades\Http;
 
 
 class ProductPaymentController extends Controller
 {
 
     protected $checkout;
+    public $api_url = 'https://ismartdemo.com.tw/index.php?route=extension/module/api';
+    public $api_key = 'CNQ4eX5WcbgFQVkBXFKmP9AE2AYUpU2HySz2wFhwCZ3qExG6Tep7ZCSZygwzYfsF';
+
     public function __construct(Checkout $checkout)
     {
         $this->checkout = $checkout;
@@ -30,11 +34,33 @@ class ProductPaymentController extends Controller
 
         $data = json_decode($content, true);
 
-        if ($data['payment_method'] == 'ecpaypayment') {
-            return $this->ecpay($data, $req);
-        } elseif ($data['payment_method'] == 'linepay_sainent') {
-            return $this->linepay($data, $req);
+        switch ($data['payment_method']) {
+            case 'ecpaypayment':
+                $payment = $this->ecpay($data, $req);
+                break;
+            case 'linepay_sainent':
+                $payment = $this->linepay($data, $req);
+                break;
+            case 'bank_transfer':
+                $payment = $this->bankTransfer($req);
+                break;
         }
+
+        return $payment;
+    }
+
+    // 銀行轉帳
+    public function bankTransfer($req)
+    {
+        $bankTransfer = Http::get($this->api_url . '/gws_apppayment_methods/index&customer_id=' . $req['customerId'] . '&api_key=' . $this->api_key);
+
+
+        if ($bankTransfer->status() == 200) {
+            $response = $bankTransfer->json();
+            return $response;
+        }
+
+        return response()->json(['error' => 'error'], 500);
     }
 
     // ecpay
