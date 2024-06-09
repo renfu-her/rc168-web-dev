@@ -52,7 +52,9 @@ class ProductPaymentController extends Controller
     // 銀行轉帳
     public function bankTransfer($req)
     {
-        $bankTransfer = Http::get($this->api_url . '/gws_apppayment_methods/index&customer_id=' . $req['customerId'] . '&api_key=' . $this->api_key);
+        $bankTransfer = Http::get($this->api_url .
+            '/gws_apppayment_methods/index&customer_id=' . $req['customerId'] .
+            '&api_key=' . $this->api_key);
 
         if ($bankTransfer->status() == 200) {
             $bankTransferData = $bankTransfer->json();
