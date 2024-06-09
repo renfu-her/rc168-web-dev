@@ -52,35 +52,39 @@ class ProductPaymentController extends Controller
     // 銀行轉帳
     public function bankTransfer($req)
     {
-        $bankTransfer = Http::get($this->api_url .
-            '/gws_apppayment_methods/index&customer_id=' . $req['customerId'] .
-            '&api_key=' . $this->api_key);
+        $customerId = $req['customerId'];
+        $apiEndpoint = $this->api_url . '/gws_apppayment_methods/index';
+        $queryParams = http_build_query([
+            'customer_id' => $customerId,
+            'api_key' => $this->api_key,
+        ]);
 
-        if ($bankTransfer->status() == 200) {
-            $bankTransferData = $bankTransfer->json();
-            $data = collect($bankTransferData['payment_methods']);
+        $response = Http::get("{$apiEndpoint}&{$queryParams}");
+
+        if ($response->status() === 200) {
+            $bankTransferData = $response->json();
+            $paymentMethods = collect($bankTransferData['payment_methods']);
 
             // 過濾並取得 code 為 bank_transfer 的支付方式
-            $bankTransferMethod = $data->firstWhere('code', 'bank_transfer');
+            $bankTransferMethod = $paymentMethods->firstWhere('code', 'bank_transfer');
 
             if ($bankTransferMethod) {
-                // 取得 desc 值
-                $res = $bankTransferMethod['desc'];
+                // 取得 desc 值並替換換行符號
+                $description = str_replace("\r\n", "<br>", $bankTransferMethod['desc']);
 
-                $res = str_replace("\r\n", "<br>", $res);
-
+                // 移除購物車項目
                 $this->fetchAndRemoveCartItems($req);
 
-                // 回傳 response
-                return $res;
+                // 回傳描述
+                return $description;
             } else {
-                $res = 'Bank transfer method not found';
-                return $res;
+                return 'Bank transfer method not found';
             }
         }
 
         return response()->json(['error' => 'API request error'], 500);
     }
+
 
     public function fetchAndRemoveCartItems(Request $request)
     {
