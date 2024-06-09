@@ -123,6 +123,8 @@ class ProductPaymentController extends Controller
             'api_key' => $this->api_key,
         ]);
 
+        dd($response->body(), $response->status());
+
         if ($response->successful()) {
             // 请求成功处理
             Log::info('Item removed successfully: ' . $response->body());
