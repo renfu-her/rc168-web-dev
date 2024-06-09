@@ -124,8 +124,6 @@ class ProductPaymentController extends Controller
         // 发起GET请求以删除购物车项
         $response = Http::get("{$this->api_url}/gws_customer_cart/remove&{$queryParams}");
 
-        dd($response->body(), $response->status());
-
         if ($response->successful()) {
             // 请求成功处理
             Log::info('Item removed successfully: ' . $response->body());
