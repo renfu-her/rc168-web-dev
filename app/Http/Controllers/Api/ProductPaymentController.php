@@ -85,10 +85,9 @@ class ProductPaymentController extends Controller
         return response()->json(['error' => 'API request error'], 500);
     }
 
-
-    public function fetchAndRemoveCartItems(Request $request)
+    public function fetchAndRemoveCartItems($req)
     {
-        $customerId = $request->input('customerId');
+        $customerId = $req['customerId'];
 
         try {
             // 发起GET请求以获取购物车数据
@@ -107,14 +106,16 @@ class ProductPaymentController extends Controller
                     $this->removeCartItem($customerId, $cart['cart_id']);
                 });
 
-                return response()->json(['message' => 'All items removed successfully'], 200);
+                return true;
             } else {
                 // 错误处理
-                return response()->json(['error' => 'Failed to fetch cart items'], $response->status());
+                Log::error('Failed to fetch cart items: ' . $response->status());
+                return false;
             }
         } catch (Exception $e) {
             // 异常处理
-            return response()->json(['error' => 'Error fetching cart items: ' . $e->getMessage()], 500);
+            Log::error('Error fetching cart items: ' . $e->getMessage());
+            return false;
         }
     }
 
@@ -139,6 +140,7 @@ class ProductPaymentController extends Controller
             Log::error('Error removing item: ' . $e->getMessage());
         }
     }
+
 
     // ecpay
     public function ecpay($data, $req)
