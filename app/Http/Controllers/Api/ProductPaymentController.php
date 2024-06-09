@@ -89,55 +89,45 @@ class ProductPaymentController extends Controller
     {
         $customerId = $req['customerId'];
 
-        try {
-            // 发起GET请求以获取购物车数据
-            $response = Http::get("{$this->api_url}/gws_customer_cart", [
-                'customer_id' => $customerId,
-                'api_key' => $this->api_key,
-            ]);
+        // 发起GET请求以获取购物车数据
+        $response = Http::get("{$this->api_url}/gws_customer_cart", [
+            'customer_id' => $customerId,
+            'api_key' => $this->api_key,
+        ]);
 
-            if ($response->successful()) {
-                // 请求成功，解析购物车数据
-                $jsonData = $response->json();
-                $carts = collect($jsonData['customer_cart']);
+        if ($response->successful()) {
+            // 请求成功，解析购物车数据
+            $jsonData = $response->json();
+            $carts = collect($jsonData['customer_cart']);
 
-                // 遍历购物车项并删除它们
-                $carts->each(function ($cart) use ($customerId) {
-                    $this->removeCartItem($customerId, $cart['cart_id']);
-                });
+            // 遍历购物车项并删除它们
+            $carts->each(function ($cart) use ($customerId) {
+                $this->removeCartItem($customerId, $cart['cart_id']);
+            });
 
-                return true;
-            } else {
-                // 错误处理
-                Log::error('Failed to fetch cart items: ' . $response->status());
-                return false;
-            }
-        } catch (Exception $e) {
-            // 异常处理
-            Log::error('Error fetching cart items: ' . $e->getMessage());
+            return true;
+        } else {
+            // 错误处理
+            Log::error('Failed to fetch cart items: ' . $response->status());
             return false;
         }
     }
 
     private function removeCartItem($customerId, $cartId)
     {
-        try {
-            $response = Http::get("{$this->api_url}/gws_customer_cart/remove", [
-                'customer_id' => $customerId,
-                'cart_id' => $cartId,
-                'api_key' => $this->api_key,
-            ]);
 
-            if ($response->successful()) {
-                // 请求成功处理
-                Log::info('Item removed successfully: ' . $response->body());
-            } else {
-                // 错误处理
-                Log::error('Failed to remove item: ' . $response->status());
-            }
-        } catch (Exception $e) {
-            // 异常处理
-            Log::error('Error removing item: ' . $e->getMessage());
+        $response = Http::get("{$this->api_url}/gws_customer_cart/remove", [
+            'customer_id' => $customerId,
+            'cart_id' => $cartId,
+            'api_key' => $this->api_key,
+        ]);
+
+        if ($response->successful()) {
+            // 请求成功处理
+            Log::info('Item removed successfully: ' . $response->body());
+        } else {
+            // 错误处理
+            Log::error('Failed to remove item: ' . $response->status());
         }
     }
 
