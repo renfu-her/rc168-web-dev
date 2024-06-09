@@ -67,6 +67,8 @@ class ProductPaymentController extends Controller
                 // 取得 desc 值
                 $res = $bankTransferMethod['desc'];
 
+                $res = str_replace("\r\n", "<br>", $res);
+
                 // 回傳 response
                 return $res;
             } else {
