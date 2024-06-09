@@ -95,8 +95,6 @@ class ProductPaymentController extends Controller
         // 发起GET请求以获取购物车数据
         $response = Http::get("{$this->api_url}/gws_appcustomer_cart&{$queryParams}");
 
-        dd($response->json(), $response->body());
-
         if ($response->successful()) {
             // 请求成功，解析购物车数据
             $jsonData = $response->json();
