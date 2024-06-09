@@ -95,6 +95,8 @@ class ProductPaymentController extends Controller
             'api_key' => $this->api_key,
         ]);
 
+        dd($response->json(), $response->body());
+
         if ($response->successful()) {
             // 请求成功，解析购物车数据
             $jsonData = $response->json();
