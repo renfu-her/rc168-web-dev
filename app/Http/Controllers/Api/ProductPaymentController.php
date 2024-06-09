@@ -88,12 +88,12 @@ class ProductPaymentController extends Controller
     public function fetchAndRemoveCartItems($req)
     {
         $customerId = $req['customerId'];
-
-        // 发起GET请求以获取购物车数据
-        $response = Http::get("{$this->api_url}/gws_customer_cart", [
+        $queryParams = http_build_query([
             'customer_id' => $customerId,
             'api_key' => $this->api_key,
         ]);
+        // 发起GET请求以获取购物车数据
+        $response = Http::get("{$this->api_url}/gws_appcustomer_cart&{$queryParams}");
 
         dd($response->json(), $response->body());
 
@@ -118,6 +118,7 @@ class ProductPaymentController extends Controller
     private function removeCartItem($customerId, $cartId)
     {
 
+        // 发起GET请求以删除购物车项
         $response = Http::get("{$this->api_url}/gws_customer_cart/remove", [
             'customer_id' => $customerId,
             'cart_id' => $cartId,
