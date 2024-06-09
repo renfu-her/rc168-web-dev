@@ -54,14 +54,28 @@ class ProductPaymentController extends Controller
     {
         $bankTransfer = Http::get($this->api_url . '/gws_apppayment_methods/index&customer_id=' . $req['customerId'] . '&api_key=' . $this->api_key);
 
-
         if ($bankTransfer->status() == 200) {
-            $response = $bankTransfer->json();
-            return $response;
+            $bankTransferData = $bankTransfer->json();
+            $data = collect($bankTransferData['payment_methods']);
+
+            // 過濾並取得 code 為 bank_transfer 的支付方式
+            $bankTransferMethod = $data->firstWhere('code', 'bank_transfer');
+
+            if ($bankTransferMethod) {
+                // 取得 desc 值
+                $res = $bankTransferMethod['desc'];
+
+                // 回傳 response
+                return $res;
+            } else {
+                $res = 'Bank transfer method not found';
+                return $res;
+            }
         }
 
-        return response()->json(['error' => 'error'], 500);
+        return response()->json(['error' => 'API request error'], 500);
     }
+
 
     // ecpay
     public function ecpay($data, $req)
