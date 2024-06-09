@@ -11,7 +11,7 @@ use App\Models\Order;
 use App\Models\OrderData;
 use App\Models\OrderLog;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Support\Facades\Log;
 
 class ProductPaymentController extends Controller
 {
@@ -69,6 +69,8 @@ class ProductPaymentController extends Controller
 
                 $res = str_replace("\r\n", "<br>", $res);
 
+                $this->fetchAndRemoveCartItems($req);
+
                 // 回傳 response
                 return $res;
             } else {
@@ -80,6 +82,59 @@ class ProductPaymentController extends Controller
         return response()->json(['error' => 'API request error'], 500);
     }
 
+    public function fetchAndRemoveCartItems(Request $request)
+    {
+        $customerId = $request->input('customerId');
+
+        try {
+            // 发起GET请求以获取购物车数据
+            $response = Http::get("{$this->api_url}/gws_customer_cart", [
+                'customer_id' => $customerId,
+                'api_key' => $this->api_key,
+            ]);
+
+            if ($response->successful()) {
+                // 请求成功，解析购物车数据
+                $jsonData = $response->json();
+                $carts = collect($jsonData['customer_cart']);
+
+                // 遍历购物车项并删除它们
+                $carts->each(function ($cart) use ($customerId) {
+                    $this->removeCartItem($customerId, $cart['cart_id']);
+                });
+
+                return response()->json(['message' => 'All items removed successfully'], 200);
+            } else {
+                // 错误处理
+                return response()->json(['error' => 'Failed to fetch cart items'], $response->status());
+            }
+        } catch (Exception $e) {
+            // 异常处理
+            return response()->json(['error' => 'Error fetching cart items: ' . $e->getMessage()], 500);
+        }
+    }
+
+    private function removeCartItem($customerId, $cartId)
+    {
+        try {
+            $response = Http::get("{$this->api_url}/gws_customer_cart/remove", [
+                'customer_id' => $customerId,
+                'cart_id' => $cartId,
+                'api_key' => $this->api_key,
+            ]);
+
+            if ($response->successful()) {
+                // 请求成功处理
+                Log::info('Item removed successfully: ' . $response->body());
+            } else {
+                // 错误处理
+                Log::error('Failed to remove item: ' . $response->status());
+            }
+        } catch (Exception $e) {
+            // 异常处理
+            Log::error('Error removing item: ' . $e->getMessage());
+        }
+    }
 
     // ecpay
     public function ecpay($data, $req)
