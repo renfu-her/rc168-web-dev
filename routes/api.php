@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\UserBonusController;
 use App\Http\Controllers\Api\BonusController;
 use App\Http\Controllers\Api\ProductDetailController;
 use App\Http\Controllers\Api\ProductPaymentController;
+use App\Http\Controllers\Api\LogisticsController;
 
 use App\Http\Controllers\SendMailController;
 
@@ -47,6 +48,7 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::post('/send_mail', [SendMailController::class, 'send']);
+route::post('/map/logistics', [LogisticsController::class, 'logistics'])->name('api.map.logistics');
 
 // 另外的 API
 Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
