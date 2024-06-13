@@ -28,7 +28,23 @@ class LogisticsController extends Controller
             'status' => 'failed',
             'data' => []
         ]);
-        
+    }
 
+    public function rewrite(Request $request)
+    {
+        $res = $request->all();
+
+        $memberId = $res['memberId'];
+
+        OrderLogistics::updateOrCreate([
+            'member_id' => $memberId
+        ], [
+            'logistics_sub_type' => $res['LogisticsSubType'],
+            'cvs_store_id' => $res['CVSStoreID'],
+            'cvs_store_name' => $res['CVSStoreName'],
+            'cvs_address' => $res['CVSAddress'],
+            'cvs_telephone' => $res['CVSTelephone'],
+            'cvs_out_side' => $res['CVSOutSide']
+        ]);
     }
 }

@@ -48,7 +48,8 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::post('/send_mail', [SendMailController::class, 'send']);
-route::post('/map/logistics', [LogisticsController::class, 'logistics'])->name('api.map.logistics');
+Route::post('/map/logistics', [LogisticsController::class, 'logistics'])->name('api.map.logistics');
+Route::post('/map/rewrite', [LogisticsController::class, 'rewrite'])->name('api.map.rewrite');
 
 // 另外的 API
 Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
