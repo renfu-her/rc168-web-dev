@@ -46,12 +46,14 @@ class LogisticsController extends Controller
             'cvs_telephone' => $res['CVSTelephone'],
             'cvs_out_side' => $res['CVSOutSide']
         ]);
+
+        return view('remove');
     }
 
     public function logisticsRemove(Request $request, $memberId)
     {
         OrderLogistics::where('member_id', $memberId)->delete();
 
-        return view('remove');
+        // return view('remove');
     }
 }
