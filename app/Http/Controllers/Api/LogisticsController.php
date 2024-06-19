@@ -8,7 +8,7 @@ use App\Models\OrderLogistics;
 
 class LogisticsController extends Controller
 {
-    
+
     public function logistics(Request $request)
     {
         $res = $request->all();
@@ -17,7 +17,7 @@ class LogisticsController extends Controller
 
         $logistics = OrderLogistics::where('member_id', $memberId)->first();
 
-        if(!empty($logistics)){
+        if (!empty($logistics)) {
             return response()->json([
                 'status' => 'success',
                 'data' => $logistics
@@ -45,6 +45,15 @@ class LogisticsController extends Controller
             'cvs_address' => $res['CVSAddress'],
             'cvs_telephone' => $res['CVSTelephone'],
             'cvs_out_side' => $res['CVSOutSide']
+        ]);
+    }
+
+    public function logisticsRemove(Request $request, $memberId)
+    {
+        OrderLogistics::where('member_id', $memberId)->delete();
+
+        return response()->json([
+            'status' => 'success'
         ]);
     }
 }

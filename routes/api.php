@@ -50,6 +50,7 @@ Route::group(['prefix' => 'user'], function () {
 Route::post('/send_mail', [SendMailController::class, 'send']);
 Route::post('/map/logistics', [LogisticsController::class, 'logistics'])->name('api.map.logistics');
 Route::post('/map/rewrite', [LogisticsController::class, 'rewrite'])->name('api.map.rewrite');
+Route::post('/map/remove/{memberId}', [LogisticsController::class, 'logisticsRemove'])->name('api.map.remove');
 
 // 另外的 API
 Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
