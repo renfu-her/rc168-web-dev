@@ -52,8 +52,6 @@ class LogisticsController extends Controller
     {
         OrderLogistics::where('member_id', $memberId)->delete();
 
-        return response()->json([
-            'status' => 'success'
-        ]);
+        return view('remove');
     }
 }
