@@ -12,7 +12,7 @@ class OrderLogistics extends Model
     protected $fillable = [
         'member_id',
         'logistics_sub_type',
-        'cvs_store_iD',
+        'cvs_store_id',
         'cvs_store_name',
         'cvs_address',
         'cvs_telephone',
