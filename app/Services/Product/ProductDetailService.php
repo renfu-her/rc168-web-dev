@@ -176,7 +176,7 @@ class ProductDetailService extends Service
         $countryAndZone = $this->getCountryAndZone($addressData['country_id'], $addressData['zone_id']);
 
         $totals = $this->prepareTotals($data['totals'], $data['shipping_cost'], $data['payment_method']);
-        $total = $data['totals'];
+        $total = $this->getTotalValue($totals, 'sub_total');
 
         $this->logOrderEvent('訂單 totals', $totals);
         $this->logOrderEvent('訂單 total', $total);
@@ -197,7 +197,7 @@ class ProductDetailService extends Service
             'payment_method' => $this->preparePaymentMethod($data['payment_method']),
             'products' => $this->prepareProducts($data['products']),
             'totals' => $totals,
-            'total' => $this->getTotalValue($total, 'sub_total'), // 訂單總計
+            'total' => $total, // 訂單總計
             'shipping_method' => [
                 'title' => '運費',
                 'code' => 'flat.flat'
