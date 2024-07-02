@@ -173,6 +173,8 @@ class ProductDetailService extends Service
         $customerId = $data['customer'][0]['customer_id'];
         $countryAndZone = $this->getCountryAndZone($addressData['country_id'], $addressData['zone_id']);
 
+        $totals = $data['totals'];
+
         $submitData = [
             'customer' => [
                 'customer_id' => $customerId,
@@ -189,7 +191,8 @@ class ProductDetailService extends Service
             'payment_method' => $this->preparePaymentMethod($data['payment_method']),
             'products' => $this->prepareProducts($data['products']),
             'totals' => $this->prepareTotals($data['totals'], $data['shipping_cost'], $data['payment_method']),
-            'total' => array_sum(array_column($data['products'], 'total')) + $data['shipping_cost'],
+
+            'total' => $this->getTotalValue($totals, 'total') + $data['shipping_cost'], // 訂單總計
             'shipping_method' => [
                 'title' => '運費',
                 'code' => 'flat.flat'
@@ -199,6 +202,16 @@ class ProductDetailService extends Service
         $this->logOrderEvent('訂單進行中', $submitData);
 
         return $submitData;
+    }
+
+    function getTotalValue($totals, $code)
+    {
+        foreach ($totals as $total) {
+            if ($total['code'] === $code) {
+                return $total['value'];
+            }
+        }
+        return null; // 如果没有找到指定的 code，返回 null
     }
 
     private function prepareAddressData($addressData, $customerData, $countryAndZone)
