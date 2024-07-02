@@ -99,6 +99,8 @@ class ProductDetailService extends Service
 
         $this->logOrderEvent('訂單建立', $data);
 
+
+
         $vipCustomer = str_replace('$', '', $data['totals'][1]['text']);
 
         $addressData = $this->getCustomerAddress($data['customer'][0]['customer_id'], $data['address_id']);
@@ -175,6 +177,9 @@ class ProductDetailService extends Service
 
         $totals = $this->prepareTotals($data['totals'], $data['shipping_cost'], $data['payment_method']);
         $total = $data['totals'];
+
+        $this->logOrderEvent('訂單 totals', $totals);
+        $this->logOrderEvent('訂單 total', $total);
 
         $submitData = [
             'customer' => [
