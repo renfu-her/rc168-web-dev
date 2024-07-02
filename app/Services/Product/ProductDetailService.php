@@ -192,7 +192,7 @@ class ProductDetailService extends Service
             'payment_method' => $this->preparePaymentMethod($data['payment_method']),
             'products' => $this->prepareProducts($data['products']),
             'totals' => $totals,
-            'total' => $this->getTotalValue($total, 'totals'), // 訂單總計
+            'total' => $this->getTotalValue($total, 'sub_total'), // 訂單總計
             'shipping_method' => [
                 'title' => '運費',
                 'code' => 'flat.flat'
