@@ -173,7 +173,8 @@ class ProductDetailService extends Service
         $customerId = $data['customer'][0]['customer_id'];
         $countryAndZone = $this->getCountryAndZone($addressData['country_id'], $addressData['zone_id']);
 
-        $totals = $data['totals'];
+        $totals = $this->prepareTotals($data['totals'], $data['shipping_cost'], $data['payment_method']);
+        $total = $totals['totals'];
 
         $submitData = [
             'customer' => [
@@ -192,7 +193,7 @@ class ProductDetailService extends Service
             'products' => $this->prepareProducts($data['products']),
             'totals' => $this->prepareTotals($data['totals'], $data['shipping_cost'], $data['payment_method']),
 
-            'total' => $this->getTotalValue($totals, 'total') + $data['shipping_cost'], // 訂單總計
+            'total' => $this->getTotalValue($total, 'total') + $data['shipping_cost'], // 訂單總計
             'shipping_method' => [
                 'title' => '運費',
                 'code' => 'flat.flat'
