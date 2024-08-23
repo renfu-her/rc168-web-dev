@@ -141,8 +141,6 @@ class ProductPaymentController extends Controller
         // $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
 
-        dd($data);
-
         $items = [];
         $itemDescription = '';
         $total = 0;
@@ -184,6 +182,8 @@ class ProductPaymentController extends Controller
             'UserId' => $customerId,
             'OrderResultURL' => env('APP_URL') . '/payment/success',
         ];
+
+        dd($items);
 
         return $this->checkout->setPostData($formData)->send();
     }
