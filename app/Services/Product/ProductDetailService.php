@@ -88,7 +88,6 @@ class ProductDetailService extends Service
 
     public function setOrder($customerId)
     {
-
         $orderData = OrderData::where('customer_id', $customerId)->first();
 
         if (!$orderData) {
@@ -98,8 +97,6 @@ class ProductDetailService extends Service
         $data = json_decode($orderData->data, true);
 
         $this->logOrderEvent('訂單建立', $data);
-
-        // $vipCustomer = str_replace('$', '', $data['totals'][1]['text']);
 
         $addressData = $this->getCustomerAddress($data['customer'][0]['customer_id'], $data['address_id']);
         $customerData = $this->getCustomerData($data['customer'][0]['customer_id']);
@@ -173,8 +170,8 @@ class ProductDetailService extends Service
         $customerId = $data['customer'][0]['customer_id'];
         $countryAndZone = $this->getCountryAndZone($addressData['country_id'], $addressData['zone_id']);
 
-        $totals = $this->prepareTotals($data['totals'], $data['shipping_cost'], $data['payment_method']);
-        $total = $this->getTotalValue($totals, 'sub_total');
+        $totals = $this->prepareTotals($data);
+        $total = $this->getTotalValue($totals, 'total');
 
         $this->logOrderEvent('訂單 totals', $totals);
         $this->logOrderEvent('訂單 total', $total);
@@ -195,7 +192,7 @@ class ProductDetailService extends Service
             'payment_method' => $this->preparePaymentMethod($data['payment_method']),
             'products' => $this->prepareProducts($data['products']),
             'totals' => $totals,
-            'total' => $total, // 訂單總計
+            'total' => $total,
             'shipping_method' => [
                 'title' => '運費',
                 'code' => 'flat.flat'
@@ -207,15 +204,6 @@ class ProductDetailService extends Service
         return $submitData;
     }
 
-    function getTotalValue($totals, $code)
-    {
-        foreach ($totals as $total) {
-            if ($total['code'] === $code) {
-                return $total['value'];
-            }
-        }
-        return null; // 如果没有找到指定的 code，返回 null
-    }
 
     private function prepareAddressData($addressData, $customerData, $countryAndZone)
     {
@@ -284,39 +272,57 @@ class ProductDetailService extends Service
         })->toArray();
     }
 
-    private function prepareTotals($totals, $shippingCost, $paymentMethod)
+    private function prepareTotals($data)
     {
-        $additionalTotals = collect([
+        $subTotal = $this->calculateSubTotal($data['products']);
+        $couponDiscount = $data['coupon']['discount'] ?? 0;
+        $shippingCost = $data['shipping_cost'];
+
+        $totals = [
             [
-                'code' => $paymentMethod,
+                'code' => 'sub_total',
+                'title' => '商品總額',
+                'value' => $subTotal,
+                'sort_order' => 1
+            ],
+            [
+                'code' => 'coupon',
+                'title' => '優惠券折抵',
+                'value' => -$couponDiscount,
+                'sort_order' => 2
+            ],
+            [
+                'code' => 'shipping',
                 'title' => '運費',
                 'value' => $shippingCost,
-                'sort_order' => 1
+                'sort_order' => 3
+            ],
+            [
+                'code' => 'total',
+                'title' => '總計',
+                'value' => $subTotal - $couponDiscount + $shippingCost,
+                'sort_order' => 4
             ]
-        ]);
+        ];
 
-        dd($totals);
+        return $totals;
+    }
 
-        $mappedTotals = collect($totals)->mapWithKeys(function ($total, $key) use ($shippingCost) {
-            $value = str_replace(['$', ","], '', $total['text']);
-            if ($total['code'] === 'total') {
-                $value += $shippingCost;
-            }
-            // if ($total['code'] === 'vip_customer') {
-            //     $value = '$' . $vipCustomer;
-            // }
-
-            return [
-                $key => [
-                    'code' => $total['code'],
-                    'title' => $total['title'],
-                    'value' => $value,
-                    'sort_order' => $key + 2 // 確保排序從2開始，1是運費
-                ]
-            ];
+    private function calculateSubTotal($products)
+    {
+        return collect($products)->sum(function ($product) {
+            return $product['price'] * $product['quantity'];
         });
+    }
 
-        return $additionalTotals->merge($mappedTotals)->sortBy('sort_order')->values()->toArray();
+    private function getTotalValue($totals, $code)
+    {
+        foreach ($totals as $total) {
+            if ($total['code'] === $code) {
+                return $total['value'];
+            }
+        }
+        return null;
     }
 
     private function getPaymentMethodTitle($paymentMethod)
