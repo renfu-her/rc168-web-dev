@@ -99,10 +99,7 @@ class ProductDetailService extends Service
 
         $this->logOrderEvent('訂單建立', $data);
 
-        dd($data);
-
-
-        $vipCustomer = str_replace('$', '', $data['totals'][1]['text']);
+        // $vipCustomer = str_replace('$', '', $data['totals'][1]['text']);
 
         $addressData = $this->getCustomerAddress($data['customer'][0]['customer_id'], $data['address_id']);
         $customerData = $this->getCustomerData($data['customer'][0]['customer_id']);
