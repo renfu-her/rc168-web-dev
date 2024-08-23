@@ -295,6 +295,8 @@ class ProductDetailService extends Service
             ]
         ]);
 
+        dd($totals);
+
         $mappedTotals = collect($totals)->mapWithKeys(function ($total, $key) use ($shippingCost) {
             $value = str_replace(['$', ","], '', $total['text']);
             if ($total['code'] === 'total') {
