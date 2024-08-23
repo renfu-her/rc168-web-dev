@@ -166,6 +166,17 @@ class ProductPaymentController extends Controller
             ];
         }
 
+        if (!empty($data['coupon_price'])) {
+            $items[$key+1] = [
+                'name' => '折扣',
+                'qty' => '1',
+                'unit' => '個',
+                'price' => -(int)$data['coupon_price'],
+            ];
+            $itemDescription .= '折扣' . '|';
+            $total -= (int)$data['coupon_price'];
+        }
+
         $formData = [
             'ItemDescription' => $itemDescription,
             'Items' => $items,
