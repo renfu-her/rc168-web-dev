@@ -34,6 +34,8 @@ class ProductPaymentController extends Controller
 
         $data = json_decode($content, true);
 
+        dd($data);
+
         switch ($data['payment_method']) {
             case 'ecpaypayment':
                 $payment = $this->ecpay($data, $req);
@@ -138,7 +140,6 @@ class ProductPaymentController extends Controller
     public function ecpay($data, $req)
     {
 
-        dd($data);
         // $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
 
