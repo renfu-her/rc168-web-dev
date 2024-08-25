@@ -138,6 +138,7 @@ class ProductPaymentController extends Controller
     public function ecpay($data, $req)
     {
 
+        dd($data);
         // $addressId = $data['address_id'];
         $customerId = $data['customer'][0]['customer_id'];
 
