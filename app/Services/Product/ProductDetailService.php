@@ -105,6 +105,8 @@ class ProductDetailService extends Service
 
         $this->logOrderEvent('訂單 submitData', $submitData);
 
+        dd($submitData);
+
         $result = Http::asForm()->post(
             $this->api_url .
                 '/gws_appcustomer_order/add&customer_id=' . $data['customer'][0]['customer_id'] .
