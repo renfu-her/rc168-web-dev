@@ -105,7 +105,7 @@ class ProductDetailService extends Service
 
         $this->logOrderEvent('訂單 submitData', $submitData);
 
-        dd($submitData);
+        // dd($submitData);
 
         $result = Http::asForm()->post(
             $this->api_url .
