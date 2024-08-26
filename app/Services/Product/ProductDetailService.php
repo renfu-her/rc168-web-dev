@@ -277,7 +277,7 @@ class ProductDetailService extends Service
     private function prepareTotals($data)
     {
         $subTotal = $this->calculateSubTotal($data['products']);
-        $couponDiscount = $data['coupon']['discount'] ?? 0;
+        $couponDiscount = $data['coupon_price'] ?? 0;
         $shippingCost = $data['shipping_cost'];
 
         $totals = [
@@ -289,7 +289,7 @@ class ProductDetailService extends Service
             ],
             [
                 'code' => 'coupon',
-                'title' => '優惠券折抵',
+                'title' => '折價券折抵',
                 'value' => -$couponDiscount,
                 'sort_order' => 2
             ],
