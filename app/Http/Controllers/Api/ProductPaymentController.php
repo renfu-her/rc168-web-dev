@@ -169,7 +169,7 @@ class ProductPaymentController extends Controller
                 'name' => '折扣',
                 'qty' => '1',
                 'unit' => '個',
-                'price' => -(int)$data['coupon_price'],
+                'price' => -((int)$data['coupon_price']),
             ];
             $itemDescription .= '折扣' . '|';
             $total -= (int)$data['coupon_price'];
