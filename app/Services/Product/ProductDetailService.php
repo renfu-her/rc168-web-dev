@@ -98,6 +98,8 @@ class ProductDetailService extends Service
 
         $this->logOrderEvent('訂單建立', $data);
 
+        dd($data, $customerId, $orderData);
+
         $addressData = $this->getCustomerAddress($data['customer'][0]['customer_id'], $data['address_id']);
         $customerData = $this->getCustomerData($data['customer'][0]['customer_id']);
 
