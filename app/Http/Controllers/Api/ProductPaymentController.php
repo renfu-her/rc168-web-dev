@@ -183,7 +183,7 @@ class ProductPaymentController extends Controller
             'OrderResultURL' => env('APP_URL') . '/payment/success',
         ];
 
-        // dd($items);
+        dd($items);
 
         return $this->checkout->setPostData($formData)->send();
     }
