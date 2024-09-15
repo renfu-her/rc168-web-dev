@@ -14,7 +14,7 @@ jobs:
         key: ${{ secrets.KEY }}
         user: ${{ secrets.USER }}
         command: |
-          cd /home/cloudpanel/htdocs/demo.dev-laravel.co
+          cd /home/cloudpanel/htdocs/rc168.dev-laravel.co
           git pull
           php8.1 /usr/local/bin/composer install
           php8.1 artisan migrate --force
