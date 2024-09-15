@@ -21,7 +21,7 @@ class Service
 
     );
     private $user_id;
-    public $api_url = 'https://ismartdemo.com.tw/index.php?route=extension/module/api';
+    public $api_url = 'https://rc168.com.tw/index.php?route=extension/module/api';
     public $api_key = 'CNQ4eX5WcbgFQVkBXFKmP9AE2AYUpU2HySz2wFhwCZ3qExG6Tep7ZCSZygwzYfsF';
 
     private $status = [
