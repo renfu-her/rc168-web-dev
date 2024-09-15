@@ -135,7 +135,7 @@ class ProductDetailService extends Service
             '&api_key=' . $this->api_key);
 
         // dd($customerId, $addressId);
-        dd($response->json());
+        // dd($response->json());
         return $response->json()['customer_address'][0];
     }
 
