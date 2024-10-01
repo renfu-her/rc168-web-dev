@@ -304,7 +304,7 @@ class ProductDetailService extends Service
             [
                 'code' => 'total',
                 'title' => '總計',
-                'value' => $subTotal - $couponDiscount,
+                'value' => ($subTotal - $couponDiscount) + $shippingCost,
                 'sort_order' => 4
             ]
         ];
