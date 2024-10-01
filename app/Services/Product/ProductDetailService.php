@@ -96,7 +96,7 @@ class ProductDetailService extends Service
 
         $data = json_decode($orderData->data, true);
 
-        dd($data);        $this->logOrderEvent('訂單建立', $data);
+        $this->logOrderEvent('訂單建立', $data);
 
         $addressData = $this->getCustomerAddress($data['customer'][0]['customer_id'], $data['address_id']);
         $customerData = $this->getCustomerData($data['customer'][0]['customer_id']);
