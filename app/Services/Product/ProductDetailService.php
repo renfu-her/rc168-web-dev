@@ -205,7 +205,7 @@ class ProductDetailService extends Service
 
         $this->logOrderEvent('訂單進行中', $submitData);
 
-        dd($submitData);
+        // dd($submitData);
 
         return $submitData;
     }
