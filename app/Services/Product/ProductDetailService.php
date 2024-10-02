@@ -284,8 +284,6 @@ class ProductDetailService extends Service
         $couponDiscount = $data['coupon_price'] ?? 0;
         $shippingCost = $data['shipping_cost'];
 
-        dd($data, $subTotal, $couponDiscount, $shippingCost);
-
         $totals = [
             [
                 'code' => 'sub_total',
